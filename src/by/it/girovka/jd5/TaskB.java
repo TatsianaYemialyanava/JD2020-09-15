@@ -8,9 +8,6 @@ public class TaskB {
         step1();
         step2();
     }
-
-
-
     private static void step1() {
 
         for (double a = 0; a <= 2; a = a+0.2) {
@@ -40,11 +37,7 @@ public class TaskB {
                     double a = log10(abs(b+2.74));
                     System.out.println(a+""+x);
                 }
-
                 }
-
             }
-
-
     }
 
