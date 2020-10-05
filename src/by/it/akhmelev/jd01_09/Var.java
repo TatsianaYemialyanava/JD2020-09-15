@@ -1,6 +1,6 @@
 package by.it.akhmelev.jd01_09;
 
-abstract class Var implements Operation {
+public abstract class Var implements Operation {
 
 
     static Var createVar(String strVar) {
