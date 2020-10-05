@@ -4,6 +4,6 @@ abstract class Var {
 
     @Override
     public String toString() {
-        return "";
+        return "abstract Var";
     }
-}
+    }
