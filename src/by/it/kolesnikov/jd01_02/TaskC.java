@@ -7,7 +7,7 @@ public class TaskC {
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
         int n=sc.nextInt();
-        int[][] m = step1(4);
+        int[][] m = step1(n);
         System.out.println(Arrays.deepToString(m));
     }
     static int[][] step1(int n) {
