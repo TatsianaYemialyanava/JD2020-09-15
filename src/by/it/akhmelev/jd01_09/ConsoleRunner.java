@@ -1,6 +1,5 @@
 package by.it.akhmelev.jd01_09;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class ConsoleRunner {
