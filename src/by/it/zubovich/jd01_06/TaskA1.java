@@ -8,6 +8,7 @@ public class TaskA1 {
         //System.out.println(Poem.text);
         StringBuilder text = new StringBuilder(Poem.text);
         Pattern pattern = Pattern.compile("[а-яёА-ЯЁ]");
+
         Matcher matcher = pattern.matcher(text);
         while (matcher.find()) {
             String word = matcher.group();

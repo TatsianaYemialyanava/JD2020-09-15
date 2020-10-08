@@ -10,7 +10,7 @@ public class TaskB {
         Scanner scZp = new Scanner(System.in);
         Scanner scNameEmployee = new Scanner(System.in);
         int ppl = scNumber.nextInt();
-        var arr = new String[ppl];
+        String[] arr = new String[ppl];
         int i = 1;
         while (ppl >= i) {
             System.out.println("Введите Фамилию человека под номером " + i);
