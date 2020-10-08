@@ -1,4 +1,4 @@
-package by.it.hutnik;
+package by.it.hutnik.jd01_09;
 
 
 import org.junit.Test;

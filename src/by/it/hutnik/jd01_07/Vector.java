@@ -11,6 +11,10 @@ class Vector extends Var {
         this.value = vector.value;
     }
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 //    Vector (String strVector) {
 //        this.value = Double.parseDouble(strVector);
 //    }
