@@ -8,7 +8,14 @@ public class Runner {
         String str = sc.nextLine();
         double[] array = InOut.getArray(str);
         InOut.printArray(array);
+        InOut.printArray(array,"V", 4);
+        System.out.println();
+        Helper.sort(array);
         InOut.printArray(array,"V", 3);
+        var min = Helper.findMin(array);
+        System.out.println(min);
+        var max = Helper.findMax(array);
+        System.out.println(max);
     }
 
 }
