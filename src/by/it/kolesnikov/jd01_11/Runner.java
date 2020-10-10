@@ -10,18 +10,27 @@ public class Runner {
         list.add("cat");
         list.add("frog");
         list.add("bird");
-        System.out.println(list);
-        list.remove(2);
-        System.out.println(list);
 
-        List<String> lister = new ListA<>();
-        lister.add("dog");
-        lister.add("cat");
-        lister.add("frog");
-        lister.add("bird");
+        List<String> lister = new ArrayList<>();
+        lister.add("1");
+        lister.add("2");
+        lister.add("3");
+        lister.add("4");
+        List<String> lister2 = new ArrayList<>();
+        lister2.add("5");
+        lister2.add("6");
+        lister2.add("7");
+        lister2.add("8");
+        lister.addAll(lister2);
         System.out.println(lister);
-        lister.remove(2);
-        System.out.println(lister);
-        System.out.println(lister.get(1));
+
+        List<String> listik = new ListB<>();
+        listik.add("dog");
+        listik.add("cat");
+        listik.add("frog");
+        listik.add("bird");
+        System.out.println(listik);
+        listik.set(0, "shark");
+        System.out.println(listik);
     }
 }

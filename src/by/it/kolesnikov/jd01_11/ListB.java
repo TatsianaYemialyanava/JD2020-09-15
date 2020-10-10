@@ -3,10 +3,9 @@ package by.it.kolesnikov.jd01_11;
 import java.util.*;
 
 public class ListB<T> implements List<T> {
-
     private T [] elements = (T[]) new Object[]{};
-    private int size =0;
 
+    private int size =0;
 
     @Override
     public boolean add(T t) {
@@ -27,6 +26,30 @@ public class ListB<T> implements List<T> {
         System.arraycopy(elements, index+1, elements, index, size-1-index);
         size--;
         return del;
+    }
+
+    @Override
+    public T set(int index, T element) {
+        T del = elements[index];
+        if(size== elements.length)
+            elements= Arrays.copyOf(elements, size*3/2+1);
+        elements[index]=element;
+        return del;
+    }
+
+    @Override
+    public void add(int index, T element) {
+        if(size== elements.length)
+            elements= Arrays.copyOf(elements, size*3/2+1);
+        System.arraycopy(elements, index, elements, index+1, size-index);
+        elements[index]=element;
+        size++;
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends T> c) {
+
+        return false;
     }
 
     @Override
@@ -83,11 +106,6 @@ public class ListB<T> implements List<T> {
     }
 
     @Override
-    public boolean addAll(Collection<? extends T> c) {
-        return false;
-    }
-
-    @Override
     public boolean addAll(int index, Collection<? extends T> c) {
         return false;
     }
@@ -104,16 +122,6 @@ public class ListB<T> implements List<T> {
 
     @Override
     public void clear() {
-
-    }
-
-    @Override
-    public T set(int index, T element) {
-        return null;
-    }
-
-    @Override
-    public void add(int index, T element) {
 
     }
 
