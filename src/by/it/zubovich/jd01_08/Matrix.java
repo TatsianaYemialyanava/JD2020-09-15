@@ -1,4 +1,4 @@
-package by.it.zubovich.jd01_07;
+package by.it.zubovich.jd01_08;
 
 import java.util.Arrays;
 
@@ -17,14 +17,14 @@ public class Matrix extends Var {
     }
 
     Matrix(String strMatrix) {
-        String[] result = strMatrix.split("}, ");
+        String[] result = strMatrix.split("},");
 
         for (int i = 0; i < result.length; i++) {
-            String[] resultColumn = result[i].replace("{", "").replace("}","").trim().split(",");
+            String[] resultColumn = result[i].replace("{", "").
+                    replace("}","").trim().split(",");
             this.value = new double[result.length][resultColumn.length];
-            for (int j = 0; j < value[i].length; j++) {
-                this.value[i][j] = Double.parseDouble(resultColumn[j]);
-
+            for (int j = 0; j < resultColumn.length; j++) {
+                value[i][j] = Double.parseDouble(resultColumn[j]);
             }
             System.out.println();
         }
