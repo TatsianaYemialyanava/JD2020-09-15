@@ -23,27 +23,20 @@ public class Matrix extends Var {
             this.value = new double[result.length][resultColumn.length];
             for (int j = 0; j < resultColumn.length; j++) {
                 this.value[i][j] = Double.parseDouble(resultColumn[j]);
-
             }
         }
+        System.out.println(Arrays.deepToString(result).replace("[","").replace("]",""));
 /*
         String[] result = strMatrix.split(",");
         this.value = new double[result.length][];
         for (int i=0; i<result.length;i++) {
             for(int j=0; j < result.length;j++) {
-
-
             }
         }
         */
-        System.out.println(Arrays.deepToString(result).replace("[","").replace("]",""));
-
-
             }
     @Override
     public String toString() {
         return (Arrays.deepToString(value).replace("[", "{").replace("]", "}"));
-
-
     }
 }
