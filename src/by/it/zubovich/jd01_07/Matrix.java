@@ -36,8 +36,9 @@ public class Matrix extends Var {
 
             }
         }
+        */
         System.out.println(Arrays.deepToString(result).replace("[","").replace("]",""));
-*/
+
 
             }
     @Override
