@@ -16,7 +16,6 @@ public class Matrix extends Var {
 
     Matrix(String strMatrix) {
 
-
         String[] result = strMatrix.split("}, ");
 
         for (int i = 0; i < result.length; i++) {
