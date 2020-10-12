@@ -17,7 +17,7 @@ public class Matrix extends Var {
     Matrix(String strMatrix) {
 
 
-/*        String[] result = strMatrix.split("}, ");
+        String[] result = strMatrix.split("}, ");
 
         for (int i = 0; i < result.length; i++) {
             String[] resultColumn = result[i].replace("{", "").replace("}","").trim().split(",");
@@ -26,7 +26,8 @@ public class Matrix extends Var {
                 this.value[i][j] = Double.parseDouble(resultColumn[j]);
 
             }
-        }*/
+        }
+/*
         String[] result = strMatrix.split(",");
         this.value = new double[result.length][];
         for (int i=0; i<result.length;i++) {
@@ -36,6 +37,7 @@ public class Matrix extends Var {
             }
         }
         System.out.println(Arrays.deepToString(result).replace("[","").replace("]",""));
+*/
 
             }
     @Override
