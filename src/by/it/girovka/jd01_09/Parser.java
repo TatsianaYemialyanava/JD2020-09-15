@@ -4,21 +4,25 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
+
     Var calc(String expression){
-        String[] operand = expression.split(Patterns.OPERATION);
-        Var one = Var.createVar(operand[0]);
-        Var two = Var.createVar(operand[1]);
-        if (one == null || two == null)
+
+        String[] parts = expression.split(Patterns.OPERATION,2);
+
+        Var left = Var.createVar(parts[0]);
+        if (parts.length==1) return left;
+        Var right = Var.createVar(parts[1]);
+        if (right == null || left == null)
             return null;
         Pattern p = Pattern.compile(Patterns.OPERATION);
         Matcher m =p.matcher(expression);
         if(m.find()){
             String operation = m.group();
             switch(operation){
-                case "+": return one.add(two);
-                case "-": return one.add(two);
-                case "*": return one.add(two);
-                case "/": return one.add(two);
+                case "+": return left.add(right);
+                case "-": return left.sub(right);
+                case "*": return left.mul(right);
+                case "/": return left.div(right);
             }
         }
         return null;

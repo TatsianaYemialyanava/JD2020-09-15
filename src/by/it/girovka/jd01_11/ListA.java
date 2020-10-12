@@ -1,21 +1,55 @@
 package by.it.girovka.jd01_11;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 public class ListA<T> implements List<T> {
 
 
+    private T[] elements =(T[]) new Object[0];
+
+    private int size = 0;
+
+    @Override
+    public boolean add(T t) {
+        if (elements.length == size){
+            elements = Arrays.copyOf(elements, elements.length * 3/2 + 1);
+        }
+        elements[size++]= t;
+        return true;
+    }
+    @Override
+    public T remove(int index) {
+
+        T element = elements[index];
+        System.arraycopy(elements, index +1, elements, index, size- index - 1);
+        elements[--size] = null;
+        return element;
+    }
+
+
+    @Override
+    public T get(int index) {
+        return elements[index];
+    }
     @Override
     public int size() {
         return 0;
     }
+    @Override
+    public String toString(){
+        StringBuilder out = new StringBuilder("[");
+        String delimiter = "";
+        for (int i = 0; i < size; i++){
+            out.append(delimiter).append(elements[i]);
+            delimiter = ", ";
+        }
+        out.append("]");
+        return out.toString();
+    }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     @Override
@@ -24,7 +58,7 @@ public class ListA<T> implements List<T> {
     }
 
     @Override
-    public Iterator iterator() {
+    public Iterator<T> iterator() {
         return null;
     }
 
@@ -34,17 +68,21 @@ public class ListA<T> implements List<T> {
     }
 
     @Override
-    public boolean add(Object o) {
-        return false;
+    public <T1> T1[] toArray(T1[] a) {
+        return null;
     }
 
     @Override
     public boolean remove(Object o) {
         return false;
     }
+    @Override
+    public boolean containsAll(Collection<?> c) {
+        return false;
+    }
 
     @Override
-    public boolean addAll(Collection c) {
+    public boolean addAll(Collection<? extends T> c) {
         return false;
     }
 
@@ -52,9 +90,24 @@ public class ListA<T> implements List<T> {
     public boolean addAll(int index, Collection c) {
         return false;
     }
+    @Override
+    public boolean removeAll(Collection c) {
+        return false;
+    }
+    @Override
+    public boolean retainAll(Collection c) {
+        return false;
+    }
 
     @Override
     public void clear() {
+    }
+        @Override
+        public T set(int index, T element){
+            return null;
+        }
+    @Override
+    public void add(int index, T element) {
 
     }
 
@@ -68,25 +121,6 @@ public class ListA<T> implements List<T> {
         return 0;
     }
 
-    @Override
-    public T get(int index) {
-        return null;
-    }
-
-    @Override
-    public Object set(int index, Object element) {
-        return null;
-    }
-
-    @Override
-    public void add(int index, Object element) {
-
-    }
-
-    @Override
-    public T remove(int index) {
-        return null;
-    }
 
     @Override
     public int indexOf(Object o) {
@@ -113,23 +147,4 @@ public class ListA<T> implements List<T> {
         return null;
     }
 
-    @Override
-    public boolean retainAll(Collection c) {
-        return false;
-    }
-
-    @Override
-    public boolean removeAll(Collection c) {
-        return false;
-    }
-
-    @Override
-    public boolean containsAll(Collection c) {
-        return false;
-    }
-
-    @Override
-    public Object[] toArray(Object[] a) {
-        return new Object[0];
-    }
 }
