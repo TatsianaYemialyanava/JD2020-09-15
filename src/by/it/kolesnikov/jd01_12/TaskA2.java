@@ -4,11 +4,12 @@ import java.util.*;
 
 public class TaskA2 {
     public static void main(String[] args) {
-        Set<Integer>set1=new HashSet<>(Arrays.asList(1,1,2,2,3,4,5,6,6,6,100));
-        Set<Integer>set2=new TreeSet<>(Arrays.asList(5,5,5,4,6,7,8,9,9,9,10));
+        Set<Integer>set1=new HashSet<>(Arrays.asList(1,2,3,4,5,6,2,2,1));
+        Set<Integer>set2 = new TreeSet<>(Arrays.asList(9,7,8,5,6,4,4,6,6));
+        System.out.println(set1);
+        System.out.println(set2);
         System.out.println(getCross(set1,set2));
         System.out.println(getUnion(set1,set2));
-
     }
 
     private static Set<Integer> getCross(Set<Integer> set1, Set<Integer> set2) {
@@ -18,7 +19,8 @@ public class TaskA2 {
     }
 
     private static Set<Integer> getUnion(Set<Integer> set1, Set<Integer> set2) {
-        set1.addAll(set2);
-        return set1;
+        HashSet<Integer> result = new HashSet<>(set1);
+        result.addAll(set2);
+        return result;
     }
 }
