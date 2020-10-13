@@ -41,7 +41,29 @@ public class Helper{
 
 
     }
-    
+
+    static double[ ] mul(double[ ][ ] matrix, double[ ] vector){
+        double [] resMulvector = new double[matrix.length];
+        for (int i = 0; i <matrix.length ; i++) {
+            for (int j = 0; j < vector.length; j++) {
+                resMulvector[i]+=matrix[i][j]*vector[j];
+            }
+        }
+        return resMulvector;
+    }
+
+    static double[ ][ ] mul(double[ ][ ] matrixLeft, double[ ][ ] matrixRight){
+        double[][] mulMatrix = new double[matrixLeft.length][matrixRight[0].length];
+            for (int i = 0; i <matrixLeft.length ; i++) {
+                for (int j = 0; j < matrixRight[0].length; j++) {
+                    for (int k = 0; k <matrixRight.length ; k++) {
+                        mulMatrix[i][j] = mulMatrix[i][j]+matrixLeft[i][k]*matrixRight[k][j];
+                    }
+                }
+            }
+        return mulMatrix;
+    }
+
 }
 
 
