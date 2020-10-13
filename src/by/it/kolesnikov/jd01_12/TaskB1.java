@@ -1,8 +1,6 @@
 package by.it.kolesnikov.jd01_12;
 
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class TaskB1 {
     public static void main(String[] args) {
@@ -10,12 +8,11 @@ public class TaskB1 {
         List <String> list = new ArrayList<>();
         for (;;){
             String input = sc.next();
-            if(input.equals("end")) {
+            String word = input.replaceAll("[^a-zA-Z']", "").trim();
+            if(word.equals("end")) {
                 break;
             }
-            list.add(input);
-            Pattern pattern = Pattern.compile("[a-zA-Z']+");
-            Matcher mt = pattern.matcher(input);
+            list.add(word);
         }
         Set <String> set = new HashSet<>(list);
         for (String el : set){
