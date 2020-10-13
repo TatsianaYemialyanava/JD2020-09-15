@@ -1,7 +1,5 @@
 package by.it.fedorinhyk.jd01_09;
 
-import by.it.akhmelev.jd01_09.Patterns;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
