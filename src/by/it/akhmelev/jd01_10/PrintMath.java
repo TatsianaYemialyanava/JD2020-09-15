@@ -16,7 +16,7 @@ public class PrintMath {
                 if (Modifier.isStatic(modifiers))
                     out.append("static ");
                 Class<?> returnType = method.getReturnType();
-                out.append(returnType.getSimpleName()).append(' ');
+                out.append(returnType.getSimpleName()).append(" ");
                 out.append(method.getName()).append("(");
                 Class<?>[] types = method.getParameterTypes();
                 String delimiter="";
@@ -25,7 +25,7 @@ public class PrintMath {
                             .append(type.getSimpleName());
                     delimiter=",";
                 }
-                out.append(')');
+                out.append(")");
                 System.out.println(out);
             }
         }

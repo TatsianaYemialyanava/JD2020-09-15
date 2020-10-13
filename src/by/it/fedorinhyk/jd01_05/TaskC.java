@@ -14,6 +14,5 @@ public class TaskC {
             System.out.println();
             return;
         }
-
     }
 }
