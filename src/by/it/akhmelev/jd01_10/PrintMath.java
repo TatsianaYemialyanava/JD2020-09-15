@@ -19,15 +19,16 @@ public class PrintMath {
                 out.append(returnType.getSimpleName()).append(' ');
                 out.append(method.getName()).append("(");
                 Class<?>[] types = method.getParameterTypes();
-                String delimiter="";
+                String delimiter = "";
                 for (Class<?> type : types) {
                     out.append(delimiter)
                             .append(type.getSimpleName());
-                    delimiter=",";
+                    delimiter = ",";
                 }
                 out.append(')');
                 System.out.println(out);
             }
         }
+
     }
 }
