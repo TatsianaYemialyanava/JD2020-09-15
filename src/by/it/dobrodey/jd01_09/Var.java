@@ -3,6 +3,7 @@ package by.it.dobrodey.jd01_09;
 
 
 abstract class Var implements Operation {
+
     static Var createVar(String strVar) {
         if (strVar.matches(Patterns.SCALAR)){
             return new Scalar(strVar);
@@ -44,6 +45,9 @@ abstract class Var implements Operation {
 
     @Override
     public Var div(Var other) {
+//       if(other.equals(new Scalar(0))){
+//        System.out.println("not impossible div on 0");
+//        return null;}
         System.out.printf("Operation %s / %s impossible\n", this, other);
         return null;
     }

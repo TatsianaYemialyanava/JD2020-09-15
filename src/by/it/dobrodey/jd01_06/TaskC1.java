@@ -1,9 +1,5 @@
 package by.it.dobrodey.jd01_06;
 
-import java.util.Arrays;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class TaskC1 {
     /**
      * TaskC1. Отформатировать исходный текст с выравниванием по обоим краям. Для этого
@@ -15,31 +11,32 @@ public class TaskC1 {
         String text = Poem.text;
         String[] line = text.split("\\n+");
         int maxLengh = Integer.MIN_VALUE;
-        for (int i = 0; i < line.length; i++) {
-            if (maxLengh < line[i].length()) {
-                maxLengh = line[i].length();
+        for (String s : line) {
+            if (maxLengh < s.length()) {
+                maxLengh = s.length();
             }
         }
         //System.out.println(maxLengh);
-        for (int i = 0; i < line.length; i++) {
-            newLine(line[i], maxLengh);
+        for (String s : line) {
+            newLine(s, maxLengh);
         }
 
     }
     private static void newLine(String line, int maxLengh) {
         StringBuilder stroka = new StringBuilder(line);
 
-        int poz = 0;
+        int position = 0;int count = 0;
         while (stroka.length() < maxLengh) {
-            int space = stroka.indexOf(" ", poz);
-            if (space < 0) {
-                poz = 0;
-                continue;}
-        stroka.insert(space+1, " ");
-        poz = space+2;
+            position = stroka.indexOf(" ", position);
+            if (position < 0) {
+                position = 0;
+                count++;
+                continue;
+            }
+            stroka.insert(position, " ");
+            position += count + 2;
         }
         System.out.println(stroka);
-
     }
 
 

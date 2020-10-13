@@ -1,6 +1,6 @@
 package by.it.dobrodey.jd01_06;
 
-import java.util.Arrays;
+import java.util.Random;
 
 public class TaskC2 {
 
@@ -20,40 +20,34 @@ public class TaskC2 {
         long timeWork = endTime - startTime;      // time(nanosec)
         double timeWorkMs = (double) timeWork / 1000;
         System.out.println(text);
-        System.out.println("Time for fast metod = "+timeWorkMs + " msec");
+        System.out.println("Time for fast metod = " + timeWorkMs + " msec");
         long startTime1 = System.nanoTime();
-        text = fast(text);
+        text = fast(Poem.text);
         long endTime1 = System.nanoTime();
         System.out.println(text);
         timeWorkMs = (double) (endTime1 - startTime1) / 1000;
-        System.out.println("Time for fast metod = "+timeWorkMs + " msec");
+        System.out.println("Time for fast metod = " + timeWorkMs + " msec");
     }
 
 
-    private static String slow(String text) {
-        String newText = "";
-        text = text.replaceAll("[^а-яА-ЯёЁ]+", " ");
-        text = text.trim();
-//        text = text.replaceAll("\\s+", " ");
+    static String slow(String text){
 
-        while (newText.length() <= 100000) newText = newText + text;
-
-//                Arrays.toString(text.split(" "));
-//
-//
-//        newText = newText.replaceAll(", ", " ");
-//        newText = newText.replaceAll("\\[(\\s+)?", "");
-//        newText = newText.replaceAll("(\\s+)?]", "");
-        return newText;
+        String[] words = text.split("[^а-яА-ЯёЁ]+");
+        String out = "";
+        Random random = new Random(7);
+        while (out.length() < 100000) {
+            out = out.concat(words[random.nextInt(words.length)]).concat(" ");
+            }
+        return out;
+        }
+    static String fast(String text){
+        String[] words = text.split("[^а-яА-ЯёЁ]+");
+        StringBuilder out = new StringBuilder("");
+        Random random = new Random(7);
+        while (out.length()<100000){
+            out=out.append(words[random.nextInt(words.length)]).append(" ");
+        }
+        return out.toString();
+        }
     }
-
-    private static String fast(String text) {
-        StringBuilder newText = new StringBuilder(text);
-
-
-        return newText.toString();
-    }
-
-
-}
 
