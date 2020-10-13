@@ -48,8 +48,10 @@ public class ListB<T> implements List<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-
-        return false;
+        boolean modified = false;
+        for (T e : elements)
+            if (add(e)) modified = true;
+        return modified;
     }
 
     @Override
