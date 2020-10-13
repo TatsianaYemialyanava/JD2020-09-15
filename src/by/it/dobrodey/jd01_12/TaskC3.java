@@ -5,31 +5,57 @@ TaskC3. В консоль вводится строка, состоящая из
  */
 
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.*;
+
 
 public class TaskC3 {
     public static void main(String[] args) {
-        Map<String, Integer> map = new HashMap<>();
         Scanner sc = new Scanner(System.in);
-        String unput = sc.next();
-        System.out.println(unput);
-        Pattern pt = Pattern.compile("[\\{\\}\\(\\)\\[\\]]");
-        Matcher mt = pt.matcher(unput);
-        while (mt.find()) {
-            String word = mt.group();
-            if (map.containsKey(word)) {
-                map.replace(word, map.get(word), map.get(word) + 1);
-            } else {
-                map.put(word, 1);
+        String input = sc.nextLine();
+        char [] arr = input.toCharArray();
+
+        Map<Character, Character> bracketsMap = new HashMap<>();
+        bracketsMap.put('[', ']');
+        bracketsMap.put('(', ')');
+        bracketsMap.put('{', '}');
+        System.out.println("bracketsPairs="+bracketsMap);
+
+        Set<Character> openBrackets = bracketsMap.keySet();
+
+        Set<Character> brackets = new HashSet<>();
+        brackets.addAll(openBrackets);
+        brackets.addAll(bracketsMap.values());
+        System.out.println("brackets"+brackets);
+
+        List<Character> check = new LinkedList<>();
+        boolean result = true;
+
+        for (char symbol : arr) {
+            if (brackets.contains(symbol)) {
+                if (openBrackets.contains(symbol)) {
+                    check.add(symbol);
+                    //    System.out.println(check);
+                } else {
+                    if (check.size() > 0) {
+                        char lastOpen = check.get(check.size() - 1);
+                        char bracketClose = bracketsMap.get(lastOpen);
+                        System.out.println(bracketClose);
+                        if (bracketClose == symbol) {
+                            check.remove(check.size() - 1);
+                        } else {
+                            result = false;
+                            break;
+                        }
+                    } else {
+                        result = false;
+                        break;
+                    }
+                }
             }
         }
-        System.out.println(map);
-        if ((map.get("(") == map.get(")")) && (map.get("[") == map.get("]")) && (map.get("{") == map.get("}"))) {
-            System.out.println(true);
-        } else System.out.println(false);
+        if (check.size()>0){
+            result = false;
+        }
+        System.out.println(result);
     }
 }
