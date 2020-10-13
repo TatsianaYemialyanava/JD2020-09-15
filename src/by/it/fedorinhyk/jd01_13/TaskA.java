@@ -9,12 +9,18 @@ public class TaskA {
                 new HashMap<String, String>(null);
             else
                 Integer.parseInt("привет");
-        } catch (NumberFormatException e){
-            System.out.println(e);
-        }catch (NullPointerException e){
-            Class<? extends RuntimeException> aClass = e.getClass();
-            String name = aClass.getName();
-            System.out.println(e);
+        } catch (Exception e){
+            StackTraceElement[] stackTrace = e.getStackTrace();
+            for (StackTraceElement element :stackTrace){
+                if (TaskA.class.getName().equals(element.getClassName())){
+                    System.out.println(element);
+                    String name= e.getClass().getName();
+                    String classname= element.getClassName();
+                    int lineNumber = element.getLineNumber();
+                    System.out.printf("  name: %s\n class: %s\n  line: %d\n", name,classname,lineNumber);
+                    break;
+                }
+            }
         }
     }
 }

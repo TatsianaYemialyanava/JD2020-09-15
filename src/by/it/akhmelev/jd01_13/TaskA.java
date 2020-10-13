@@ -18,7 +18,7 @@ public class TaskA {
                 if (methodName.equals("main")) {
                     String className = traceElement.getClassName();
                     int lineNumber = traceElement.getLineNumber();
-                    System.out.printf("  name: %s\n class: %s\n  line:%d\n",
+                    System.out.printf("  name: %s\n class: %s\n  line: %d\n",
                             exceptionName, className, lineNumber);
                     break;
                 }
