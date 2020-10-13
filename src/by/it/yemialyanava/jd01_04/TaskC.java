@@ -17,9 +17,10 @@ public class TaskC {
         mergeSort(sarray);
         InOut.printArray(sarray, "V", 4);
         int firstPosition = binarySearch(sarray, first);
-        System.out.printf("%s[% -3d]=% -10.2f%-25s", "V", firstPosition, first, "Index of first element\n");
+        System.out.printf("%-13s=%-5d", "first element", firstPosition);
+        System.out.println();
         int lastPosition = binarySearch(sarray, last);
-        System.out.printf("%s[% -3d]=% -10.2f%-25s", "V", lastPosition, last, "Index of last element");
+        System.out.printf("%-12s=%-5d", "last element", lastPosition);
     }
 
     private static void mergeSort(double[] array){
@@ -70,7 +71,6 @@ public class TaskC {
 
 
     static int binarySearch(double[] array, double value) {
-        int position = 0;
         int firstIndex = 0;
         int lastIndex = array.length - 1;
         while (firstIndex <= lastIndex) {

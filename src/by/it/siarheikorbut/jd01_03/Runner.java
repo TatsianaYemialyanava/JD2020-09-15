@@ -20,7 +20,7 @@ public class Runner {
         printArray(array);
 
         //Форматный вывод одномерного массива.
-        printArray(array, 3);
+        printArray(array, "V", 3);
 
         //Поиск минимального значения в одномерном массиве типа double.
         double[] arr1 = {7.4, 8.2, 9.1, 3.3, 1.5, 2.2};
