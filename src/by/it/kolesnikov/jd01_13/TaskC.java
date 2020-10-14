@@ -23,19 +23,16 @@ public class TaskC {
     }
 
     static void readData(Scanner sc, List<Double> list) throws InterruptedException {
-        for (int i = 0; i < 5; i++) {
             try {
                 for (; ; ) {
                     Double input = sc.nextDouble();
                     list.add(input);
                 }
-            } catch (InputMismatchException e) {
-                Thread.sleep(100);
-                for (int j = list.size() - 1; j >= 0; j--) {
-                    System.out.print(list.get(j) + " ");
-                }
+    } catch (InputMismatchException e) {
+           Thread.sleep(100);
+        for (int j = list.size() - 1; j >= 0; j--) {
+            System.out.print(list.get(j) + " ");
             }
-        }
+            }
     }
 }
-
