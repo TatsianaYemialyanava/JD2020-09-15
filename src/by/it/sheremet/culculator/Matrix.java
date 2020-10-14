@@ -1,4 +1,4 @@
-package by.it.sheremet.jd01_08;
+package by.it.sheremet.culculator;
 
 import java.util.Arrays;
 
@@ -56,7 +56,7 @@ class Matrix extends Var {
     @Override
     public Var add(Var other) {
         if (other instanceof Scalar) {
-            Scalar otherScalar = (Scalar) other;
+           Scalar otherScalar = (Scalar) other;
             double[][] sum = new double[this.value.length][this.value[0].length];
             for (int i = 0; i < sum.length; i++) {
                 sum[i] = Arrays.copyOf(this.value[i], this.value[i].length);
@@ -68,6 +68,7 @@ class Matrix extends Var {
             }
             Matrix result =new Matrix(sum);
             return result;
+
         } else if (other instanceof Matrix) {
             Matrix otherMatrix = (Matrix) other;
             double[][] sum = new double[this.value.length][this.value[0].length];
