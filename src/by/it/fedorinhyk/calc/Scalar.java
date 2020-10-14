@@ -6,15 +6,15 @@ class Scalar extends Var {
 
     public double getValue(){return value;}
 
-    Scalar(double value) {
+    public Scalar(double value) {
         this.value = value;
     }
 
-    Scalar(String strScalar) {
+    public Scalar(String strScalar) {
         this.value = Double.parseDouble(strScalar);
     }
 
-    Scalar(Scalar scalar) {
+    public Scalar(Scalar scalar) {
         this.value = scalar.value;
     }
 
@@ -48,8 +48,9 @@ class Scalar extends Var {
     @Override
     public Var div(Var other) throws CalcException {
         if (other instanceof Scalar) {
-            if (((Scalar) other).value==0)
+            if (((Scalar) other).value==0) {
                 throw new CalcException("Деление на ноль");
+            }
             double div = this.value / ((Scalar) other).value;
             return new Scalar(div);
         }
