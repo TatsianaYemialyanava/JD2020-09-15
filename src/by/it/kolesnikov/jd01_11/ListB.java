@@ -8,15 +8,8 @@ public class ListB<T> implements List<T> {
     private int size =0;
 
     @Override
-    public boolean add(T t) {
-        if(size== elements.length)
-            elements= Arrays.copyOf(elements, size*3/2+1);
-        elements[size++]=t;
-        return true;
-    }
-
-    @Override
     public T get(int index) {
+
         return elements[index];
     }
 
@@ -38,6 +31,14 @@ public class ListB<T> implements List<T> {
     }
 
     @Override
+    public boolean add(T t) {
+        if(size== elements.length)
+            elements= Arrays.copyOf(elements, size*3/2+1);
+        elements[size++]=t;
+        return true;
+    }
+
+    @Override
     public void add(int index, T element) {
         if(size== elements.length)
             elements= Arrays.copyOf(elements, size*3/2+1);
@@ -48,10 +49,12 @@ public class ListB<T> implements List<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        boolean modified = false;
-        for (T e : elements)
-            if (add(e)) modified = true;
-        return modified;
+        for (T element : c) {
+            if(size== elements.length)
+                elements= Arrays.copyOf(elements, size*3/2+1);
+            elements[size++]=element;
+        }
+        return true;
     }
 
     @Override

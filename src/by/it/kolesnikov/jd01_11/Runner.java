@@ -11,12 +11,12 @@ public class Runner {
         list.add("frog");
         list.add("bird");
 
-        List<String> lister = new ArrayList<>();
+        ListB<String> lister = new ListB<>();
         lister.add("1");
         lister.add("2");
         lister.add("3");
         lister.add("4");
-        List<String> lister2 = new ArrayList<>();
+        ListB<String> lister2 = new ListB<>();
         lister2.add("5");
         lister2.add("6");
         lister2.add("7");
@@ -24,13 +24,5 @@ public class Runner {
         lister.addAll(lister2);
         System.out.println(lister);
 
-        List<String> listik = new ListB<>();
-        listik.add("dog");
-        listik.add("cat");
-        listik.add("frog");
-        listik.add("bird");
-        System.out.println(listik);
-        listik.set(0, "shark");
-        System.out.println(listik);
     }
 }
