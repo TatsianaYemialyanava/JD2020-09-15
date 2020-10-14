@@ -28,7 +28,7 @@ class Vector extends Var {
     }
 
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException{
         if (other instanceof Scalar) {
             double[] result = Arrays.copyOf(value, value.length);
             for (int i = 0; i < result.length; i++) {
@@ -41,12 +41,13 @@ class Vector extends Var {
                 result[i] = result[i] + ((Vector) other).value[i];
             }
             return new Vector(result);
+        }else {
+            throw new CalcException("it is impossible to add vector and matrix");
         }
-        return super.add(other);
     }
 
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double[] result = Arrays.copyOf(value, value.length);
             for (int i = 0; i < result.length; i++) {
@@ -60,12 +61,12 @@ class Vector extends Var {
             }
             return new Vector(result);
         } else {
-            return super.add(other);
+            throw new CalcException("it is impossible to subtract a matrix from a vector");
         }
     }
 
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double[] result = Arrays.copyOf(value, value.length);
             for (int i = 0; i < result.length; i++) {
@@ -81,12 +82,12 @@ class Vector extends Var {
             }
             return new Scalar(sumResult);
         } else {
-            return super.add(other);
+            throw new CalcException("it is impossible to multiply vector by matrix");
         }
     }
 
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException{
         if (other instanceof Scalar) {
             double[] result = Arrays.copyOf(value, value.length);
             for (int i = 0; i < result.length; i++) {
@@ -94,7 +95,7 @@ class Vector extends Var {
             }
             return new Vector(result);
         } else {
-            return super.div(other);
+            throw new CalcException("dividing a vector by a vector or a vector by a matrix is impossible");
         }
     }
 

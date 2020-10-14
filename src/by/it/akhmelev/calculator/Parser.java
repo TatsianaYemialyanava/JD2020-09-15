@@ -9,6 +9,7 @@ class Parser {
         expression.replaceAll("\\s+","");
 
         String[] parts = expression.split(Patterns.OPERATION, 2);
+
         if (parts.length==1) return Var.createVar(parts[0]);
 
         Var right= Var.createVar(parts[1]);

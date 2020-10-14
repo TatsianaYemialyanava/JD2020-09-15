@@ -1,5 +1,4 @@
 package by.it.yemialyanava.calculator;
-
 import java.util.Map;
 import java.util.Scanner;
 
@@ -18,8 +17,13 @@ public class ConsoleRunner {
                     System.out.println(entry.getKey() + " = " + entry.getValue());
                 }*/
             //}
-            Var result = parser.calc(expression);
-            printer.print(result);
+            try {
+                Var result = parser.calc(expression);
+                printer.print(result);
+            }catch (CalcException e){
+                String message = e.getMessage();
+                System.out.println(message);
+            }
         }
     }
 }

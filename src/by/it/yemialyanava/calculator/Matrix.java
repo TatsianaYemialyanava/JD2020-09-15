@@ -41,7 +41,7 @@ public class Matrix extends Var {
     }
 
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double[][] res = copyMatrix(getValue());
             for (int i = 0; i < res.length; i++) {
@@ -58,12 +58,13 @@ public class Matrix extends Var {
                 }
             }
             return new Matrix(res);
+        } else {
+            throw new CalcException("division of a matrix by a vector is impossible");
         }
-        return super.add(other);
     }
 
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double[][] res = copyMatrix(getValue());
             for (int i = 0; i < res.length; i++) {
@@ -80,12 +81,13 @@ public class Matrix extends Var {
                 }
             }
             return new Matrix(res);
+        }else{
+            throw new CalcException("subtraction of a vector from a matrix is impossible");
         }
-        return super.sub(other);
     }
 
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double[][] res = copyMatrix(getValue());
             for (int i = 0; i < res.length; i++) {
@@ -119,8 +121,8 @@ public class Matrix extends Var {
     }
 
     @Override
-    public Var div(Var other) {
-        return super.div(other);
+    public Var div(Var other) throws CalcException {
+        throw new CalcException("division operations with matrices are not possible");
     }
 
     @Override
