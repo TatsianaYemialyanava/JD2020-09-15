@@ -1,8 +1,4 @@
-package by.it.yemialyanava.calculator;
-
-import java.util.Arrays;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+package by.it.yemialyanava.Calculator;
 
 public class Matrix extends Var {
     double[][] value;
@@ -19,7 +15,29 @@ public class Matrix extends Var {
         this.value = copyMatrix(matrix.value);
     }
 
-    public Matrix(String strMatrix) {
+    public Matrix(String strMatrix){
+        /**
+         * { { 1.0, 2.0 },  { 3.0, 4.0 } }
+         */
+        String line = strMatrix.trim();
+        line = line.replaceAll("\\s+","");
+        line = line.replaceFirst("\\{\\{","");
+        line = line.replaceFirst("\\}\\}","");
+        String[] lineNew = line.split("\\},\\{");
+        String[][] elementNew = new String[lineNew.length][];
+        for (int i1 = 0; i1 < lineNew.length; i1++) {
+            elementNew[i1] = lineNew[i1].split(",");
+        }
+        double[][] array = new double[lineNew.length][elementNew[0].length];
+        for (int i = 0; i < elementNew.length; i++) {
+            for (int j = 0; j < elementNew[0].length; j++) {
+                array[i][j] = Double.parseDouble(elementNew[i][j]);
+            }
+        }
+        this.value = array;
+    }
+
+    /*public Matrix(String strMatrix) {
         String cuttedString = strMatrix.substring(1, strMatrix.length() - 1);
         Pattern patternSings = Pattern.compile("\\{([0-9]|[.]|,| )+\\}");
         Matcher matchSings = patternSings.matcher(cuttedString);
@@ -38,7 +56,7 @@ public class Matrix extends Var {
             rowcount++;
         }
         this.value = tempValue;
-    }
+    }*/
 
     @Override
     public Var add(Var other) throws CalcException {
@@ -51,6 +69,12 @@ public class Matrix extends Var {
             }
             return new Matrix(res);
         } else if (other instanceof Matrix) {
+            if ( ((Matrix)other).value.length != this.value.length){
+                throw new CalcException("количества строк в матрицах должны совпадать");
+            }
+            if ( ((Matrix)other).value[0].length != this.value[0].length){
+                throw new CalcException("количества столбцов в матрицах должны совпадать");
+            }
             double[][] res = copyMatrix(getValue());
             for (int i = 0; i < res.length; i++) {
                 for (int j = 0; j < res[i].length; j++) {
@@ -74,6 +98,12 @@ public class Matrix extends Var {
             }
             return new Matrix(res);
         } else if (other instanceof Matrix) {
+            if ( ((Matrix)other).value.length != this.value.length){
+                throw new CalcException("количества строк в матрицах должны совпадать");
+            }
+            if ( ((Matrix)other).value[0].length != this.value[0].length){
+                throw new CalcException("количества столбцов в матрицах должны совпадать");
+            }
             double[][] res = copyMatrix(getValue());
             for (int i = 0; i < res.length; i++) {
                 for (int j = 0; j < res[i].length; j++) {
@@ -89,6 +119,9 @@ public class Matrix extends Var {
     @Override
     public Var mul(Var other) throws CalcException {
         if (other instanceof Scalar) {
+            if (((Scalar) other).getValue()==0){
+                throw new CalcException("multiply by 0");
+            }
             double[][] res = copyMatrix(getValue());
             for (int i = 0; i < res.length; i++) {
                 for (int j = 0; j < res[i].length; j++) {
@@ -97,6 +130,9 @@ public class Matrix extends Var {
             }
             return new Matrix(res);
         } else if (other instanceof Vector) {
+            if ( ((Vector)other).getValue().length != this.value[0].length){
+                throw new CalcException("the length of the vector and the number of columns in the matrix must be the same");
+            }
             double[][] res = copyMatrix(getValue());
             double[] resVect = new double[res.length];
             for (int i = 0; i < res.length; i++) {
@@ -106,6 +142,9 @@ public class Matrix extends Var {
             }
             return new Vector(resVect);
         } else if (other instanceof Matrix) {
+            if ( ((Matrix)other).value.length != this.value[0].length){
+                throw new CalcException("the number of rows of the first matrix must be equal to the number of columns of the second matrix");
+            }
             double[][] res = copyMatrix(getValue());
             double[][] mulpiplMatr = new double[res.length][((Matrix) other).value[0].length];
             for (int i = 0; i < res.length; i++) {

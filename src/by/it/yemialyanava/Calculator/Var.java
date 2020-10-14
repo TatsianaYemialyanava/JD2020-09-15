@@ -1,18 +1,25 @@
-package by.it.yemialyanava.calculator;
+package by.it.yemialyanava.Calculator;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
 abstract class Var implements Operation {
+
     private  static Map<String, Var> varMap = new HashMap<>();
 
-    public static Var save(String name,Var value){
+    public static HashMap<String, Var> getVarMap() {
+        return (HashMap<String, Var>) varMap;
+    }
+
+    public static Var save (String name,Var value){
         varMap.put(name, value);
         return value;
     }
-    //public Map<String, Var> getVarMap() {
-      //  return varMap;
+    /*public HashMap<String, Var> getVarMap()
+    public double getValue() {
+        return value;
+    }*/
 
     static Var createVar (String strVar) throws CalcException{
         if (strVar.matches(Patterns.SCALAR)){
@@ -52,6 +59,6 @@ abstract class Var implements Operation {
 
     @Override
     public String toString() {
-        return "Это класс Var";
+        return "abstract Var";
     }
 }

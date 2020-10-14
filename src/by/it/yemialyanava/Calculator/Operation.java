@@ -1,4 +1,4 @@
-package by.it.yemialyanava.calculator;
+package by.it.yemialyanava.Calculator;
 
 public interface Operation {
         Var add(Var other) throws CalcException;

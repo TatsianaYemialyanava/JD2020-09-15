@@ -1,4 +1,4 @@
-package by.it.yemialyanava.calculator;
+package by.it.yemialyanava.Calculator;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -6,6 +6,9 @@ import java.util.regex.Pattern;
 class Parser {
     Var calc(String expression) throws CalcException {
         //2*2  scalar=4
+        if (expression.isEmpty()==true){
+            throw new CalcException("expression is empty");
+        }
         expression.replaceAll("\\s+", "");
 
         String[] parts = expression.split(Patterns.OPERATION, 2);

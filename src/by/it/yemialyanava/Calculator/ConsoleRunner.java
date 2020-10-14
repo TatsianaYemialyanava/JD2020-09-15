@@ -1,5 +1,4 @@
-package by.it.yemialyanava.calculator;
-import java.util.Map;
+package by.it.yemialyanava.Calculator;
 import java.util.Scanner;
 
 public class ConsoleRunner {
@@ -12,11 +11,14 @@ public class ConsoleRunner {
             if (expression.equals("end")){
                 break;
             }
-           /* if (expression.equals("printvar")) {
-                for (Map.Entry<String, String> entry : getVarMap(varMap).entrySet()){
-                    System.out.println(entry.getKey() + " = " + entry.getValue());
-                }*/
-            //}
+            if (expression.equals("printvar")) {
+                printer.printvar(Var.getVarMap());
+                continue;
+            }
+            if (expression.equals("sortvar")){
+                printer.sortvar(Var.getVarMap());
+                continue;
+            }
             try {
                 Var result = parser.calc(expression);
                 printer.print(result);
