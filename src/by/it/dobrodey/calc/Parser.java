@@ -1,11 +1,13 @@
 package by.it.dobrodey.calc;
 
 
+import by.it.akhmelev.calculator.CalcException;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Parser {
-    Var calc(String expression) {
+    Var calc(String expression) throws CalcException {
         //2=2 -> scalar==4
         expression.replaceAll("\\s+", "");
 
@@ -16,7 +18,7 @@ class Parser {
         Var left = Var.createVar(parts[0]);
         if (parts.length == 1) return left;
 
-        if (right == null || left == null) return null;
+        if (right == null || left == null) throw new CalcException("?");
 
         Pattern patternOperation = Pattern.compile(Patterns.OPERATION);
         Matcher matcherOperation = patternOperation.matcher(expression);

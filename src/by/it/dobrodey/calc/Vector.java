@@ -1,5 +1,7 @@
 package by.it.dobrodey.calc;
 
+import by.it.akhmelev.calculator.CalcException;
+
 import java.util.Arrays;
 
 public class Vector extends Var {
@@ -52,7 +54,7 @@ public class Vector extends Var {
     }
 
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         if (other instanceof Scalar) {
             Scalar otherScalar = (Scalar) other;
             double[] sum = Arrays.copyOf(this.value, this.value.length);
@@ -63,6 +65,8 @@ public class Vector extends Var {
             return result;
         } else if (other instanceof Vector) {
             Vector otherVector = (Vector) other;
+            if(otherVector.value.length!= value.length){throw new CalcException("\n" +
+                    "incorrect vector format");}
             double[] sum = Arrays.copyOf(value, value.length);
             for (int i = 0; i < sum.length; i++) {
                 sum[i] += otherVector.value[i];
@@ -75,7 +79,7 @@ public class Vector extends Var {
 
 
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         if (other instanceof Scalar) {
             Scalar otherScalar = (Scalar) other;
             double[] sub = Arrays.copyOf(this.value, this.value.length);
@@ -86,6 +90,8 @@ public class Vector extends Var {
             return result;
         } else if (other instanceof Vector) {
             Vector otherVector = (Vector) other;
+            if(otherVector.value.length!= value.length){throw new CalcException("\n" +
+                    "incorrect vector format");}
             double[] sub = Arrays.copyOf(value, value.length);
             for (int i = 0; i < sub.length; i++) {
                 sub[i] += -otherVector.value[i];
@@ -97,7 +103,7 @@ public class Vector extends Var {
     }
 
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         if (other instanceof Scalar) {
             Scalar otherScalar = (Scalar) other;
             double[] mult = Arrays.copyOf(this.value, this.value.length);
@@ -121,9 +127,10 @@ public class Vector extends Var {
     }
 
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException {
         if (other instanceof Scalar) {
             Scalar otherScalar = (Scalar) other;
+            if(otherScalar.getValue() == 0) {throw new CalcException(" division by zero");}
             double[] divr = Arrays.copyOf(this.value, this.value.length);
             for (int i = 0; i < divr.length; i++) {
                 divr[i] /= otherScalar.getValue();

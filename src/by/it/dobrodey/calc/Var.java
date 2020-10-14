@@ -1,35 +1,37 @@
 package by.it.dobrodey.calc;
 
 
+import by.it.akhmelev.calculator.CalcException;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
 abstract class Var implements Operation {
 
-    private static Map<String,Var> varMap = new HashMap<>();
-    public static Map <String,Var> getVarMap(){return varMap;}
+    private static Map<String, Var> varMap = new HashMap<>();
 
-    public static Var save(String name, Var value){
+    public static Map<String, Var> getVarMap() {
+        return varMap;
+    }
+
+    public static Var save(String name, Var value) {
         varMap.put(name, value);
         return value;
     }
 
 
-    static Var createVar(String strVar) {
-        if (strVar.matches(Patterns.SCALAR)){
+    static Var createVar(String strVar) throws CalcException {
+        if (strVar.matches(Patterns.SCALAR)) {
             return new Scalar(strVar);
-        }
-        else if (strVar.matches(Patterns.VECTOR)){
+        } else if (strVar.matches(Patterns.VECTOR)) {
             return new Vector(strVar);
-        }
-        else if (strVar.matches(Patterns.MATRIX)){
+        } else if (strVar.matches(Patterns.MATRIX)) {
             return new Matrix(strVar);
-        }
-        else {
+        } else {
             Var var = varMap.get(strVar);
             if (Objects.isNull(var)) {
-                System.out.println("Unknow variable: " + strVar);
+                throw new CalcException("Unknow variable: " + strVar);
             }
             return var;
         }
@@ -41,31 +43,26 @@ abstract class Var implements Operation {
     }
 
     @Override
-    public Var add(Var other) {
-        System.out.printf("Operation %s + %s impossible\n", this, other);
-        return null;
+    public Var add(Var other) throws CalcException {
+        throw new CalcException(String.format("Operation %s + %s impossible\n", this, other));
     }
 
     @Override
-    public Var sub(Var other) {
-        System.out.printf("Operation %s - %s impossible\n", this, other);
-        return null;
+    public Var sub(Var other) throws CalcException {
+        throw new CalcException(String.format("Operation %s - %s impossible\n", this, other));
+
     }
 
     @Override
-    public Var mul(Var other) {
-        System.out.printf("Operation %s * %s impossible\n", this, other);
-        return null;
+    public Var mul(Var other) throws CalcException {
+        throw new CalcException(String.format("Operation %s * %s impossible\n", this, other));
+
     }
 
     @Override
-    public Var div(Var other) {
-//       if(other.equals(new Scalar(0))){
-//        System.out.println("not impossible div on 0");
-//        return null;}
-        System.out.printf("Operation %s / %s impossible\n", this, other);
-        return null;
-    }
+    public Var div(Var other) throws CalcException {
+        throw new CalcException(String.format("Operation %s / %s impossible\n", this, other));
+            }
 }
 
 
