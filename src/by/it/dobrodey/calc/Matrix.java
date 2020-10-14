@@ -5,7 +5,7 @@ import by.it.akhmelev.calculator.CalcException;
 import java.util.Arrays;
 
 public class Matrix extends Var {
-    /**
+    /*
      *  На уровень Cразработайте для класса Varнаследника Matrixс тремя конструкторами:
      *  1. Из массива{ { 1.0, 2.0 },  { 3.0, 4.0 } } сигнатура Matrix(double[ ][ ]  value)
      *  2. Из такой же точно переменной сигнатура Matrix(Matrix matrix)
@@ -156,6 +156,8 @@ public class Matrix extends Var {
             return result;
         } else if (other instanceof Vector){
             Vector otherVector = (Vector) other;
+            if(otherVector.getValue().length!= value[0].length){throw new CalcException("\n" +
+                    "not compatible matrix or vector size");}
             double[][] matrixMul = new double[this.value.length][this.value[0].length];
             for (int i = 0; i < this.value.length; i++) {
                 matrixMul[i] = Arrays.copyOf(this.value[i], this.value[i].length);
@@ -172,6 +174,8 @@ public class Matrix extends Var {
 
         }else if (other instanceof Matrix){
             Matrix otherMatrix = (Matrix) other;
+            if (otherMatrix.value.length!= value[0].length){throw new CalcException("\n" +
+                    "not compatible matrix size");}
             double [][] matrixMul = new double[this.value.length][this.value[0].length];
             for (int i = 0; i < this.value.length; i++) {
                 matrixMul[i]= Arrays.copyOf(this.value[i],this.value[i].length);
