@@ -39,11 +39,11 @@ class Parser {
     }
 
     boolean CheckBracket(String line) throws CalcException {
+        String newLine= line.replaceAll("[^{}\\[\\]{}]+","");
         Stack<Character> stack = new Stack<>();
-        char[] brackets = line.toCharArray();
+        char[] brackets = newLine.toCharArray();
         int i = 0;
-
-        if(!line.equals(line.replace("[\\{\\}\\[\\]\\(\\)]+","")))
+        if(!line.equals(newLine))
         while (true) {
             if (brackets[i] == '{' || brackets[i] == '(' || brackets[i] == '[') stack.push(brackets[i]);
             else {
@@ -66,7 +66,16 @@ class Parser {
             if (i == brackets.length) {
                 if(stack.isEmpty()) return true;
                 else{
-                    System.out.println("Bracket Error excess:"+stack.pop());
+                    char b = stack.pop();
+                    switch (b){
+                        case '{' : b='}';
+                            break;
+                        case '(' : b=')';
+                            break;
+                        case '[' : b=']';
+                            break;
+                    }
+                    System.out.println("Bracket Error excess:"+b);
                     return false;
                 }
             }
