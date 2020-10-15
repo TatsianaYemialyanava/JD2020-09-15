@@ -12,8 +12,10 @@ public class ConsoleRunner  {
             String expression = sc.nextLine();
             if (expression.equals("end")) break;
             try {
+                if(parser.CheckBracket(expression)){
                 Var result = parser.calc(expression);
                 printer.print(result);
+                }
             } catch (CalcException e) {
                 String message = e.getMessage();
                 System.out.println(message);
