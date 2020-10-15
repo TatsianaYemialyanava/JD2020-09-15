@@ -21,7 +21,6 @@ public class TaskC {
         List<Double> list = new LinkedList<>();
             readData(sc, list);
     }
-
     static void readData(Scanner sc, List<Double> list) throws InterruptedException {
             try {
                 for (; ; ) {
