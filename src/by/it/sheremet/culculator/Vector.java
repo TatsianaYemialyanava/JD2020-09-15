@@ -1,13 +1,13 @@
-package by.it.sheremet.jd01_08;
+package by.it.sheremet.culculator;
 
 import java.util.Arrays;
 
 class Vector extends Var {
     private double[] value;
+
     public double[] getValue() {
         return value;
     }
-
     Vector(double[] value) {
         this.value = Arrays.copyOf(value, value.length);
 
