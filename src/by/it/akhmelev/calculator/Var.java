@@ -8,7 +8,7 @@ abstract class Var implements Operation {
 
     private static Map<String, Var> varMap = new HashMap<>();
 
-    static Var createVar(String strVar) {
+    static Var createVar(String strVar) throws CalcException {
         if (strVar.matches(Patterns.SCALAR)) {
             return new Scalar(strVar);
         } else if (strVar.matches(Patterns.VECTOR)) {
@@ -18,7 +18,7 @@ abstract class Var implements Operation {
         } else {
             Var var = varMap.get(strVar);
             if (Objects.isNull(var)) {
-                System.out.println("Unknow variable: " + strVar);
+                throw new CalcException("Unknow variable: " + strVar);
             }
             return var;
         }
@@ -31,28 +31,23 @@ abstract class Var implements Operation {
     }
 
     @Override
-    public Var add(Var other) {
-        //TODO create exception
-        System.out.printf("Operation %s + %s impossible\n", this, other);
-        return null;
+    public Var add(Var other) throws CalcException {
+        throw new CalcException(String.format("Operation %s + %s impossible\n", this, other));
     }
 
     @Override
-    public Var sub(Var other) {
-        System.out.printf("Operation %s - %s impossible\n", this, other);
-        return null;
+    public Var sub(Var other) throws CalcException {
+        throw new CalcException(String.format("Operation %s - %s impossible\n", this, other));
     }
 
     @Override
-    public Var mul(Var other) {
-        System.out.printf("Operation %s * %s impossible\n", this, other);
-        return null;
+    public Var mul(Var other) throws CalcException {
+        throw new CalcException(String.format("Operation %s * %s impossible\n", this, other));
     }
 
     @Override
-    public Var div(Var other) {
-        System.out.printf("Operation %s / %s impossible\n", this, other);
-        return null;
+    public Var div(Var other) throws CalcException {
+        throw new CalcException(String.format("Operation %s / %s impossible\n", this, other));
     }
 
     @Override
