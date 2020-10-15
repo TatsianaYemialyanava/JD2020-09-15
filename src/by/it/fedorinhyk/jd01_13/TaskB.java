@@ -7,13 +7,13 @@ import static java.lang.StrictMath.sqrt;
 public class TaskB {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        HashMap<Integer, Integer> map = new HashMap<>();
+        double lineparse;
+        double sumprev=0;
         for (; ; ) {
             String line = sc.nextLine();
             if (line.equals("END")) break;
-            double sumprev = 0;
-            double lineparse = Double.parseDouble(line);
             try {
+                lineparse = Double.parseDouble(line);
                 sumprev += lineparse;
             } catch (NumberFormatException exception) {
                 PRINT(exception);
@@ -31,7 +31,7 @@ public class TaskB {
     static void PRINT(Exception exception) {
         StackTraceElement[] stackTrace = exception.getStackTrace();
         for (StackTraceElement element :stackTrace){
-            if (TaskA.class.getName().equals(element.getClassName())){
+            if (TaskB.class.getName().equals(element.getClassName())){
                 System.out.println(element);
                 String name= exception.getClass().getName();
                 String classname= element.getClassName();
