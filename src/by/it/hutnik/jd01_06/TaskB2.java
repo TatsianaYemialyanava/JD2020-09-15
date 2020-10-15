@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class TaskB2 {
     public static void main(String[] args) {
         String sb = Poem.text;
-        sb = sb.replaceAll("\\n", " ").replaceAll("[\\s]{3,}", " ");
+        sb = sb.replaceAll("\\n", " ").replaceAll("[\\.]{3,}", " ").replaceAll("[\\s]{3,}", " ");
         String[] strArr = sb.split("\\.");
         int[] numb = new int[strArr.length];
         for (int i = 0; i < strArr.length; i++) {
