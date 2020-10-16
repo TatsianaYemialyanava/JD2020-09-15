@@ -31,6 +31,12 @@ public class TaskC {
         }
     }
     private static void printDouble(List<Double> list) {
-
+        for (int i = list.size() - 1; i >= 0; i--) {
+            if (i > 0) {
+                System.out.print(list.get(i)+ " ");
+                    } else {
+                    System.out.println(list.get(i));
+            }
+        }
     }
 }
