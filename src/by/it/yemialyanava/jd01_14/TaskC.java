@@ -14,7 +14,7 @@ public class TaskC {
     private static final String TEXT_DATA = "text.txt";
     private static final String SRC = "src";
     private static final String USER_DIR = "user.dir";
-    private static final String RESULT_TASK_C = "resultTaskС.txt";
+    private static final String RESULT_TASK_C = "resultTaskC.txt";
 
     private static String getPath(Class<?> aClass) {
         String packageName = aClass
@@ -25,31 +25,37 @@ public class TaskC {
         String root = System.getProperty(USER_DIR);
         return root + File.separator + SRC + File.separator + packageName;
     }
+
     public static void main(String[] args) {
         String pathToDir14 = getPath(TaskC.class);
         File file14 = new File(pathToDir14);
         StringBuilder output = new StringBuilder();
-        if (file14.isDirectory()){
-            File packageName = file14.getParentFile();
-            File [] arrayFiles = packageName.listFiles();
-            for (File element: arrayFiles) {
-                if(element.isFile()){
-                    output.append("file:" + element.getName()).append("\n");
-                    System.out.println("file:" + element.getName());
-                }else if (element.isDirectory()){
-                    output.append("dir:" + element.getName()).append("\n");
-                    System.out.println("dir:" + element.getName());
-                    File packageName = file14.getParentFile();
-                    File [] arrayFiles = packageName.listFiles();
-
-                }
-            }
+        if (file14.isDirectory()) {
+            File lastNameFolder = file14.getParentFile();
+            findFiles(lastNameFolder, output, 0);
         }
         String fileNameTxt = getPath(TaskC.class) + RESULT_TASK_C;
         printToFile(output.toString(), fileNameTxt);
-
-
     }
+
+    private static void findFiles(File file, StringBuilder sb, int level) {
+        StringBuilder tabulation = new StringBuilder();
+        for (int i = 0; i < level; i++){
+            tabulation.append("\t");
+        }
+        if (file.isFile()) {
+            sb.append("file:" + file.getName()).append("\n");
+            System.out.println(tabulation.toString() + "file:" + file.getName());
+        } else if (file.isDirectory()) {
+            sb.append("dir:" + file.getName()).append("\n");
+            System.out.println(tabulation.toString() + "dir:" + file.getName());
+            File[] arrayOfFiles = file.listFiles();
+            for (File el : arrayOfFiles) {
+                findFiles(el, sb, level + 1);
+            }
+        }
+    }
+
     private static void printToFile(String strToFile, String fileNameTxt) {
         PrintWriter printWriter = null;
         try {
@@ -66,3 +72,4 @@ public class TaskC {
     }
 
 }
+
