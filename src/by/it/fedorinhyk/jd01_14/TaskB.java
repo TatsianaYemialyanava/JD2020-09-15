@@ -55,7 +55,6 @@ public class TaskB {
         PrintWriter writer=null;
         try {
             writer = new PrintWriter(resultTaskB);
-            writer.printf("words=%3d, punctuation marks=%2d", wordssum, signssum);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } finally {
