@@ -74,7 +74,6 @@ class TaskA {
                 int n = -12345 / 2 + (int) (Math.random() * 12345);
                 dataOutputStream.writeInt(n);
             }
-            dataOutputStream.writeInt(90 + (89 << 8) + (88 << 16) + 87 * 256 * 256 * 256);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
