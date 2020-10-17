@@ -1,4 +1,4 @@
-package by.it.hutnik;
+package by.it.hutnik.jd01_12;
 
 
 import org.junit.Assert;
