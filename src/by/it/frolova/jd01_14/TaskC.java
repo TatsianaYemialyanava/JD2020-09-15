@@ -15,8 +15,8 @@ public class TaskC {
 
     public static void main(String[] args) {
 
-        String root = getPath(TaskC.class).replaceAll(".jd01_14", "");
-        File path = new File(root);
+        String root = getPath(TaskC.class);
+        File path = new File(root).getParentFile();
         try (FileOutputStream fos = new FileOutputStream(getPath(TaskC.class) + RESULT_TASK_C_TXT)) {
             PrintStream printStream = new PrintStream(fos);
             printFileTree(path, printStream);
