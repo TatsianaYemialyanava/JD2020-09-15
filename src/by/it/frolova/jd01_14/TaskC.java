@@ -21,7 +21,7 @@ public class TaskC {
             PrintStream printStream = new PrintStream(fos);
             printFileTree(path, printStream);
         } catch (IOException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
         printFileTree(path, System.out);
     }

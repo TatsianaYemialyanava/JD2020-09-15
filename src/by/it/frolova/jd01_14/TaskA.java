@@ -35,7 +35,7 @@ class TaskA {
             printWriter.print("\navg=" + (sum / list.size()));
 
         } catch (IOException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         } finally {
             if (Objects.nonNull(printWriter)) {
                 printWriter.close();
@@ -53,7 +53,7 @@ class TaskA {
             System.out.print("\navg=" + (sum / list.size()));
 
         } catch (IOException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
 

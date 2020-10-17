@@ -43,7 +43,7 @@ public class TaskB {
             System.out.printf("words=%d, punctuation marks=%d", countWords, countMarks);
             printToFile(fileNameTxt, countWords, countMarks);
         } catch (IOException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
 
@@ -53,7 +53,7 @@ public class TaskB {
             writer = new PrintWriter(fileNameTxt);
             writer.printf("words=%d, punctuation marks=%d", countWords, countMarks);
         } catch (IOException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         } finally {
             if (Objects.nonNull(writer)) {
                 writer.close();
