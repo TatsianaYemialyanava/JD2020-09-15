@@ -24,7 +24,7 @@ public class TaskB3 {
         System.out.println(peopleList2);
         Long t = System.nanoTime();
         String name1 = process(peopleList1);
-        Long tA = System.nanoTime() - t;
+        Long tA = System.nanoTime()-t;
         System.out.println("name1 = " + name1);
         Long t1 = System.nanoTime();
         String name2 = process(peopleList2);

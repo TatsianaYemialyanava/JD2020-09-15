@@ -29,7 +29,7 @@ class Vector extends Var {
 
 
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         if (other instanceof Scalar) {
             Scalar otherScalar = (Scalar) other;
             double[] sum = Arrays.copyOf(value, value.length);
