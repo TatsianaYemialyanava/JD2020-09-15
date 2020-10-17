@@ -8,8 +8,8 @@ import java.util.Objects;
 class TaskA {
 
     private static final String USER_DIR = "user.dir";
-    private static final String FILE_DATA = "dataTaskA.bin";
     private static final String SRC = "src";
+    private static final String FILE_DATA = "dataTaskA.bin";
     private static final String RESULT_TASK_A_TXT = "resultTaskA.txt";
 
     public static void main(String[] args) {
