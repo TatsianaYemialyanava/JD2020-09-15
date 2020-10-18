@@ -21,7 +21,7 @@ public class TaskB {
         System.out.println("Список претендентов на ЗП");
 
         int[] arrZp = new int[ppl * 5];
-        int r = 0, total = 0, evrg = 0;
+        int r = 0;
         arrZp[0] = r;
         for (String s : arr) {
             System.out.println("Вводите ЗП за каждый из 4х кварталов для " + "\"" + s + "\"" + " и нажимайте Enter");
