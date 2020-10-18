@@ -23,4 +23,15 @@ public class InOut {
             System.out.println();
         }
     }
+    static double [][] getMatrix(String line) {
+        String[] strArr = line.split(" ");
+        double[][] matrix = new double[strArr.length][strArr.length];
+        for (int i = 0; i < strArr.length; i++) {
+            for (int j = 0; j < strArr[0].length(); j++) {
+                matrix[i][j] = Double.parseDouble(strArr[i]);
+            }
+        }
+        return matrix;
+    }
+
 }
