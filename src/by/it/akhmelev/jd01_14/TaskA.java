@@ -12,17 +12,6 @@ class TaskA {
     private static final String USER_DIR = "user.dir";
     private static final String RESULT_TASK_A = "resultTaskA.txt";
 
-    @SuppressWarnings("SameParameterValue")
-    private static String getPath(Class<?> aClass) {
-        String packageName = aClass
-                .getPackage()
-                .getName()
-                .replace(".", File.separator)
-                .concat(File.separator);
-        String root = System.getProperty(USER_DIR);
-        return root + File.separator + SRC + File.separator + packageName;
-    }
-
 
     public static void main(String[] args) {
         String filename = getPath(TaskA.class) + FILE_DATA;
@@ -32,6 +21,18 @@ class TaskA {
         printToConsole(list);
         String filenameTxt = getPath(TaskA.class) + RESULT_TASK_A;
         printToFile(list, filenameTxt);
+    }
+
+
+    @SuppressWarnings("SameParameterValue")
+    private static String getPath(Class<?> aClass) {
+        String packageName = aClass
+                .getPackage()
+                .getName()
+                .replace(".", File.separator)
+                .concat(File.separator);
+        String root = System.getProperty(USER_DIR);
+        return root + File.separator + SRC + File.separator + packageName;
     }
 
     private static void writeRandomInt(String filename) {
