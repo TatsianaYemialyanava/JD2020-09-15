@@ -1,6 +1,5 @@
 package by.it.kolesnikov.jd01_13;
 
-import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -16,22 +15,30 @@ import java.util.Scanner;
 // После 5 допущенных ошибок программа должна завершиться, пробрасывая ошибку в JVM.
 
 public class TaskC {
+    static Scanner sc;
     public static void main(String[] args) throws InterruptedException {
-        Scanner sc = new Scanner(System.in);
-        List<Double> list = new LinkedList<>();
-            readData(sc, list);
+        sc = new Scanner(System.in);
+        readData();
     }
-    static void readData(Scanner sc, List<Double> list) throws InterruptedException {
-            try {
-                for (; ; ) {
-                    Double input = sc.nextDouble();
-                    list.add(input);
+
+    static void readData() throws InterruptedException {
+        List<Double> list = new LinkedList<>();
+        int count = 0;
+      for(;;) {
+          try {
+            String input = sc.next();
+                Double number = Double.parseDouble(input);
+                list.add(number);
+            } catch (NumberFormatException e) {
+                count++;
+                if (count >= 5) {
+                    throw new RuntimeException();
                 }
-    } catch (InputMismatchException e) {
-           Thread.sleep(100);
-        for (int j = list.size() - 1; j >= 0; j--) {
-            System.out.print(list.get(j) + " ");
+                Thread.sleep(100);
+                for (int j = list.size() - 1; j >= 0; j--) {
+                    System.out.print(list.get(j) + " ");
+                }
             }
-            }
+        }
     }
 }
