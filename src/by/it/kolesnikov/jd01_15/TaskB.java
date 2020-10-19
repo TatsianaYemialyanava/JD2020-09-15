@@ -1,4 +1,4 @@
-package by.it.kolesnikov.jd01_15;
+package by.it.kolesnikov.jd01_15; //имя пакета
 
 // однострочный 1
 // однострочный 2
@@ -13,10 +13,7 @@ package by.it.kolesnikov.jd01_15;
  */
 
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,22 +22,52 @@ public class TaskB {
     private static final String SRC = "src";
     private static final String USER_DIR = "user.dir";
     private static final String TASK_B = "TaskB.java";
+    private static final String TASK_B_TXT = "TaskB.txt";
 
     public static void main(String[] args) {
         String filename = getPath(TaskB.class)+ TASK_B;
         StringBuilder text = new StringBuilder();
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
-            while (bufferedReader.ready()) {
-                String s = bufferedReader.readLine();
-          if (s.startsWith("/"))
-                text.append(s+"\n");
-            }
-            System.out.println(text);
+        commentDeleter(filename, text);
+    }
 
+    static void commentDeleter(String filename, StringBuilder text) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
+                String s = bufferedReader.readLine();
+                boolean comment = false;
+                while (s != null) {
+                    if (s.contains("//")) {
+                        s = s.substring(0, s.indexOf("//"));
+                    }
+                    String trim = s.trim();
+                    String lineToPrint = s + "\n";
+                    if (comment) {
+                        lineToPrint = "";
+                        if (trim.endsWith("*/")) {
+                            comment = false;
+                        }
+                    } else {
+                        if (trim.startsWith("//")) {
+                            lineToPrint = lineToPrint.substring(0, lineToPrint.indexOf("//")) + "\n";
+                        } else if (trim.startsWith("/*") || trim.startsWith("/**")) {
+                            lineToPrint = lineToPrint.substring(0, lineToPrint.indexOf("/")) + "\n";
+                            comment = true;
+                        }
+                    }
+                text.append(lineToPrint);
+                    s = bufferedReader.readLine();
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        System.out.println(text);
+        String taskB = getPath(TaskB.class)+ TASK_B_TXT;
+        try(PrintWriter printWriter = new PrintWriter(taskB)) {
+            printWriter.print(text);
+        } catch (IOException e) {
+            throw  new RuntimeException(e);
+        }
     }
+
     private static String getPath(Class<TaskB> bClass) {
         String packageName = bClass
                 .getPackage()
