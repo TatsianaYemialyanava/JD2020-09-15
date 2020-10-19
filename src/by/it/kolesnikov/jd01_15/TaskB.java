@@ -32,10 +32,7 @@ public class TaskB {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
             while (bufferedReader.ready()) {
                 String s = bufferedReader.readLine();
-                int set1 = s.indexOf("//");
-                if (-1 != set1) {
-                    s = s.substring(0, set1);
-                }
+          if (s.startsWith("/"))
                 text.append(s+"\n");
             }
             System.out.println(text);
