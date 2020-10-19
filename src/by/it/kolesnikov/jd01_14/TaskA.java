@@ -12,7 +12,7 @@ class TaskA {
     static final String USER_DIR = "user.dir";
     public static final String RESULT_TASK_A = "resultTaskA.txt";
 
-    static String getPath(Class<TaskA> aClass) {
+    private static String getPath(Class<TaskA> aClass) {
         String packageName = aClass
                 .getPackage()
                 .getName()
