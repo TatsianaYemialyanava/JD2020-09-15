@@ -32,8 +32,8 @@ public class TaskC {
 
     public static void main(String[] args) {
 
-        String wayFile = getPath(TaskA.class).replaceAll(".jd01_14", "");
-        File userNameFile = new File(wayFile);
+        String wayFile = getPath(TaskA.class);
+        File userNameFile = new File(wayFile).getParentFile();
         File[] list = userNameFile.listFiles();
         System.out.println("Путь: " + userNameFile.getPath());
         System.out.println("Имя файла: " + userNameFile.getName());
