@@ -34,7 +34,7 @@ public class TaskB {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
                 String s = bufferedReader.readLine();
                 boolean comment = false;
-                while (s != null) {
+                while (bufferedReader.ready()) {
                     if (s.contains("//")) {
                         s = s.substring(0, s.indexOf("//"));
                     }
