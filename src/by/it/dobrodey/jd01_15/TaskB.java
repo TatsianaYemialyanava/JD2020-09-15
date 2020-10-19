@@ -62,13 +62,14 @@ public class TaskB {
 
 
     // однострочный коммнтарий 2
-    private static String getPath(Class<?> bClass) {
-        String src = System.getProperty("user.dir");
-        String name = bClass.getName();
-        String simpleName = bClass.getSimpleName();
-        String separator = File.separator;
-        String path = name.replace(simpleName, "").replace(".", separator);
-        path = src + separator + "src" + separator + path;
-        return path;
+    private static String getPath(Class<?> aClass) {
+        String packageName = aClass
+                .getPackage()
+                .getName()
+                .replace(".", File.separator)
+                .concat(File.separator);
+        String root = System.getProperty("user.dir");
+        return root + File.separator + "src" +
+                File.separator + packageName;
     }
-}
+    }
