@@ -41,7 +41,7 @@ public class TaskB2 {
         String result = peoples.toString();
         result = result.replaceAll("\\[", "");
         result = result.replaceAll("]", "");
-        return result;
+        return peoples.toString();
     }
 
 
