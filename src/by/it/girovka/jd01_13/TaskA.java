@@ -9,11 +9,24 @@ public class TaskA {
                 new HashMap<String, String>(null);
             else
                 Integer.parseInt("привет");
-        }catch(NumberFormatException e) {
-            System.out.println(e);
+
+        }catch(Exception e) {
+            StackTraceElement[] stackTrance = e.getStackTrace();
+            for (StackTraceElement element : stackTrance){
+                if (TaskA.class.getName().equals(element.getClassName())){
+                    System.out.println(element);
+                    String name = e.getClass().getName();
+                    String clname = element.getClassName();
+                    int number = element.getLineNumber();
+                    System.out.printf(
+                                     "name: %s\n" +
+                                    "class: %s\n"+
+                                    "line:  %d\n",
+                            name,clname,number);
+                    break;
+            }
         }
-            catch(NullPointerException e){
-                System.out.println(e);
+
         }
     }
 }
