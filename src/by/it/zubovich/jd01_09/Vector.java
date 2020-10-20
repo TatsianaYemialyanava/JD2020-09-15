@@ -1,18 +1,19 @@
-package by.it.zubovich.jd01_07;
+package by.it.zubovich.jd01_09;
 
 import java.util.Arrays;
 
 public class Vector extends Var {
-    private final double[] value;
+    private double[] value;
+
 
     Vector(double[] value) {
-
         this.value = value;
+
     }
 
     Vector(Vector vector) {
-
         this.value = vector.value;
+
     }
 
     Vector(String strVector) {
@@ -21,10 +22,16 @@ public class Vector extends Var {
         for (int i = 0; i < result.length; i++) {
             value[i] = Double.parseDouble(result[i].trim());
         }
+
     }
+
+
 
     @Override
     public String toString() {
+
         return Arrays.toString(value).replace("[","{").replace("]","}");
+
+
     }
 }
