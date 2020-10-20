@@ -1,6 +1,6 @@
 package by.it.akhmelev.jd01_09;
 
-public abstract class Var implements Operation {
+abstract class Var implements Operation {
 
     static Var createVar(String strVar) {
         if (strVar.matches(Patterns.SCALAR)){

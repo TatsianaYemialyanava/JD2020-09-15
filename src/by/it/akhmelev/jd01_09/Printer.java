@@ -1,7 +1,7 @@
 package by.it.akhmelev.jd01_09;
 
-public class Printer {
-    public void print(Var result){
+class Printer {
+    void print(Var result){
         if (result!=null){
             System.out.println(result);
         }
