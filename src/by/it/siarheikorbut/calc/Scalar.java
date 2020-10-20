@@ -1,15 +1,11 @@
 package by.it.siarheikorbut.calc;
 
-/**
- * @author Siarhei Korbut
- * @see <a href="https://drive.google.com/file/d/1Dtmq3a65M1AIORy_S6eC7CHwxX6PCQGB/view?usp=sharing">Задание JD01_01 ( A, B, C )</a>
- */
-
 //Создание дочернего от класса Var класса Scalar.
 public class Scalar extends Var {
 
     //Обьявление приватной финализированной переменной value.
     private final double value;
+
     public double getValue() {
         return value;
     }
@@ -37,7 +33,7 @@ public class Scalar extends Var {
 
     //Метод сложения скаляров.
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double sum = this.value + ((Scalar) other).value;
             return new Scalar(sum);
@@ -46,7 +42,7 @@ public class Scalar extends Var {
 
     //Метод вычитания скаляров.
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double sub = this.value - ((Scalar) other).value;
             return new Scalar(sub);
@@ -55,7 +51,7 @@ public class Scalar extends Var {
 
     //Метод умножения скаляров
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double mul = this.value * ((Scalar) other).value;
             return new Scalar(mul);
@@ -64,8 +60,10 @@ public class Scalar extends Var {
 
     //Метод деления скаляров.
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException{
         if (other instanceof Scalar) {
+            if (((Scalar) other).value == 0)
+                throw new CalcException("Деление на ноль");
             double div = this.value / ((Scalar) other).value;
             return new Scalar(div);
         } else return super.div(other);

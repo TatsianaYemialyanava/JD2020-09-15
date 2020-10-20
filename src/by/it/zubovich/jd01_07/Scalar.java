@@ -2,7 +2,7 @@ package by.it.zubovich.jd01_07;
 
 public class Scalar extends Var {
 
-    private double value;
+    private final double value;
 
 //    public double getValue(){
 //
@@ -16,10 +16,12 @@ public class Scalar extends Var {
     }
 
     Scalar(Scalar scalar) {
+
         this.value = scalar.value;
     }
 
     Scalar(String strScalar) {
+
         this.value = Double.parseDouble(strScalar);
     }
 

@@ -1,11 +1,9 @@
 package by.it.yemialyanava.jd01_11;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
-/*public class SetC<T> implements Set<T> {
+public class SetC<T> implements Set<T> {
    private T[] elements = (T[]) new Object[0];
+
    private int size = 0;
 
     @Override
@@ -25,58 +23,30 @@ import java.util.Set;
     @Override
     public boolean addAll(Collection<? extends T> c) {
         T[] arr = (T[])c.toArray();
-        int i = 0 ;
-        for ( element : arr){
-            if(!elements.equals(arr[i])){
-                elements = elements;
-            }
-        }
-
-
-
-
-        /*for (int i = 0; i < size; i++) {
-            for (int j = 0; j < arr.length; j++) {
-                if (elements[i].equals(arr[j])) {
-                    arr[j] = null;
-                }
-            }
-
-            for (int j = 0; j < arr.length; j++) {
-                if (arr[j] != null) {
-                    size = size + arr.length;
-                    elements[size] = arr[j];
-                }
-            }
-        }
-
-        /*for(int i = 0; i < arr.length; i++) {
+        for(int i = 0; i < arr.length; i++) {
             T currentNewElement = arr[i];
-
-            boolean esliTekushiuNetVSuchestuyushem = true;
+            boolean elementNotInCollection = true;
             for (T element : elements ) {
                 if (currentNewElement.equals(element)){
-                    esliTekushiuNetVSuchestuyushem = false;
+                    elementNotInCollection = false;
+                }
+                if (elementNotInCollection) {
+                    size = size + c.size();
+                    elements[size++] = currentNewElement;
                 }
             }
-            if (esliTekushiuNetVSuchestuyushem) {
-                size = size + c.size();
-                elements[size++] = currentNewElement;
-            }
-        }*/
-       /** return true;
+        }
+       return true;
     }
 
-
-
-    private boolean esliTekushiuNetVSuchestuyushem(T[] elements, T currentNewElement) {
+    /*private boolean elementNotInCollection (T[] elements, T currentNewElement) {
         for (T element : elements ) {
             if (currentNewElement.equals(element)){
                 return false;
             }
         }
         return true;
-    }
+    }*/
 
     @Override
     public int size() {
@@ -184,4 +154,4 @@ import java.util.Set;
     public void clear() {
 
     }
-}*/
+}
