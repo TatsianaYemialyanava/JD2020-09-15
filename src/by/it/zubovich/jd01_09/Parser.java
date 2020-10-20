@@ -9,27 +9,20 @@ public class Parser {
         Var one = Var.createVar(operand[0]);
         Var two = Var.createVar(operand[1]);
         if (one == null || two == null){
-            Pattern p = Pattern.compile(Patterns.OPERATION);
-            Matcher m = p.matcher(expression);
-            if (m.find()){
-                String operation = m.group();
-                switch (operation){
-                    case "+": return one.add(two);
-                    case "-": return one.add(two);
-                    case "*": return one.add(two);
-                    case "/": return one.add(two);
-
-                }
-            }
             return null;
         }
+        Pattern p = Pattern.compile(Patterns.OPERATION);
+        Matcher m = p.matcher(expression);
+        if (m.find()){
+            String operation = m.group();
+            switch (operation){
+                case "+" : return one.add(two);
+                case "-" : return one.sub(two);
+                case "*" : return one.mul(two);
+                case "/" : return one.div(two);
 
-
-        //2*2 -> scalar == 4
+            }
+        }
         return null;
-    }
-
-    public Var print(Var result) {
-        return result;
     }
 }

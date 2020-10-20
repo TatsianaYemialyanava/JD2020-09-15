@@ -10,6 +10,6 @@ public class RunnerOld {
 //        System.out.println(h.toString());
         double [][] mas = { { 1.0, 2.0 }, { 3.0, 4.0 } };
         Matrix f = new Matrix(mas);
-        System.out.println();
+        System.out.println(f);
     }
 }

@@ -16,7 +16,11 @@ public class Matrix extends Var {
 
     Matrix(String strMatrix) {
 
-        String[] result = strMatrix.split("}, ");
+        String[] result = strMatrix.replace(" ","").split("}, ");
+        for (int i = 0; i < result.length; i++) {
+            System.out.println(result[i]);
+        }
+
 
         for (int i = 0; i < result.length; i++) {
             String[] resultColumn = result[i].replace("{", "").replace("}","").trim().split(",");

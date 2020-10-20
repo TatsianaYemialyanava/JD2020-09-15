@@ -63,7 +63,7 @@ public class Scalar extends Var {
             return new Scalar(div);
         }
 
-            return other.div(this);
+            return super.div(this);
 
     }
 

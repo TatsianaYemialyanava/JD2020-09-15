@@ -5,6 +5,7 @@ import java.util.Arrays;
 public class Vector extends Var {
     private double[] value;
 
+
     Vector(double[] value) {
         this.value = value;
 
@@ -23,6 +24,8 @@ public class Vector extends Var {
         }
 
     }
+
+
 
     @Override
     public String toString() {

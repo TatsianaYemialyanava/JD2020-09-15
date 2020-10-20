@@ -3,15 +3,16 @@ package by.it.zubovich.jd01_09;
 public abstract class Var implements Operation {
 
     static Var createVar(String operand){
-        operand = operand.trim().replace("\\s+", "");
+        operand = operand.trim().replace("\\s+","");
+
         if (operand.matches(Patterns.SCALAR)){
             return new Scalar(operand);
         }
         if (operand.matches(Patterns.VECTOR)){
-            return new Scalar(operand);
+            return new Vector(operand);
         }
         if (operand.matches(Patterns.MATRIX)){
-            return new Scalar(operand);
+            return new Matrix(operand);
         }
         return null;
     }
