@@ -35,7 +35,7 @@ public class Vector extends Var {
     }
 
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         if(other instanceof Scalar){
             double[] sum = Arrays.copyOf(value,value.length);
             for (int i = 0; i < sum.length; i++) {
@@ -44,6 +44,7 @@ public class Vector extends Var {
             return new Vector(sum);
         }
         else if(other instanceof Vector){
+            if(((Vector) other).value.length!=value.length) throw new CalcException(" length not eq");
             double[] arr = new double[((Vector) other).value.length];
             for (int i = 0; i < arr.length; i++) {
                 arr[i] = value[i] + ((Vector) other).value[i];
@@ -56,7 +57,7 @@ public class Vector extends Var {
     }
 
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         if(other instanceof Scalar){
             double[] sub = Arrays.copyOf(value,value.length);
             for (int i = 0; i < sub.length; i++) {
@@ -65,6 +66,7 @@ public class Vector extends Var {
             return new Vector(sub);
         }
         else if(other instanceof Vector){
+            if(((Vector) other).value.length!=value.length) throw new CalcException(" length not eq");
             double[] arr = new double[((Vector) other).value.length];
             for (int i = 0; i < arr.length; i++) {
                 arr[i] = value[i] - ((Vector) other).value[i];
@@ -77,8 +79,7 @@ public class Vector extends Var {
     }
 
     @Override
-    public Var mul(Var other) {
-
+    public Var mul(Var other) throws CalcException {
         if(other instanceof Scalar){
             double[] sub = Arrays.copyOf(value,value.length);
             for (int i = 0; i < sub.length; i++) {
@@ -87,6 +88,7 @@ public class Vector extends Var {
             return new Vector(sub);
         }
         else if(other instanceof Vector){
+            if(((Vector) other).value.length!=value.length) throw new CalcException(" length not eq");
             double arr = 0;
             for (int i = 0; i < value.length; i++) {
                 arr += value[i] * ((Vector) other).value[i];
@@ -94,12 +96,12 @@ public class Vector extends Var {
             return new Scalar(arr);
         }
         else {
-            return  super.mul(this);
+            return  other.mul(this);
         }
     }
 
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException {
         if(other instanceof Scalar){
             double[] sub = Arrays.copyOf(value,value.length);
             for (int i = 0; i < sub.length; i++) {

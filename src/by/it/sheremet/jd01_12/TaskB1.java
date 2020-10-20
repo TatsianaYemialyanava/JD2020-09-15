@@ -18,7 +18,7 @@ public class TaskB1 {
                     map.put(word, map.get(word) + 1);
                 }
                 else {
-                    map.put(word, 1);
+                   map.put(word, 1);
                 }
             }
         }
