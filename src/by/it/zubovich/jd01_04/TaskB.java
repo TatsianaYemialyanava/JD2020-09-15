@@ -10,7 +10,7 @@ public class TaskB {
         Scanner scZp = new Scanner(System.in);
         Scanner scNameEmployee = new Scanner(System.in);
         int ppl = scNumber.nextInt();
-        var arr = new String[ppl];
+        String[] arr = new String[ppl];
         int i = 1;
         while (ppl >= i) {
             System.out.println("Введите Фамилию человека под номером " + i);
@@ -21,7 +21,7 @@ public class TaskB {
         System.out.println("Список претендентов на ЗП");
 
         int[] arrZp = new int[ppl * 5];
-        int r = 0, total = 0, evrg = 0;
+        int r = 0;
         arrZp[0] = r;
         for (String s : arr) {
             System.out.println("Вводите ЗП за каждый из 4х кварталов для " + "\"" + s + "\"" + " и нажимайте Enter");
