@@ -8,7 +8,7 @@ abstract class Var implements Operation {
 
     private static Map<String, Var> varMap= new HashMap<>();
 
-    static Var createVar(String strVar){
+    static Var createVar(String strVar) throws CalcException{
         if (strVar.matches(Patterns.SCALAR)){
             return new Scalar(strVar);
         }
@@ -23,7 +23,7 @@ abstract class Var implements Operation {
             if (Objects.isNull(var)) {
                 System.out.println("Unknow variable: " + strVar);
             }
-            return var;
+            throw  new CalcException("Невозможно создать:"+strVar);
         }
     }
 
@@ -37,26 +37,22 @@ abstract class Var implements Operation {
     }
 
     @Override
-    public Var add(Var other) {
-        System.out.println("Операция сложения "+this+"+"+other+" невозможна");
-        return null;
+    public Var add(Var other) throws CalcException {
+        throw new CalcException("Операция сложения "+this+"+"+other+" невозможна");
     }
 
     @Override
-    public Var sub(Var other) {
-        System.out.println("Операция вычитания "+this+"-"+other+" невозможна");
-        return null;
+    public Var sub(Var other) throws CalcException {
+        throw new CalcException("Операция вычитания "+this+"-"+other+" невозможна");
     }
 
     @Override
-    public Var mul(Var other) {
-        System.out.println("Операция умножения "+this+"*"+other+" невозможна");
-        return null;
+    public Var mul(Var other) throws CalcException {
+        throw new CalcException("Операция умножения "+this+"*"+other+" невозможна");
     }
 
     @Override
-    public Var div(Var other) {
-        System.out.println("Операция деления "+this+"/"+other+" невозможна");
-        return null;
+    public Var div(Var other) throws CalcException {
+        throw new CalcException("Операция деления "+this+"/"+other+" невозможна");
     }
 }

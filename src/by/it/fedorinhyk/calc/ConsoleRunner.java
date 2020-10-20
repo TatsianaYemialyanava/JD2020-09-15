@@ -8,15 +8,20 @@ public class ConsoleRunner {
         Parser parser = new Parser();
         Printer printer = new Printer();
         for (; ; ) {
-            for (; ; ) {
-                String expression = sc.nextLine();
-                if (expression.equals("end")) break;
-                if (expression.equals("printvar")) {
-                    printer.printvar(Var.getVarMap()); continue;
-                }
+            String expression = sc.nextLine();
+            if (expression.equals("end")) break;
+            if (expression.equals("printvar")) {
+                printer.printvar(Var.getVarMap());
+                continue;
+            }
+            try {
                 Var result = parser.calc(expression);
                 printer.print(result);
+            } catch (CalcException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
 }
+
+
