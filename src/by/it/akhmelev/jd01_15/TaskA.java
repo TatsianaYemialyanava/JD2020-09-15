@@ -39,11 +39,16 @@ public class TaskA {
                 }
                 writer.println();
             }
-            Files.lines(Paths.get(filename))
-                    .forEach(System.out::println);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+
+        try {
+            Files.lines(Paths.get(filename))
+                    .forEach(System.out::println);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
