@@ -1,5 +1,7 @@
 package by.it.dobrodey.calc;
 
+import by.it.akhmelev.calculator.CalcException;
+
 class Scalar extends Var {
     /**
      * На уровень A разработайте для класса Var наследника Scalar с тремя конструкторами:
@@ -35,7 +37,7 @@ class Scalar extends Var {
     }
 
     @Override
-    public Var add(Var other) {
+    public Var add(Var other)throws CalcException {
         if (other instanceof Scalar){
             Scalar otherScalar = (Scalar) other;
             double sum = this.value + otherScalar.value;
@@ -46,7 +48,7 @@ class Scalar extends Var {
     }
 
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         if (other instanceof Scalar) {
             Scalar otherScalar = (Scalar) other;
             double sub = this.value - otherScalar.value;
@@ -56,7 +58,7 @@ class Scalar extends Var {
     }
 
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException{
         if (other instanceof Scalar) {
             Scalar otherScalar = (Scalar) other;
             double mul = this.value * otherScalar.value;
@@ -66,13 +68,13 @@ class Scalar extends Var {
     }
 
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException {
         if (other instanceof Scalar) {
             Scalar otherScalar = (Scalar) other;
-            if(otherScalar.value == 0) {return super.div(other);}
+            if(otherScalar.value == 0) {throw new CalcException(" division by zero");}
                 double div = this.value / otherScalar.value;
                 Scalar result = new Scalar(div);
-                return result;          //  }
+                return result;
 
         } else return super.div(other);
     }

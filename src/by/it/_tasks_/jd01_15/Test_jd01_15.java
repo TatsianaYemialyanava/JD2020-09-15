@@ -42,7 +42,7 @@ public class Test_jd01_15 {
     @Test(timeout = 1500)
     public void testTaskB() throws Exception {
         run("");
-        String s1 = getText("TaskB1.java").trim();
+        String s1 = getText("TaskB.txt").trim();
         String s2 = s1.replaceAll("(?s)/\\*.*?\\*/", "(это было удалено тестом)");
         String s3 = s1.replaceAll("//[^\\n]*+", "(это было удалено тестом)\\\n");
         assertTrue("Удалены не все многострочные комментарии", s1.equals(s2));

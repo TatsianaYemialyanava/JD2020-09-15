@@ -1,8 +1,20 @@
 package by.it.girovka.jd3;
 
+/**
+ * @author Girovka
+ * @see <a href=http://bit.ly/jd2020-09-15 target=_blank>
+ *     Задание</a>
+ */
 public class InOut {
+    /**
+     *  @author Girovka
+     *  @see <a href=http://bit.ly/jd2020-09-15 target=_blank>
+     *  Задание</a> Метод преобразования строки в массив
+     * @param line -Входная строка (с числами)
+     * @return Возвращаемый массив действительных чисел
+     */
     static double[ ] getArray(String line){
-        line = line.trim();
+
         String [] strArray = line.split(" ");
         double[] array = new double [strArray.length];
         for (int i = 0; i < strArray.length; i++) {
@@ -10,6 +22,10 @@ public class InOut {
         }
         return array;
     }
+    /**
+     * Метод вывода массива на консоль
+     * @param arr - входной массив
+     */
     static void printArray(double[ ] arr){
         for( double element : arr){
             System.out.print(element+" ");
