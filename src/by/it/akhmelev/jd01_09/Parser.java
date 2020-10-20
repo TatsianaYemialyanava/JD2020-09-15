@@ -3,8 +3,8 @@ package by.it.akhmelev.jd01_09;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class Parser {
-    Var calc(String expression){
+public class Parser {
+    public Var calc(String expression){
         //2*2 -> scalar==4
         expression.replaceAll("\\s+","");
 
