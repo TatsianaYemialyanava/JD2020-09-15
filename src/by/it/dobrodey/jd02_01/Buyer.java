@@ -31,7 +31,7 @@ public class Buyer extends Thread implements IBuyer {
         try {
             basket.putGoodsToBasket();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
         System.out.println(this + "                  finished to choose goods");
