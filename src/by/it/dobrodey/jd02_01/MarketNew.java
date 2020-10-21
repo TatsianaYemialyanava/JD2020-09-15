@@ -9,33 +9,20 @@ public class MarketNew {
     public static final int TIMEOPENMARKET = 120;
     static int count;
     static int second;
+    static int buyerNumber;
+    static List<Buyer> buyerList = new ArrayList<>();
 
     public static void main(String[] args) {
-        int buyerNumber = 0;
+        buyerNumber = 0;
         System.out.println("Market opened");
-        List<Buyer> buyerList = new ArrayList<>();
 
-        for (int i = 0; i < 10; i++) {
-            Buyer buyer = new Buyer(++buyerNumber);
-            if (buyerNumber % 4 == 0) {
-                buyer.setPriority(3);
-            }
-            buyer.start();
-            buyerList.add(buyer);
-        }
+
+        getBuyer(10);
         for (second = 0; second < TIMEOPENMARKET; second++) {
             count = funchionCount(second);
             System.out.printf("In %d second in market %d people\n", second, Supervisor.buyersInMarket);
             if (Supervisor.buyersInMarket < count) {
-                for (int i = 0; i < (count - Supervisor.buyersInMarket); i++) {
-                    Buyer buyer = new Buyer(++buyerNumber);
-                    if (buyerNumber % 4 == 0) {
-                        buyer.setPriority(3);
-                    }
-                    ++buyerNumber;
-                    buyer.start();
-                    buyerList.add(buyer);
-                }
+                getBuyer(count - Supervisor.buyersInMarket);
                 Helper.timeout(1000);
             } else Helper.timeout(1000);
         }
@@ -52,6 +39,8 @@ public class MarketNew {
         System.out.println("Marked close");
     }
 
+
+
     private static int funchionCount(int second) {
 
         int secondNow = second % 60;
@@ -61,6 +50,17 @@ public class MarketNew {
             count = 40 + (30 - secondNow);
         }
         return count;
+    }
+    static void getBuyer(int Number) {
+
+        for (int i = 0; i < Number; i++) {
+            Buyer buyer = new Buyer(++buyerNumber);
+            if (buyerNumber % 4 == 0) {
+                buyer.setPriority(3);
+            }
+            buyer.start();
+            buyerList.add(buyer);
+        }
     }
 }
 

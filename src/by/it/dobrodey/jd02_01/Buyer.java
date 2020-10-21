@@ -1,7 +1,10 @@
 package by.it.dobrodey.jd02_01;
 
 
+
+
 public class Buyer extends Thread implements IBuyer {
+
 
     Buyer(int number) {
         if (number % 4 == 0) {
@@ -31,15 +34,15 @@ public class Buyer extends Thread implements IBuyer {
     public void chooseGoods() {
         Basket basket = new Basket(this.toString());
         basket.takeBasket();
-        System.out.println(this + "                  started to choose goods");
+        System.out.println(this + "                started to choose goods");
 //        int timer = Helper.getRandom(500,2000);
 //        Helper.timeout(timer);
-
         try {
             basket.putGoodsToBasket();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+
 
         System.out.println(this + "                  finished to choose goods");
     }
@@ -54,4 +57,6 @@ public class Buyer extends Thread implements IBuyer {
     public String toString() {
         return getName();
     }
+
+
 }

@@ -4,6 +4,8 @@ import java.util.*;
 
 public class Experement {
     public static void main(String[] args) {
+
+
 //        Map<String,Double> goodsAndPrices = new HashMap<>();
 //        goodsAndPrices.put("footwear",8.0);
 //        goodsAndPrices.put("gloves",13.0);

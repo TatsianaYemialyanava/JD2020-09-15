@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public class Market {
-    public static final int TIMEOPENMARKET = 120;
+    public static final int TIMEOPENMARKET = 2;
     private static int period;
     static int second;
 
