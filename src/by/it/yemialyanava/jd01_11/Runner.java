@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/*public class Runner {
+public class Runner {
     public static void main(String[] args) {
         /*List<String> list = new ArrayList<>();
         list.add("one");
@@ -27,14 +27,14 @@ import java.util.Set;
         list2.remove(1);
         System.out.println(list2);*/
 
-        /*ListB list3 = new ListB<>();
+        ListB list3 = new ListB<>();
         list3.add("one");
         list3.add("two");
         list3.add("tree");
         list3.add("four");
         list3.add("five");
         System.out.println(list3);
-        list3.add(2, "Start");*/
+        list3.add(2, "Start");
         /*System.out.println(list3);
         list3.addAll(list3);
         list3.remove(1);
@@ -47,7 +47,7 @@ import java.util.Set;
         hs.add("Ant");
         System.out.println(hs);*/
 
-       /* SetC<String> hs2= new SetC<>();
+        SetC<String> hs2= new SetC<>();
         hs2.add("Start");
         hs2.add("Ancl");
         hs2.add("Ant");
@@ -56,5 +56,7 @@ import java.util.Set;
         System.out.println(hs2);
 
 
+
+
     }
-}*/
+}
