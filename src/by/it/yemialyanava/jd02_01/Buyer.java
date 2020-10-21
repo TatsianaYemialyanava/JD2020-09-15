@@ -4,19 +4,22 @@ import java.util.Map;
 
 class Buyer extends Thread implements IBuyer, IUseBasket {
 
-    Buyer(int number){
-        this.setName("Buyer N" + number);
+    boolean pensioneer;
+
+    Buyer(int number, boolean pensionerLiYa){
+        this.pensioneer = pensionerLiYa;
+        this.setName("Buyer N " + number + (pensioneer?", pensioner":""));
     }
 
     @Override
     public void run() {
         Supervisor.buyerInMarket++;
         enterToMarket();
+        //Supervisor.buyerInMarket++;
         takeBasket();
         chooseGoods();
-
         goOut();
-        Supervisor.buyerInMarket++;
+        Supervisor.buyerInMarket--;
     }
 
     @Override
@@ -28,6 +31,9 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     public void chooseGoods() {
         System.out.println(this + " started to choose goods");
         int timeout = Helper.getRandom(500, 2000);
+        if(pensioneer){
+            Helper.timeout(timeout + 1500);
+        }
         Helper.timeout(timeout);
         putGoodsToBasket();
         System.out.println(this + " finish to choose goods");
@@ -54,11 +60,13 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         Object[] keys = goods.keySet().toArray();
         int goodsInBasket = Helper.getRandom (1, 4);
         String [] resultKeys = new String[goodsInBasket];
-
         for (int i = 0; i < goodsInBasket; i++) {
             int randomGoodIndex = Helper.getRandom(0, keys.length - 1);
             String key =(String) keys[randomGoodIndex];
             resultKeys[i] = key;
+            if (pensioneer){
+                Helper.timeout(500 + 1500);
+            }
             Helper.timeout(500);
         }
         StringBuilder purches = new StringBuilder();
