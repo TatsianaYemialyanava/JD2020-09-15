@@ -14,7 +14,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         enterToMarket();
         takeBasket();
         chooseGoods();
-        putGoodsToBasket();
+
         goOut();
         Supervisor.buyerInMarket++;
     }
@@ -29,6 +29,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         System.out.println(this + " started to choose goods");
         int timeout = Helper.getRandom(500, 2000);
         Helper.timeout(timeout);
+        putGoodsToBasket();
         System.out.println(this + " finish to choose goods");
     }
 
