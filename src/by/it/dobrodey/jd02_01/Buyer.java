@@ -14,7 +14,6 @@ public class Buyer extends Thread implements IBuyer {
 
     @Override
     public void run() {
-
         Supervisor.buyersInMarket++;
         enterToMarket();
         chooseGoods();

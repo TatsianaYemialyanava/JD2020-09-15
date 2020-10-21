@@ -1,7 +1,6 @@
 package by.it.dobrodey.jd02_01;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,11 +37,7 @@ public class Market {
                 throw new RuntimeException(e);
             }
         }
-        try (PrintWriter writer = new PrintWriter(FileReadAndWrite.FILENAME)) {
-            writer.println(Choose.goodsBuyerMap);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        FileReadAndWrite.printInFile(FileReadAndWrite.FILENAME,Choose.goodsBuyerMap);
         System.out.println("Marked close");
     }
 }

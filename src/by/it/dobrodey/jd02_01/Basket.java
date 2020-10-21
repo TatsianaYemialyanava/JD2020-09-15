@@ -10,7 +10,10 @@ public class Basket extends Thread implements IUseBasket {
         this.setName(number);
                      }
     //public Buyer value;value.getNumber()+value.getNumber()+
+    @Override
+    public void run() {
 
+    }
 
     @Override
     public void takeBasket() {

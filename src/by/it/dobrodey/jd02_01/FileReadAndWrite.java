@@ -1,6 +1,9 @@
 package by.it.dobrodey.jd02_01;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Map;
 
 public class FileReadAndWrite {
 
@@ -10,7 +13,7 @@ public class FileReadAndWrite {
     static final String FILENAME = getPath(Basket.class) + BUYER_CHOOSE;
     @SuppressWarnings("SameParameterValue")
 
-    private static String getPath(Class<?> aClass) {
+     static String getPath(Class<?> aClass) {
         String packageName = aClass
                 .getPackage()
                 .getName()
@@ -19,6 +22,13 @@ public class FileReadAndWrite {
         String root = System.getProperty(USER_DIR);
         return root + File.separator + SRC +
                 File.separator + packageName;
+    }
+     static void printInFile(String filename, Map<?, ?> map) {
+        try (PrintWriter writer = new PrintWriter(filename )) {
+            writer.println(map);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
