@@ -7,21 +7,21 @@ import java.util.List;
 
 public class MarketNew {
     public static final int TIMEOPENMARKET = 120;
-    static int count;
+   // static int count;
     static int second;
-    static int buyerNumber;
+    static int buyerNumber=0;
     static List<Buyer> buyerList = new ArrayList<>();
 
     public static void main(String[] args) {
-        buyerNumber = 0;
+       // buyerNumber = 0;
         System.out.println("Market opened");
 
 
         getBuyer(10);
         for (second = 0; second < TIMEOPENMARKET; second++) {
-            count = funchionCount(second);
+            int count = funchionCount(second);
             System.out.printf("In %d second in market %d people\n", second, Supervisor.buyersInMarket);
-            if (Supervisor.buyersInMarket < count) {
+            if (count > Supervisor.buyersInMarket ) {
                 getBuyer(count - Supervisor.buyersInMarket);
                 Helper.timeout(1000);
             } else Helper.timeout(1000);
@@ -44,6 +44,7 @@ public class MarketNew {
     private static int funchionCount(int second) {
 
         int secondNow = second % 60;
+        int count;
         if (secondNow <= 30) {
             count = secondNow + 10;
         } else {
