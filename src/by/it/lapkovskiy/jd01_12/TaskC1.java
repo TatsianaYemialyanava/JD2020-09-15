@@ -1,6 +1,5 @@
 package by.it.lapkovskiy.jd01_12;
 
-import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;

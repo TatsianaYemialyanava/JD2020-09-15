@@ -1,20 +1,18 @@
 package by.it.girovka.jd3;
 
-public class Helper {
-    public static void main(String[] args) {
+import java.util.Arrays;
 
-    }
+public class Helper {
+
     static double findMin(double[ ] arr) {
         double min = arr[0];
-
-        for (double element : arr){
-            if (min > element) {
-                min = element;
+        for (double m : arr) {
+            if (min > m)
+                min = m;
             }
+            return min;
         }
-        System.out.println();
-        return min;
-    }
+
       static double findMax(double[ ] arr) {
           double max = arr[0];
           for (double element : arr) {
@@ -26,18 +24,33 @@ public class Helper {
           }
           return max;
       }
-    static void sort(double[ ] arr){
-        for (int i = arr.length-1; i >0; i--){
-            for(int j = 0; j<i; j++){
-            if ( arr[j]>arr[j+1]){
-                double tmp = arr [j];
-                arr[j] = arr [j+1];
-                arr[j+1] = tmp;
+    static double[ ] mul(double[ ][ ] matrix, double[ ] vector){
+        double[] res = new double[matrix.length];
+        for (int i = 0; i <res.length; i++)
+            for(int j = 0; j< vector.length; j++)
+                res[i] = res[i] + matrix[i][j]*vector[j];
+            return res;
 
             }
+    static void sort(double[]arr){
+        double arrSort = arr[0];
+        Arrays.sort(arr);
+        for(int i=0; i<arr.length; i++){
+            if(arr[i]<arrSort){
+                arrSort = arr[i];
             }
         }
     }
+    static double[ ][ ] mul(double[ ][ ] matrixLeft, double[ ][ ] matrixRight){
+        double[][] res = new double[matrixLeft.length][matrixRight[0].length];
+        for(int i = 0; i < matrixRight.length; i++)
+            for(int j = 0; j < matrixRight.length; j++)
+                for(int n = 0; n < matrixRight.length; n++)
+                    res[i][j]=res[i][j]+matrixLeft[i][n]*matrixRight[n][j];
+                return res;
+    }
+
+
 }
 
 

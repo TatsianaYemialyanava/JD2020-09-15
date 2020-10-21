@@ -31,7 +31,7 @@ class Vector extends Var {
     }
 
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         if (other instanceof Scalar) {
             Scalar otherScalar = (Scalar) other;
             double[] sum = Arrays.copyOf(value, value.length);
@@ -46,13 +46,16 @@ class Vector extends Var {
             for (int i = 0; i < sum.length; i++) {
                 sum[i] += otherVector.value[i];
             }
+            if (otherVector.value.length != value.length){
+                throw new CalcException("Длины векторов НЕ равны");
+            }
             return new Vector(sum);
         }
         else return super.add(other);
     }
 
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         if (other instanceof Scalar) {
             Scalar otherScalar = (Scalar) other;
             double[] sub = Arrays.copyOf(value, value.length);
@@ -67,13 +70,16 @@ class Vector extends Var {
             for (int i = 0; i < sub.length; i++) {
                 sub[i] -= otherVector.value[i];
             }
+            if (otherVector.value.length != value.length){
+                throw new CalcException("Длины векторов НЕ равны");
+            }
             return new Vector(sub);
         }
         else return super.sub(other);
     }
 
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         if (other instanceof Scalar) {
             Scalar otherScalar = (Scalar) other;
             double[] mul = Arrays.copyOf(value, value.length);
@@ -94,9 +100,12 @@ class Vector extends Var {
     }
 
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException {
         if (other instanceof Scalar) {
             Scalar otherScalar = (Scalar) other;
+            if (otherScalar.getValue()==0){
+                throw new CalcException("Деление на ноль");
+            }
             double[] div = Arrays.copyOf(value, value.length);
             for (int i = 0; i < div.length; i++) {
                 div[i] /= otherScalar.getValue();

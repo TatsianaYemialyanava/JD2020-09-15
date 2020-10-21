@@ -3,23 +3,19 @@ package by.it.siarheikorbut.calc;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author Siarhei Korbut
- * @see <a href="https://drive.google.com/file/d/1Dtmq3a65M1AIORy_S6eC7CHwxX6PCQGB/view?usp=sharing">Задание JD01_01 ( A, B, C )</a>
- */
-
 //Создание пустого абстрактного класса.
 public abstract class Var implements Operation {
 
     //Создание карты
     private static Map<String, Var> vars = new HashMap<>();
-    static Var saveVar(String name, Var var){
+
+    static Var saveVar(String name, Var var) {
         vars.put(name, var);
         return var;
     }
 
     //Создание статического метода класса Var который в зависимости от переданного содержимого возвращает соответствующую переменную.
-    static Var createVar(String operand) {
+    static Var createVar(String operand) throws CalcException {
         operand = operand.trim().replace("\\s+", "");
         if (operand.matches(Patterns.SCALAR)) {
             return new Scalar(operand);
@@ -29,10 +25,9 @@ public abstract class Var implements Operation {
         }
         if (operand.matches(Patterns.MATRIX)) {
             return new Matrix(operand);
-        }
-        else if (vars.containsKey(operand))
+        } else if (vars.containsKey(operand))
             return vars.get(operand);
-        return null;
+        throw new CalcException("Невозможно создать " + operand);
     }
 
     //Переопределение метода toString.
@@ -42,26 +37,22 @@ public abstract class Var implements Operation {
     }
 
     @Override
-    public Var add(Var other) {
-        System.out.println("Операция сложения " + this + "+" + other + " невозможна");
-        return null;
+    public Var add(Var other) throws CalcException {
+        throw new CalcException("Операция сложения " + this + "+" + other + " невозможна");
     }
 
     @Override
-    public Var sub(Var other) {
-        System.out.println("Операция вычитания " + this + "-" + other + " невозможна");
-        return null;
+    public Var sub(Var other) throws CalcException {
+        throw new CalcException("Операция вычитания " + this + "-" + other + " невозможна");
     }
 
     @Override
-    public Var mul(Var other) {
-        System.out.println("Операция умножения " + this + "*" + other + " невозможна");
-        return null;
+    public Var mul(Var other) throws CalcException {
+        throw new CalcException("Операция умножения " + this + "*" + other + " невозможна");
     }
 
     @Override
-    public Var div(Var other) {
-        System.out.println("Операция деления " + this + "/" + other + " невозможна");
-        return null;
+    public Var div(Var other) throws CalcException {
+        throw new CalcException("Операция деления " + this + "/" + other + " невозможна");
     }
 }
