@@ -1,24 +1,32 @@
 package by.it.dobrodey.jd02_01;
 
+
 public class Buyer extends Thread implements IBuyer {
 
     Buyer(int number) {
-        this.setName("Buyer № " + number);
+        if (number % 4 == 0) {
+            this.setName("Buyer pensioneer № " + number);
+        } else {
+            this.setName("Buyer № " + number);
+        }
     }
-
 
 
     @Override
     public void run() {
+
+        Supervisor.buyersInMarket++;
         enterToMarket();
         chooseGoods();
         goOut();
+        Supervisor.buyersInMarket--;
     }
 
     @Override
     public void enterToMarket() {
 
-        System.out.println(this + " enter to market");}
+        System.out.println(this + " enter to market ");
+    }
 
     @Override
     public void chooseGoods() {
@@ -38,9 +46,10 @@ public class Buyer extends Thread implements IBuyer {
     }
 
 
-
     @Override
-    public void goOut() {System.out.println(this + " go out market");}
+    public void goOut() {
+        System.out.println(this + " go out market ");
+    }
 
     @Override
     public String toString() {

@@ -6,8 +6,6 @@ import java.util.*;
 
 public class Basket extends Thread implements IUseBasket {
 
-
-
     Basket(String number) {
         this.setName(number);
                      }
@@ -19,6 +17,9 @@ public class Basket extends Thread implements IUseBasket {
         Buyer buyer = null; ;
         System.out.println(this+"          " + "take basket");
     }
+
+
+
 
     @Override
     public void putGoodsToBasket() throws InterruptedException {
@@ -36,11 +37,13 @@ public class Basket extends Thread implements IUseBasket {
                                             +next.getValue());
             Helper.timeout(Helper.getRandom(500,2000));
 
+
         }
         //printer on consol all goods
         String basket = goodsBuyer.toString().replace("{","").
                 replace("}","").replace("="," cost ");
         System.out.println(this+"                                   ALL goods to basket "+basket);
+        //print file buyerChoose
         Choose.goodsBuyerMap.put(this,goodsBuyer);
 
 
