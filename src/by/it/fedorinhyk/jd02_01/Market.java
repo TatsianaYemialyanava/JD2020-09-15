@@ -10,7 +10,7 @@ public class Market {
         for (int seconds = 0; seconds <120 ; seconds++) {
             int count=Helper.getRandom(2);
             for (int i = 0; i < count; i++) {
-                 Buyer buyer = new Buyer(BuyerNumber++);
+                 Buyer buyer = new Buyer(++BuyerNumber);
                  buyer.start();
                  buyers.add(buyer);
             }

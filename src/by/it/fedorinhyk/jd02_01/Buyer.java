@@ -1,7 +1,12 @@
 package by.it.fedorinhyk.jd02_01;
 
 
-class Buyer extends Thread implements IBuyer {
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+
+class Buyer extends Thread implements IBuyer,IUseBasket {
     Buyer (int number){
         this.setName("Покупатель №"+ number);
     }
@@ -10,6 +15,7 @@ class Buyer extends Thread implements IBuyer {
     public void run() {
         Supervisor.buyerInMarket++;
         enterToMarket();
+        takeBasket();
         chooseGoods();
         goOut();
         Supervisor.buyerInMarket--;
@@ -22,10 +28,11 @@ class Buyer extends Thread implements IBuyer {
 
     @Override
     public void chooseGoods() {
-        System.out.println(this+"начал выбирать товар");
+        System.out.println(this+" начал выбирать товар");
         int timeout=Helper.getRandom(500,2000);
         Helper.timeout(timeout);
-        System.out.println(this+"закончил выбирать товар");
+        putGoodsToBasket();
+        System.out.println(this+" закончил выбирать товар");
 
     }
 
@@ -35,7 +42,27 @@ class Buyer extends Thread implements IBuyer {
     }
 
     @Override
+    public void takeBasket() {
+        System.out.println(this+" взял корзину");
+    }
+
+    @Override
+    public void putGoodsToBasket() {
+        Set<Map.Entry<String, Double>> GoodsSet = Goods.getMap().entrySet();
+        HashMap <String,Double> goodsBuyer = new HashMap<>();
+        int goods = Helper.getRandom(1,4);
+        for (int i = 0; i < goods; i++) {
+            Iterator<Map.Entry<String, Double>> iterator = GoodsSet.iterator();
+            Map.Entry<String, Double> entrygoods = iterator.next();
+            goodsBuyer.put(entrygoods.getKey(),entrygoods.getValue());
+            System.out.println(this+" положил в корзину товар:"+"'"+entrygoods.getKey()+"'"+"по цене:"+entrygoods.getValue());
+            int timeout=Helper.getRandom(500,2000);
+            Helper.timeout(timeout);
+        }
+    }
+    @Override
     public String toString() {
         return getName();
     }
+
 }
