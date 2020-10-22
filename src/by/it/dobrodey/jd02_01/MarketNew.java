@@ -13,9 +13,9 @@ public class MarketNew {
 
 
     public static void main(String[] args) {
-       int buyerNumber=0;
-       List<Buyer> buyerList = new ArrayList<>();
-       int second;
+        int buyerNumber=0;
+        List<Buyer> buyerList = new ArrayList<>();
+        int second;
         System.out.println("Market opened");
 
 
@@ -41,7 +41,7 @@ public class MarketNew {
                 }
 
                 Helper.timeout(1000);
-            } else Helper.timeout(1000);
+            } else Thread.yield();
         }
 
         for (Buyer buyerl : buyerList) {
@@ -69,6 +69,7 @@ public class MarketNew {
         }
         return count;
     }
+
 
 }
 

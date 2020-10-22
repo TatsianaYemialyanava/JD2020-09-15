@@ -9,6 +9,8 @@ public class Basket extends Thread implements IUseBasket {
         this.setName(number);
     }
 
+
+
     @Override
     public void takeBasket() {
         System.out.println(this + "          " + "take basket");
