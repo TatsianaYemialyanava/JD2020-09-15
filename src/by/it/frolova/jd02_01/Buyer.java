@@ -18,11 +18,13 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
 
     @Override
     public void run() {
+        Supervisor.buyersInMarket++;
         enterToMarket();
         takeBasket();
         chooseGoods();
         putGoodsToBasket();
         goOut();
+        Supervisor.buyersInMarket--;
     }
 
     @Override
@@ -33,11 +35,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     @Override
     public void chooseGoods() {
         System.out.println(this + " started to choose");
-        if (pens) {
-            timeout = Helper.getRandom(7500, 30000);
-        } else {
-            timeout = Helper.getRandom(500, 2000);
-        }
+        waitingTime();
         Helper.timeout(timeout);
         System.out.println(this + " finished to choose");
 
@@ -58,12 +56,8 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     @Override
     public void putGoodsToBasket() {
         if (this.basket != null) {
+            waitingTime();
             int count = Helper.getRandom(1, 4);
-            if (pens) {
-                timeout = Helper.getRandom(7500, 30000);
-            } else {
-                timeout = Helper.getRandom(500, 2000);
-            }
             Goods goods = new Goods();
             Iterator<Good> goodIterator = goods.getGoods().keySet().iterator();
             for (int i = 0; i < count; i++) {
@@ -75,8 +69,16 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         }
     }
 
+    private void waitingTime() {
+        if (pens) {
+            timeout = Helper.getRandom(7500, 30000);
+        } else {
+            timeout = Helper.getRandom(500, 2000);
+        }
+    }
+
     @Override
     public String toString() {
-        return getName() + "(" + pens + ")";
+        return getName();
     }
 }
