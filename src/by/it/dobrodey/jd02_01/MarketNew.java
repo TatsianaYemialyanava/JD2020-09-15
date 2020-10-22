@@ -10,21 +10,36 @@ public class MarketNew {
     public static final int TIMEOPENMARKET = 120;
 
 
-    static int buyerNumber=0;
-    static List<Buyer> buyerList = new ArrayList<>();
+
 
     public static void main(String[] args) {
-       // buyerNumber = 0;
-        int second;
+       int buyerNumber=0;
+       List<Buyer> buyerList = new ArrayList<>();
+       int second;
         System.out.println("Market opened");
 
 
-        getBuyer(10);
+        for (int i = 0; i < 10; i++) {
+            Buyer buyer = new Buyer(++buyerNumber);
+            if (buyerNumber % 4 == 0) {
+                buyer.setPriority(3);
+            }
+            buyer.start();
+            buyerList.add(buyer);
+        }
         for ( second = 0; second < TIMEOPENMARKET; second++) {
             int count = funchionCount(second);
             System.out.printf("In %d second in market %d people\n", second, Supervisor.buyersInMarket);
             if (count > Supervisor.buyersInMarket ) {
-                getBuyer(count - Supervisor.buyersInMarket);
+                for (int i = 0; i < count - Supervisor.buyersInMarket; i++) {
+                    Buyer buyer = new Buyer(++buyerNumber);
+                    if (buyerNumber % 4 == 0) {
+                        buyer.setPriority(3);
+                    }
+                    buyer.start();
+                    buyerList.add(buyer);
+                }
+
                 Helper.timeout(1000);
             } else Helper.timeout(1000);
         }
@@ -54,17 +69,7 @@ public class MarketNew {
         }
         return count;
     }
-    static void getBuyer(int Number) {
 
-        for (int i = 0; i < Number; i++) {
-            Buyer buyer = new Buyer(++buyerNumber);
-            if (buyerNumber % 4 == 0) {
-                buyer.setPriority(3);
-            }
-            buyer.start();
-            buyerList.add(buyer);
-        }
-    }
 }
 
 
