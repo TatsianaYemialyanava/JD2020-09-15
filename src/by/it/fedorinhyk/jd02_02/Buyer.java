@@ -7,18 +7,27 @@ import java.util.Map;
 import java.util.Set;
 
 class Buyer extends Thread implements IBuyer, IUseBasket {
+    private boolean waiting;
+
     Buyer (int number){
         this.setName("Покупатель №"+ number);
+        Supervisor.addBuyer();
+        waiting=false;
+    }
+
+    public void setWaiting(boolean waiting){
+        this.waiting=waiting;
     }
 
     @Override
     public void run() {
-        Supervisor.buyerInMarket++;
         enterToMarket();
         takeBasket();
         chooseGoods();
+        putGoodsToBasket();
+        goToQueue();
         goOut();
-        Supervisor.buyerInMarket--;
+        Supervisor.leaveBuyers();
     }
 
     @Override
@@ -31,10 +40,27 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         System.out.println(this+" начал выбирать товар");
         int timeout= Helper.getRandom(500,2000);
         Helper.timeout(timeout);
-        putGoodsToBasket();
         System.out.println(this+" закончил выбирать товар");
 
     }
+
+    @Override
+    public void goToQueue() {
+        System.out.println(this+" идет к кассе");
+        synchronized (this){
+            waiting=true;
+            QueueBuyers.add(this);
+            while (waiting)
+                try {
+                    this.wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+        }
+        System.out.println(this+" ушел с кассы");
+
+    }
+
 
     @Override
     public void goOut() {
@@ -51,8 +77,8 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         Set<Map.Entry<String, Double>> GoodsSet = Goods.getMap().entrySet();
         HashMap <String,Double> goodsBuyer = new HashMap<>();
         int goods = Helper.getRandom(1,4);
+        Iterator<Map.Entry<String, Double>> iterator = GoodsSet.iterator();
         for (int i = 0; i < goods; i++) {
-            Iterator<Map.Entry<String, Double>> iterator = GoodsSet.iterator();
             Map.Entry<String, Double> entrygoods = iterator.next();
             goodsBuyer.put(entrygoods.getKey(),entrygoods.getValue());
             System.out.println(this+" положил в корзину товар:"+"'"+
