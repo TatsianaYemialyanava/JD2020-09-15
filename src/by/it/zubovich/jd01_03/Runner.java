@@ -12,9 +12,9 @@ public class Runner {
         System.out.println();
         Helper.sort(array);
         InOut.printArray(array,"V", 3);
-        var min = Helper.findMin(array);
+        double min = Helper.findMin(array);
         System.out.println(min);
-        var max = Helper.findMax(array);
+        double max = Helper.findMax(array);
         System.out.println(max);
     }
 

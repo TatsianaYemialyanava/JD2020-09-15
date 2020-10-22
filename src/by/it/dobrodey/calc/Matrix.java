@@ -1,16 +1,18 @@
 package by.it.dobrodey.calc;
 
+import by.it.akhmelev.calculator.CalcException;
+
 import java.util.Arrays;
 
 public class Matrix extends Var {
-    /**
+    /*
      *  На уровень Cразработайте для класса Varнаследника Matrixс тремя конструкторами:
      *  1. Из массива{ { 1.0, 2.0 },  { 3.0, 4.0 } } сигнатура Matrix(double[ ][ ]  value)
      *  2. Из такой же точно переменной сигнатура Matrix(Matrix matrix)
      *  3. Из строки вида  { { 1.0, 2.0 },  { 3.0, 4.0 } } сигнатура Matrix(String strMatrix)
      *   Переопределите метод String toString()так, чтобы он возвращал строку вида { { 1.0, 2.0 },  { 3.0, 4.0 } }
      */
-    private double[][]value;
+    private final double[][]value;
 
     public Matrix(double[ ][ ]  value){
         this.value = value;
@@ -25,14 +27,12 @@ public class Matrix extends Var {
 
     }
     public Matrix(String strMatrix){
-        /**
-         * { { 1.0, 2.0 },  { 3.0, 4.0 } }
-         */
+
         String line = strMatrix.trim();
         line = line.replaceAll("\\s+","");
         line = line.replaceFirst("\\{\\{","");
-        line = line.replaceFirst("\\}\\}","");
-        String[] lineNew = line.split("\\},\\{");
+        line = line.replaceFirst("}}","");
+        String[] lineNew = line.split("},\\{");
         String[][] elementNew = new String[lineNew.length][];
         for (int i1 = 0; i1 < lineNew.length; i1++) {
             elementNew[i1] = lineNew[i1].split(",");
@@ -70,7 +70,7 @@ public class Matrix extends Var {
     }
 
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         if (other instanceof Scalar){
             Scalar otherScalat = (Scalar) other;
             double [][] matrixAdd = new double[this.value.length][this.value[0].length];
@@ -86,6 +86,9 @@ public class Matrix extends Var {
             return result;
         }else if (other instanceof Matrix){
             Matrix otherMatrix = (Matrix) other;
+            if(otherMatrix.value.length!= this.value.length||otherMatrix.value[0].length!= this.value[0].length){
+                throw new CalcException("not compatible matrix size");
+            }
             double [][] matrixAdd = new double[this.value.length][this.value[0].length];
             for (int i = 0; i < this.value.length; i++) {
                 matrixAdd[i]= Arrays.copyOf(this.value[i],this.value[i].length);
@@ -102,7 +105,7 @@ public class Matrix extends Var {
     }
 
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         if (other instanceof Scalar){
             Scalar otherScalat = (Scalar) other;
             double [][] matrixSub = new double[this.value.length][this.value[0].length];
@@ -118,6 +121,9 @@ public class Matrix extends Var {
             return result;
         }else if (other instanceof Matrix){
             Matrix otherMatrix = (Matrix) other;
+            if(otherMatrix.value.length!= this.value.length||otherMatrix.value[0].length!= this.value[0].length){
+                throw new CalcException("not compatible matrix size");
+            }
             double [][] matrixSub = new double[this.value.length][this.value[0].length];
             for (int i = 0; i < this.value.length; i++) {
                 matrixSub[i]= Arrays.copyOf(this.value[i],this.value[i].length);
@@ -134,7 +140,7 @@ public class Matrix extends Var {
     }
 
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         if (other instanceof Scalar) {
             Scalar otherScalat = (Scalar) other;
             double[][] matrixSub = new double[this.value.length][this.value[0].length];
@@ -150,6 +156,8 @@ public class Matrix extends Var {
             return result;
         } else if (other instanceof Vector){
             Vector otherVector = (Vector) other;
+            if(otherVector.getValue().length!= value[0].length){throw new CalcException("\n" +
+                    "not compatible matrix or vector size");}
             double[][] matrixMul = new double[this.value.length][this.value[0].length];
             for (int i = 0; i < this.value.length; i++) {
                 matrixMul[i] = Arrays.copyOf(this.value[i], this.value[i].length);
@@ -166,6 +174,8 @@ public class Matrix extends Var {
 
         }else if (other instanceof Matrix){
             Matrix otherMatrix = (Matrix) other;
+            if (otherMatrix.value.length!= value[0].length){throw new CalcException("\n" +
+                    "not compatible matrix size");}
             double [][] matrixMul = new double[this.value.length][this.value[0].length];
             for (int i = 0; i < this.value.length; i++) {
                 matrixMul[i]= Arrays.copyOf(this.value[i],this.value[i].length);
@@ -184,16 +194,17 @@ public class Matrix extends Var {
     }
 
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException {
         if (other instanceof Scalar) {
-            Scalar otherScalat = (Scalar) other;
+            Scalar otherScalar = (Scalar) other;
+            if(otherScalar.getValue() == 0) {throw new CalcException(" division by zero");}
             double[][] matrixDiv = new double[this.value.length][this.value[0].length];
             for (int i = 0; i < this.value.length; i++) {
                 matrixDiv[i] = Arrays.copyOf(this.value[i], this.value[i].length);
             }
             for (int i = 0; i < matrixDiv.length; i++) {
                 for (int j = 0; j < matrixDiv[i].length; j++) {
-                    matrixDiv[i][j] /= otherScalat.getValue();
+                    matrixDiv[i][j] /= otherScalar.getValue();
                 }
             }
             Matrix result = new Matrix(matrixDiv);

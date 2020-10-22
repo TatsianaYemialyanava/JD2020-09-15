@@ -1,6 +1,8 @@
 package by.it.dobrodey.calc;
 
-import java.util.Map;
+import by.it.akhmelev.calculator.CalcException;
+
+
 import java.util.Scanner;
 
 public class ConsoleRunner {
@@ -8,6 +10,11 @@ public class ConsoleRunner {
         Scanner sc = new Scanner(System.in);
         Parser parser = new Parser();
         Printer printer = new Printer();
+        try {
+            Var.load();
+        } catch (CalcException e) {
+            System.out.println("File not found");
+        }
         for (; ; ) {
             String expression = sc.nextLine();
             if (expression.equals("end")) break;
@@ -19,8 +26,14 @@ public class ConsoleRunner {
                 printer.printsort(Var.getVarMap());
                 continue;
             }
-            Var result = parser.calc(expression);
-            printer.print(result);
+            try {
+                Var result = parser.calc(expression);
+                printer.print(result);
+            } catch (CalcException e) {
+                String message = e.getMessage();
+                System.out.println(message);
+            }
+
         }
     }
 }

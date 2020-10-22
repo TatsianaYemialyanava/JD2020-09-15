@@ -2,11 +2,6 @@ package by.it.siarheikorbut.calc;
 
 import java.util.Arrays;
 
-/**
- * @author Siarhei Korbut
- * @see <a href="https://drive.google.com/file/d/1Dtmq3a65M1AIORy_S6eC7CHwxX6PCQGB/view?usp=sharing">Задание JD01_01 ( A, B, C )</a>
- */
-
 //Создание дочернего от класса Var класса Vector
 public class Vector extends Var {
 
@@ -47,7 +42,7 @@ public class Vector extends Var {
 
     //Метод сложения скаляра и вектора, вектора и вектора.
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         //Сложение скаляра и вектора.
         if (other instanceof Scalar) {
             double[] res = Arrays.copyOf(VALUE, VALUE.length);
@@ -69,7 +64,7 @@ public class Vector extends Var {
 
     //Метод вычитания скаляра из вектора, вектора и вектора.
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double[] sub = Arrays.copyOf(VALUE, VALUE.length);
             for (int i = 0; i < sub.length; i++) {
@@ -89,7 +84,7 @@ public class Vector extends Var {
 
     //Метод умножения скаляра и вектора, вектора и вектора.
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
 
         if (other instanceof Scalar) {
             double[] sub = Arrays.copyOf(VALUE, VALUE.length);
@@ -110,7 +105,7 @@ public class Vector extends Var {
 
     //Метод деления вектора на скаляр, вектора и вектора.
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double[] sub = Arrays.copyOf(VALUE, VALUE.length);
             for (int i = 0; i < sub.length; i++) {

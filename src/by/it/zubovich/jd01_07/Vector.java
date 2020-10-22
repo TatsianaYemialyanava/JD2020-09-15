@@ -3,16 +3,16 @@ package by.it.zubovich.jd01_07;
 import java.util.Arrays;
 
 public class Vector extends Var {
-    private double[] value;
+    private final double[] value;
 
     Vector(double[] value) {
-        this.value = value;
 
+        this.value = value;
     }
 
     Vector(Vector vector) {
-        this.value = vector.value;
 
+        this.value = vector.value;
     }
 
     Vector(String strVector) {
@@ -21,14 +21,10 @@ public class Vector extends Var {
         for (int i = 0; i < result.length; i++) {
             value[i] = Double.parseDouble(result[i].trim());
         }
-
     }
 
     @Override
     public String toString() {
-
         return Arrays.toString(value).replace("[","{").replace("]","}");
-
-
     }
 }
