@@ -1,4 +1,5 @@
-package by.it.kolesnikov.jd02_01;
+package by.it.kolesnikov.jd02_02;
+
 
 import java.util.*;
 
