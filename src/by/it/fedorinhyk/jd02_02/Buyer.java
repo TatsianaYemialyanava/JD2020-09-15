@@ -1,4 +1,4 @@
-package by.it.fedorinhyk.jd02_01;
+package by.it.fedorinhyk.jd02_02;
 
 
 import java.util.HashMap;
@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-class Buyer extends Thread implements IBuyer,IUseBasket {
+class Buyer extends Thread implements IBuyer, IUseBasket {
     Buyer (int number){
         this.setName("Покупатель №"+ number);
     }
@@ -29,7 +29,7 @@ class Buyer extends Thread implements IBuyer,IUseBasket {
     @Override
     public void chooseGoods() {
         System.out.println(this+" начал выбирать товар");
-        int timeout=Helper.getRandom(500,2000);
+        int timeout= Helper.getRandom(500,2000);
         Helper.timeout(timeout);
         putGoodsToBasket();
         System.out.println(this+" закончил выбирать товар");
@@ -57,7 +57,7 @@ class Buyer extends Thread implements IBuyer,IUseBasket {
             goodsBuyer.put(entrygoods.getKey(),entrygoods.getValue());
             System.out.println(this+" положил в корзину товар:"+"'"+
                     entrygoods.getKey()+"'"+"по цене:"+entrygoods.getValue());
-            int timeout=Helper.getRandom(500,2000);
+            int timeout= Helper.getRandom(500,2000);
             Helper.timeout(timeout);
         }
     }
