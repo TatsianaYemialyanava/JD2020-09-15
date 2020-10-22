@@ -14,6 +14,7 @@ class Supervisor {
     }
     static void leaveBuyers(){
         synchronized (Supervisor.class){
+
             buyersLeavedMarket++;
         }
     }
@@ -21,6 +22,6 @@ class Supervisor {
         return buyersInterToMarket!=totalbuyers;
     }
     static boolean MarketIsClosed() {
-        return buyersInterToMarket == totalbuyers;
+        return buyersLeavedMarket == totalbuyers;
     }
 }
