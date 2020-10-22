@@ -51,12 +51,11 @@ class Buyer extends Thread implements IBuyer,IUseBasket {
         Set<Map.Entry<String, Double>> GoodsSet = Goods.getMap().entrySet();
         HashMap <String,Double> goodsBuyer = new HashMap<>();
         int goods = Helper.getRandom(1,4);
+        Iterator<Map.Entry<String, Double>> iterator = GoodsSet.iterator();
         for (int i = 0; i < goods; i++) {
-            Iterator<Map.Entry<String, Double>> iterator = GoodsSet.iterator();
             Map.Entry<String, Double> entrygoods = iterator.next();
             goodsBuyer.put(entrygoods.getKey(),entrygoods.getValue());
-            System.out.println(this+" положил в корзину товар:"+"'"+
-                    entrygoods.getKey()+"'"+"по цене:"+entrygoods.getValue());
+            System.out.println(this+" положил в корзину товар:"+"'"+entrygoods.getKey()+"'"+"по цене:"+entrygoods.getValue());
             int timeout=Helper.getRandom(500,2000);
             Helper.timeout(timeout);
         }
