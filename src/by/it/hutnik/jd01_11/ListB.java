@@ -2,14 +2,22 @@ package by.it.hutnik.jd01_11;
 
 import java.util.*;
 
-public class ListB {
+public abstract class ListB<T> implements List<T>{
 
-//    public class ListB<T> implements List<T> {
-//        private T[] elements = (T[]) new Object[0];
-//        private int size = 0;
-//        private T value;
-//
-//
+    public T[] elements = (T[]) new Object[]{};
+    private int size = 0;
+    private T value;
+
+    @Override
+    public boolean add(T t) {
+        if (elements.length == size) {
+            elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
+        }
+        elements[size++] = t;
+        return true;
+    }
+
+
 //        @Override
 //        public String toString() {
 //            StringBuilder out = new StringBuilder();
