@@ -1,4 +1,4 @@
-package by.it.dobrodey.jd02_01;
+package by.it.dobrodey.jd02_12;
 
 
 import java.util.ArrayList;
@@ -6,21 +6,19 @@ import java.util.List;
 
 
 public class MarketNew {
-
     public static final int TIMEOPENMARKET = 120;
-
-
+   // static int count;
+    static int second;
     static int buyerNumber=0;
     static List<Buyer> buyerList = new ArrayList<>();
 
     public static void main(String[] args) {
        // buyerNumber = 0;
-        int second;
         System.out.println("Market opened");
 
 
         getBuyer(10);
-        for ( second = 0; second < TIMEOPENMARKET; second++) {
+        for (second = 0; second < TIMEOPENMARKET; second++) {
             int count = funchionCount(second);
             System.out.printf("In %d second in market %d people\n", second, Supervisor.buyersInMarket);
             if (count > Supervisor.buyersInMarket ) {

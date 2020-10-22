@@ -1,6 +1,4 @@
-package by.it.dobrodey.jd02_01;
-
-import java.util.*;
+package by.it.dobrodey.jd02_12;
 
 public class Experement {
     public static void main(String[] args) {
