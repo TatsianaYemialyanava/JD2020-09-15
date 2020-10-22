@@ -6,6 +6,8 @@ interface IBuyer {
 
     void chooseGoods();
 
+    void goToQueue();
+
     void goOut();
 
 
