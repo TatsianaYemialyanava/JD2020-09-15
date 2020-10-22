@@ -8,4 +8,5 @@ interface IBuyer {
 
     void goOut();
 
+
 }
