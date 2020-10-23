@@ -10,7 +10,7 @@ public class FileReadAndWrite {
     private static final String USER_DIR = "user.dir";
     private static final String SRC = "src";
     private static final String BUYER_CHOOSE = "buyerChoose";
-    static final String FILENAME = getPath(Basket.class) + BUYER_CHOOSE;
+    static final String FILENAME = getPath(Buyer.class) + BUYER_CHOOSE;
     @SuppressWarnings("SameParameterValue")
 
      static String getPath(Class<?> aClass) {

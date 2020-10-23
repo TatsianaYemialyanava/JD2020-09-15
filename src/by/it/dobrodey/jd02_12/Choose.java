@@ -19,7 +19,7 @@ public class Choose {
         goodsAndPrices.put("BOOK",13.0);
         return goodsAndPrices;
     }
-    static Map<Basket,HashMap <String,Double>> goodsBuyerMap = new HashMap<>();
+    static Map<Buyer,HashMap <String,Double>> goodsBuyerMap = new HashMap<>();
 
 
 }

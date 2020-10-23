@@ -1,10 +1,13 @@
 package by.it.dobrodey.jd02_12;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class Cashier implements Runnable {
 
     private String name;
+
     public Cashier(int number) {
         this.name = "\tCashier №" + number;
     }
@@ -19,21 +22,21 @@ public class Cashier implements Runnable {
                 System.out.printf("%s started service for %s\n", this, buyer);
                 int t = Helper.getRandom(2000, 5000);
                 Helper.timeout(t);
+                Map<Buyer, HashMap<String, Double>> mapChooseBuyer = Choose.goodsBuyerMap;
+                final HashMap<String, Double> shoppingList = mapChooseBuyer.get(buyer);
+                System.out.printf("In %s:\n%s bought %s\n", this, buyer, shoppingList.toString());
                 System.out.printf("%s fifnshed service for %s\n", this, buyer);
-                synchronized (buyer){
+
+                synchronized (buyer) {
                     buyer.setWaiting(false);
                     buyer.notify();
                 }
-
             } else {
                 Thread.yield();
             }
         }
-
-
         System.out.printf("%s closed\n", this);
     }
-
     @Override
     public String toString() {
         return name;
