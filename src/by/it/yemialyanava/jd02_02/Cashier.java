@@ -13,7 +13,7 @@ public class Cashier implements Runnable {
     public void run() {
         System.out.printf("%s opened\n", this);
 
-        while (!Supervisor.marketIsOpen()){
+        while (!Supervisor.marketIsClosed()){
             Buyer buyer = QueueBuyers.extract();
             if(Objects.nonNull(buyer)){
                 System.out.printf("%s started service for %s\n", this, buyer);

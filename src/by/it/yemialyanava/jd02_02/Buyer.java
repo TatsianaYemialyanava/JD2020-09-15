@@ -25,7 +25,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         chooseGoods();
         goToQueue();
         goOut();
-        Supervisor.leaveBuyer;
+        Supervisor.leaveBuyer();
     }
 
     @Override
@@ -51,12 +51,13 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         synchronized (this) {
             waiting = true;
             QueueBuyers.add(this);
-            while (waiting)
+            while (waiting) {
                 try {
                     this.wait();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
+            }
         }
         System.out.println(this + " leave queue");
     }
@@ -82,20 +83,23 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         Map<String, Double> goods = Good.getGoods();
         Object[] keys = goods.keySet().toArray();
         int goodsInBasket = Helper.getRandom(1, 4);
-        String[] resultKeys = new String[goodsInBasket];
+        String[] resultProducts = new String[goodsInBasket];
         for (int i = 0; i < goodsInBasket; i++) {
             int randomGoodIndex = Helper.getRandom(0, keys.length - 1);
-            String key = (String) keys[randomGoodIndex];
-            resultKeys[i] = key;
+            String product = (String) keys[randomGoodIndex];
+            resultProducts[i] = product;
             if (pensioneer) {
                 Helper.timeout(500 + 1500);
             }
             Helper.timeout(500);
         }
         StringBuilder purches = new StringBuilder();
-        for (String resultkey : resultKeys) {
-            purches.append("\t").append(resultkey).append(" ").append(goods.get(resultkey)).append("\n");
+        double totalSumma = 0;
+        for (String resultProduct : resultProducts) {
+            totalSumma +=goods.get(resultProduct);
+            purches.append("\t").append(resultProduct).append(" ").append(goods.get(resultProduct)).append("\n");
         }
+        purches.append("\t").append("total summa: ").append(totalSumma).append("\n");
         System.out.println(this + " buy\n " + purches.toString());
     }
 }
