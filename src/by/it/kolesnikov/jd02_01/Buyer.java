@@ -1,21 +1,27 @@
 package by.it.kolesnikov.jd02_01;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 class Buyer extends Thread implements IBuyer, IUseBasket {
-    public static final Object ob = new Object();
+    public static final Lock lock = new ReentrantLock();;
 
     public Buyer(int number){
+
         this.setName("Buyer №"+number);
     }
 
     @Override
     public void run() {
-            enterToMarket();
-            takeBasket();
-            choseGoods();
-            putGoodsToBasket();
-            goOut();
-    }
-
+        enterToMarket();
+        takeBasket();
+        choseGoods();
+        putGoodsToBasket();
+        goOut();
+        }
     @Override
     public void takeBasket(){
 
@@ -24,8 +30,32 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
 
     @Override
     public void putGoodsToBasket(){
-        System.out.print(this+" put next goods into the basket: ");
-        Basket.basket();
+        StringBuffer sb =new StringBuffer();
+        List<String> goods = new ArrayList<>();
+        List<String> basketGoods = new ArrayList<>();
+        List<Integer> prices = new ArrayList<>();
+        List<Integer> price = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : Good.goods().entrySet()){
+            String el = entry.getKey();
+            Integer pr = entry.getValue();
+            goods.add(el);
+            prices.add(pr);
+        }
+        int count = Helper.getRandom(1,4);
+        String delimiter = "";
+        int sum=0;
+        for (int i = 0; i < count; i++) {
+            int rnd = Helper.getRandom(3);
+            String good = goods.get(rnd);
+            int pr = prices.get(rnd);
+            basketGoods.add(good);
+            price.add(pr);
+            sum=sum+price.get(i);
+            sb.append(delimiter);
+            sb.append(basketGoods.get(i));
+            delimiter=", ";
+        }
+        System.out.println(this+" put next goods to basket: "+sb+": costs $"+sum);
     }
 
     @Override
