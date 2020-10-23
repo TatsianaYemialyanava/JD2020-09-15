@@ -13,13 +13,22 @@ public class Cashier implements Runnable {
     @Override
     public void run() {
         System.out.printf("%s opened\n", this);
-        while (!Supervisor.marketIsClosed() && QueueBuyers.countBuyerInQueue() != 0){
-            Buyer buyer = QueueBuyers.extract();
+        double commonSummaAllBuyers = 0;
+        while (!Supervisor.marketIsClosed() && (QueueBuyers.countBuyerInQueue() != 0 ||
+                                                    QueueBuyers.countBuyerInQueuePensioneer() !=0)){
+            Buyer buyer = null; ///?????
+            if(QueueBuyers.countBuyerInQueuePensioneer() !=0){
+                buyer = QueueBuyers.extractPensioneer();
+            } else {
+                buyer = QueueBuyers.extract();
+            }
+
             if(Objects.nonNull(buyer)){
-                System.out.printf("%s started service for %s\n", this, buyer);
+            System.out.printf("%s started service for %s\n", this, buyer);
                 int t = Helper.getRandom(2000, 5000);
                 Helper.timeout(t);
                 System.out.printf("%s finished service for %s\n", this, buyer);
+                //commonSummaAllBuyers = commonSummaAllBuyers;
                 synchronized (buyer){
                     buyer.setWaiting(false);
                     buyer.notify();
@@ -28,6 +37,7 @@ public class Cashier implements Runnable {
                 Thread.yield();
             }
         }
+
         System.out.printf("%s closed\n", this);
         Supervisor.cashierStopWork();
     }

@@ -3,6 +3,7 @@ package by.it.yemialyanava.jd02_02;
 import java.util.Map;
 
 class Buyer extends Thread implements IBuyer, IUseBasket {
+
     private boolean waiting;
 
     boolean pensioneer;
@@ -17,6 +18,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     public void setWaiting(boolean waiting) {
         this.waiting = waiting;
     }
+
 
     @Override
     public void run() {
