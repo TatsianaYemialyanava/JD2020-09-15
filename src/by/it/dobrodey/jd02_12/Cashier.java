@@ -3,6 +3,7 @@ package by.it.dobrodey.jd02_12;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 public class Cashier implements Runnable {
 
@@ -24,7 +25,14 @@ public class Cashier implements Runnable {
                 Helper.timeout(t);
                 Map<Buyer, HashMap<String, Double>> mapChooseBuyer = Choose.goodsBuyerMap;
                 final HashMap<String, Double> shoppingList = mapChooseBuyer.get(buyer);
-                System.out.printf("In %s:\n%s bought %s\n", this, buyer, shoppingList.toString());
+                final Set<String> shopping = shoppingList.keySet();
+                double sum = 0;
+                System.out.printf("In %s %s bought:\n", this, buyer);
+                for (String s : shopping) {
+                    System.out.printf("%9s = %4.1f\n",s,shoppingList.get(s));
+                    sum+=shoppingList.get(s);
+                }
+                System.out.printf("    Total = %4.1f\n",sum);
                 System.out.printf("%s fifnshed service for %s\n", this, buyer);
 
                 synchronized (buyer) {

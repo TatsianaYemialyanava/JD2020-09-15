@@ -18,7 +18,7 @@ class Supervisor {
         return buyersLeavedMarket;
     }
 
-    private static final int buyerTotal = 10;//0;
+    private static final int buyerTotal = 100;//0;
 
     static synchronized void addBuyer() {
         buyersEnterToMarket++;
