@@ -4,7 +4,7 @@ package by.it.dobrodey.jd02_12;
 import java.util.HashMap;
 import java.util.Map;
 
-class Buyer extends Thread implements IBuyer,IUseBasket  {
+class Buyer extends Thread implements IBuyer, IUseBasket {
 
     private boolean waiting;
 
@@ -37,28 +37,30 @@ class Buyer extends Thread implements IBuyer,IUseBasket  {
     public void enterToMarket() {
         System.out.println(this + " enter to market ");
     }
+
     @Override
     public void takeBasket() {
-        System.out.println(this+"          " + "take basket");
+        System.out.println(this + "          " + "take basket");
     }
 
     @Override
     public void chooseGoods() {
 
         System.out.println(this + "                started to choose goods");
-        int timer = Helper.getRandom(500,2000);
+        int timer = Helper.getRandom(500, 2000);
         Helper.timeout(timer);
         System.out.println(this + "                  finished to choose goods");
     }
+
     @Override
-    public void putGoodsToBasket()  {
-        HashMap<String,Double> goodsBuyer = new HashMap<>();
-        int numberOfGoods = Helper.getRandom(1,4);
+    public void putGoodsToBasket() {
+        HashMap<String, Double> goodsBuyer = new HashMap<>();
+        int numberOfGoods = Helper.getRandom(1, 4);
         Map<String, Double> goods = Choose.getMap();
         Object[] setKey = goods.keySet().toArray();
-        int koef =2;
+        int koef = 2;
         for (int i = 0; i < numberOfGoods; i++) {
-            int randomGoods = Helper.getRandom(goods.keySet().size()-1);
+            int randomGoods = Helper.getRandom(goods.keySet().size() - 1);
             String key = (String) setKey[randomGoods];
             Double value = goods.get(key);
 //            System.out.println(this + "                                put goods to basket "
@@ -66,25 +68,24 @@ class Buyer extends Thread implements IBuyer,IUseBasket  {
 //                    + " cost "
 //                    + value);
 
-            if(goodsBuyer.containsKey(key)){
-                double newvalue= value*koef++;
-                goodsBuyer.put(key,newvalue);}
-            else goodsBuyer.put(key,value);
-            Helper.timeout(Helper.getRandom(500,2000));
-
+            if (goodsBuyer.containsKey(key)) {
+                double newvalue = value * koef++;
+                goodsBuyer.put(key, newvalue);
+            } else goodsBuyer.put(key, value);
+            Helper.timeout(Helper.getRandom(500, 2000));
         }
 
         //printer on consol all goods
-        String basket = goodsBuyer.toString().replace("{","").
-                replace("}","").replace("="," cost ");
-        System.out.println(this+"                                   ALL goods to basket "+basket);
-        Choose.goodsBuyerMap.put(this,goodsBuyer);
-
+        String basket = goodsBuyer.toString().replace("{", "").
+                replace("}", "").replace("=", " cost ");
+        System.out.println(this + "                                   ALL goods to basket " + basket);
+        Choose.goodsBuyerMap.put(this, goodsBuyer);
     }
 
     @Override
     public void goToQueue() {
         System.out.println(this + " go to queue");
+
         synchronized (this) {
             waiting = true;
             QueueBuyers.add(this);
@@ -97,6 +98,7 @@ class Buyer extends Thread implements IBuyer,IUseBasket  {
         }
         System.out.println(this + " leave queue");
     }
+
 
     @Override
     public void goOut() {
