@@ -7,6 +7,7 @@ class Supervisor {
 
     private static volatile int buyersEnterToMarket = 0;
     private static volatile int buyersLeavedMarket = 0;
+    private static volatile int buyersEnterQueue = 0;
 
     static synchronized int getBuyer(){
         return buyersEnterToMarket-buyersLeavedMarket;
@@ -23,6 +24,9 @@ class Supervisor {
     static synchronized void addBuyer() {
         buyersEnterToMarket++;
     }
+    static synchronized void addQueue() {
+        buyersEnterQueue++;
+    }
 
     static void leaveBuyer() {
         synchronized (Supervisor.class) {
@@ -37,7 +41,9 @@ class Supervisor {
     static boolean marketIsClosed() {
         return buyersLeavedMarket == buyerTotal;
     }
-
+    static boolean queueClosed() {
+        return buyersEnterQueue == buyerTotal;
+    }
 
 }
 

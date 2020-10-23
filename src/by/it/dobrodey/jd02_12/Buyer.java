@@ -85,10 +85,51 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     @Override
     public void goToQueue() {
         System.out.println(this + " go to queue");
-
+        while (QueueBuyersAndCashir.getSizeCashier() != 5) {
+            Helper.timeout(1000);
+        }
+        if (QueueBuyersAndCashir.getSize() > 20) {
+            synchronized (Cashier.monCashier1) {
+                for (int i = 1; i <= 4; i++) {
+                Cashier cashier = QueueBuyersAndCashir.openCashier();}
+                Cashier.monCashier1.notifyAll();
+                System.out.printf("All CASHIERS opened\n");
+            }
+        } else if (QueueBuyersAndCashir.getSize() > 15) {
+            synchronized (Cashier.monCashier1) {
+                for (int i = 1; i <= 3; i++) {
+                    Cashier cashier = QueueBuyersAndCashir.openCashier();
+                    Cashier.monCashier1.notify();
+                    System.out.printf("%s opened\n", cashier);
+                }
+            }
+        } else if (QueueBuyersAndCashir.getSize() > 10) {
+            synchronized (Cashier.monCashier1) {
+                for (int i = 1; i <= 2; i++) {
+                    Cashier cashier = QueueBuyersAndCashir.openCashier();
+                    Cashier.monCashier1.notify();
+                    System.out.printf("%s opened\n", cashier);
+                }
+            }
+        } else {
+            synchronized (Cashier.monCashier1) {
+                Cashier cashier = QueueBuyersAndCashir.openCashier();
+                Cashier.monCashier1.notify();
+                System.out.printf("%s opened\n", cashier);
+            }
+        }
+//        } else if (QueueBuyersAndCashir.getSize() > 0) {
+//            synchronized (Cashier.monCashier1) {
+//                Cashier cashier = QueueBuyersAndCashir.openCashier();
+//                cashier.notify();
+//                System.out.printf("%s opened\n", cashier);
+//            }
+//        }
+        Supervisor.addQueue();
         synchronized (this) {
             waiting = true;
-            QueueBuyers.add(this);
+            QueueBuyersAndCashir.add(this);
+
             while (waiting)
                 try {
                     this.wait();
@@ -96,6 +137,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
                     throw new RuntimeException(e);
                 }
         }
+
         System.out.println(this + " leave queue");
     }
 

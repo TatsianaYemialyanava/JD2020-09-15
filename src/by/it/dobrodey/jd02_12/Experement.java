@@ -1,30 +1,20 @@
 package by.it.dobrodey.jd02_12;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Experement {
     public static void main(String[] args) {
-
-            Map<String,Double> goodsAndPrices = new HashMap<>();
-            goodsAndPrices.put("FOOTWEAR",8.0);
-            goodsAndPrices.put("GLOVES",13.0);
-            goodsAndPrices.put("CLOTHES",1.0);
-            goodsAndPrices.put("HEADDRESS",5.0);
-            goodsAndPrices.put("DRINK",8.0);
-            goodsAndPrices.put("TEA",13.0);
-            goodsAndPrices.put("COFFEE",1.0);
-            goodsAndPrices.put("EAT",5.0);
-            goodsAndPrices.put("NEWSPAPER",8.0);
-            goodsAndPrices.put("BOOK",13.0);
-        final Set<String> strings = goodsAndPrices.keySet();
-
-        for (String string : strings) {
-            System.out.printf("%9s = %4.1f\n",string,goodsAndPrices.get(string));
-
-
-        }
+//        Deque<Integer> dequeCashier = new LinkedList<>();
+//        dequeCashier.add(1);
+//        dequeCashier.add(2);
+//        dequeCashier.add(3);dequeCashier.add(4);dequeCashier.add(5);dequeCashier.add(7);dequeCashier.add(6);
+//int a = 3;
+//        System.out.println(dequeCashier);
+//        switch (a = 3){
+//            case dequeCashier.size()==7:
+//                System.out.println();
+//
+//        }
 
     }
 }
