@@ -8,6 +8,7 @@ import java.util.Set;
 public class Cashier implements Runnable {
 
     private String name;
+    final static Object monCashier = new Object();
 
     public Cashier(int number) {
         this.name = "\tCashier №" + number;
@@ -15,9 +16,16 @@ public class Cashier implements Runnable {
 
     @Override
     public void run() {
-        System.out.printf("%s opened\n", this);
-
+//        synchronized (monCashier){
+//            try {
+//                this.wait();
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException();
+//            }}
+            System.out.printf("%s opened\n", this);
         while (!Supervisor.marketIsClosed()) {
+
+
             Buyer buyer = QueueBuyers.extract();
             if (Objects.nonNull(buyer)) {
                 System.out.printf("%s started service for %s\n", this, buyer);
@@ -29,10 +37,10 @@ public class Cashier implements Runnable {
                 double sum = 0;
                 System.out.printf("In %s %s bought:\n", this, buyer);
                 for (String s : shopping) {
-                    System.out.printf("%9s = %4.1f\n",s,shoppingList.get(s));
-                    sum+=shoppingList.get(s);
+                    System.out.printf("%9s = %4.1f\n", s, shoppingList.get(s));
+                    sum += shoppingList.get(s);
                 }
-                System.out.printf("    Total = %4.1f\n",sum);
+                System.out.printf("    Total = %4.1f\n", sum);
                 System.out.printf("%s fifnshed service for %s\n", this, buyer);
 
                 synchronized (buyer) {
@@ -43,8 +51,19 @@ public class Cashier implements Runnable {
                 Thread.yield();
             }
         }
+
+
         System.out.printf("%s closed\n", this);
+
+//            else {System.out.printf("%s closed\n", this);
+//            synchronized (monCashier) {
+//                try {
+//                    this.wait();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
     }
+
     @Override
     public String toString() {
         return name;

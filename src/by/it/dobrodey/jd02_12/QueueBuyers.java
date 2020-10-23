@@ -9,6 +9,13 @@ public class QueueBuyers {
 
     private static Deque<Buyer> deque = new LinkedList<>();
 
+
+    static int getSize(){
+        synchronized (monitor){
+            return deque.size();
+        }
+    }
+
     static void add(Buyer buyer) {
         synchronized (monitor) {
             deque.addLast(buyer);

@@ -6,12 +6,13 @@ import java.util.List;
 
 public class MarketA {
 
+
     public static void main(String[] args) {
         int buyerNumber = 0;
         System.out.println("Market opened");
         List<Thread> threads = new ArrayList<>();
 
-        for (int i = 1; i <= 2; i++) {
+        for (int i = 1; i <= 5; i++) {
             Cashier cashier = new Cashier(i);
             Thread thread = new Thread(cashier);
             threads.add(thread);
@@ -36,7 +37,7 @@ public class MarketA {
         }
         FileReadAndWrite.printInFile(FileReadAndWrite.FILENAME, Choose.goodsBuyerMap);
         System.out.printf("In market enter %d people and Leave %d people.\n In market %d people\n",
-                Supervisor.getBuyerEnter(),Supervisor.getBuyerLeaved(), Supervisor.getBuyer());
+                Supervisor.getBuyerEnter(), Supervisor.getBuyerLeaved(), Supervisor.getBuyer());
         System.out.println("Market closed");
     }
 }
