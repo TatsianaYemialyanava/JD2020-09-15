@@ -1,8 +1,9 @@
 package by.it.dobrodey.jd02_12;
 
 
-public class Buyer extends Thread implements IBuyer {
+class Buyer extends Thread implements IBuyer {
 
+    private boolean waiting;
 
     Buyer(int number) {
         if (number % 4 == 0) {
@@ -10,21 +11,25 @@ public class Buyer extends Thread implements IBuyer {
         } else {
             this.setName("Buyer № " + number);
         }
+        Supervisor.addBuyer();
+        waiting = false;
     }
 
+    public void setWaiting(boolean waiting) {
+        this.waiting = waiting;
+    }
 
     @Override
     public void run() {
-        Supervisor.buyersInMarket++;
         enterToMarket();
         chooseGoods();
+        goToQueue();
         goOut();
-        Supervisor.buyersInMarket--;
+        Supervisor.leaveBuyer();
     }
 
     @Override
     public void enterToMarket() {
-
         System.out.println(this + " enter to market ");
     }
 
@@ -40,11 +45,24 @@ public class Buyer extends Thread implements IBuyer {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
-
         System.out.println(this + "                  finished to choose goods");
     }
 
+    @Override
+    public void goToQueue() {
+        System.out.println(this + " go to queue");
+        synchronized (this) {
+            waiting = true;
+            QueueBuyers.add(this);
+            while (waiting)
+                try {
+                    this.wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+        }
+        System.out.println(this + " leave queue");
+    }
 
     @Override
     public void goOut() {
@@ -55,6 +73,4 @@ public class Buyer extends Thread implements IBuyer {
     public String toString() {
         return getName();
     }
-
-
 }
