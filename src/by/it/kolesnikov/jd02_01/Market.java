@@ -8,7 +8,7 @@ public class Market {
         int buyerNumber=0;
         System.out.println("Market opened");
         List<Buyer> buyers = new ArrayList<>();
-        for (int second = 0; second < 120; second++) {
+        for (int second = 0; second < 100; second++) {
             int count = Helper.getRandom(2);
             for (int i = 0; i < count; i++) {
                 Buyer buyer = new Buyer(++buyerNumber);

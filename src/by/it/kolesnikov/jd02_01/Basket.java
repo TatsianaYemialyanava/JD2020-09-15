@@ -9,6 +9,7 @@ class Basket {
     И в ArrayList price цены на товары. В переменную sum добавляем всю стоимость случайно добавленных товаров
     */
     static void basket() {
+        StringBuffer bas = new StringBuffer();
         List<String> goods = new ArrayList<>();
         List<String> basketGoods = new ArrayList<>();
         List<Integer> prices = new ArrayList<>();
@@ -29,10 +30,10 @@ class Basket {
             basketGoods.add(good);
             price.add(pr);
             sum=sum+price.get(i);
-            System.out.print(delimiter);
-            System.out.print(basketGoods.get(i));
+            bas.append(delimiter);
+            bas.append(basketGoods.get(i));
             delimiter=", ";
         }
-        System.out.println(": costs $"+sum);
+        System.out.println(bas+": costs $"+sum);
     }
 }
