@@ -6,14 +6,14 @@ public class Cashier implements Runnable {
     private String name;
 
     public Cashier(int number){
-    this.name = "\tCashier № " + number;
+        this.name = "\tCashier № " + number;
+        Supervisor.addCashier();
     }
 
     @Override
     public void run() {
         System.out.printf("%s opened\n", this);
-
-        while (!Supervisor.marketIsClosed()){
+        while (!Supervisor.marketIsClosed() && QueueBuyers.countBuyerInQueue() != 0){
             Buyer buyer = QueueBuyers.extract();
             if(Objects.nonNull(buyer)){
                 System.out.printf("%s started service for %s\n", this, buyer);
@@ -29,6 +29,7 @@ public class Cashier implements Runnable {
             }
         }
         System.out.printf("%s closed\n", this);
+        Supervisor.cashierStopWork();
     }
 
     @Override

@@ -7,6 +7,7 @@ class Supervisor {
 
     private static volatile int buyerEnterToMarket = 0;
     private static volatile int buyerLeaveMarket = 0;
+    private static volatile int cashierWorking = 0;
 
     private static final int buyerTotal = 100;
 
@@ -19,6 +20,17 @@ class Supervisor {
             buyerLeaveMarket++;
         }
     }
+
+    static synchronized void addCashier(){
+        cashierWorking++;
+    }
+    static synchronized void cashierStopWork(){
+        cashierWorking--;
+    }
+    static synchronized int cashierWorkNow(){
+        return cashierWorking;
+    }
+
     static boolean marketIsOpened(){
         return buyerEnterToMarket != buyerTotal;
     }

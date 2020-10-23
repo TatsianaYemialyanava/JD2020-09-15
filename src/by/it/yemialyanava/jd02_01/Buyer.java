@@ -9,17 +9,16 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     Buyer(int number, boolean pensionerLiYa){
         this.pensioneer = pensionerLiYa;
         this.setName("Buyer N " + number + (pensioneer?", pensioner":""));
+        Supervisor.addBuyer();
     }
 
     @Override
     public void run() {
-        Supervisor.buyerInMarket++;
         enterToMarket();
-        //Supervisor.buyerInMarket++;
         takeBasket();
         chooseGoods();
         goOut();
-        Supervisor.buyerInMarket--;
+        Supervisor.leaveBuyer();
     }
 
     @Override
