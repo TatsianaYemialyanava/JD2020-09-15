@@ -8,7 +8,7 @@ public class Market {
         int a = 0;
         int b = 0;
         int c = 0;
-        int cof = 10;
+        int cof = 0;
         int buyerNumber = 0;
         System.out.println("Market opened");
         List<Buyer> buyers = new ArrayList<>();
@@ -18,8 +18,8 @@ public class Market {
             if (second == 60) b = Supervisor.buyersInMarket;
             if (second == 90) c = Supervisor.buyersInMarket;
             if (((second <= 30 || (second <= 90 && second >= 60)) || Supervisor.buyersInMarket < 10) && Supervisor.buyersInMarket <35)
-                cof+=2;
-            else cof-=2;
+               cof+=1;//TODO
+            else cof-=1;
                 for (int i = 0; i < cof; i++) {
                     Buyer buyer = new Buyer(++buyerNumber, i % 4 == 0);
                     buyer.start();

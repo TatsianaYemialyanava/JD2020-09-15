@@ -1,4 +1,4 @@
-package by.it.lapkovskiy.jd02_01;
+package by.it.lapkovskiy.jd02_02;
 
 import java.util.HashMap;
 import java.util.Map;
