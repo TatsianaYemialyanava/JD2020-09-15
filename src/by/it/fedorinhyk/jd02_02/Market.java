@@ -9,14 +9,14 @@ public class Market {
         System.out.println("Магазин открыт");
         List<Thread> threads = new ArrayList<>();
 
-        for (int i = 1; i <=2; i++) {
+        for (int i = 1; i <=5; i++) {
             Cashier cashier=new Cashier(i);
             Thread thread=new Thread(cashier);
             threads.add(thread);
             thread.start();
         }
         while (Supervisor.MarketIsOpened()){
-            int count=Helper.getRandom(2);
+            int count=Helper.getRandom(20);
             for (int i = 0; i < count && Supervisor.MarketIsOpened(); i++) {
                 Buyer buyer=new Buyer(++BuyerNumber);
                 buyer.start();
