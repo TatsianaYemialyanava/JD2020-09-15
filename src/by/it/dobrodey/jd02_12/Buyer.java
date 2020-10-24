@@ -88,14 +88,55 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
 
         synchronized (this) {
             waiting = true;
-            QueueBuyers.add(this);
+            QueueBuyersAndCashir.add(this);
+            Supervisor.addQueue();
             while (waiting)
                 try {
+
                     this.wait();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
         }
+        System.out.println("!!!!!!!!!"+QueueBuyersAndCashir.getSize());
+        if(Supervisor.queueClosed()){synchronized (Cashier.monCashier1) {
+            for (int i = 1; i <= 4; i++) {
+                Cashier cashier = QueueBuyersAndCashir.openCashier();}
+            Cashier.monCashier1.notifyAll();
+            System.out.printf("All CASHIERS opened\n");
+        }}
+        else if ((QueueBuyersAndCashir.getSize() > 20)) {
+            synchronized (Cashier.monCashier1) {
+                for (int i = 1; i <= 4; i++) {
+                    Cashier cashier = QueueBuyersAndCashir.openCashier();}
+                Cashier.monCashier1.notifyAll();
+                System.out.printf("All CASHIERS opened\n");
+            }
+        } else
+            if (QueueBuyersAndCashir.getSize() > 15) {
+            synchronized (Cashier.monCashier1) {
+                for (int i = 1; i <= 3; i++) {
+                    Cashier cashier = QueueBuyersAndCashir.openCashier();
+                    Cashier.monCashier1.notify();
+                    System.out.printf("%s opened\n", cashier);
+                }
+            }
+        } else if (QueueBuyersAndCashir.getSize() > 10) {
+            synchronized (Cashier.monCashier1) {
+                for (int i = 1; i <= 2; i++) {
+                    Cashier cashier = QueueBuyersAndCashir.openCashier();
+                    Cashier.monCashier1.notify();
+                    System.out.printf("%s opened\n", cashier);
+                }
+            }
+        } else {
+            synchronized (Cashier.monCashier1) {
+                Cashier cashier = QueueBuyersAndCashir.openCashier();
+                Cashier.monCashier1.notify();
+                System.out.printf("%s opened\n", cashier);
+            }
+        }
+
         System.out.println(this + " leave queue");
     }
 
