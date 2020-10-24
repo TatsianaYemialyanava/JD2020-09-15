@@ -20,8 +20,9 @@ public class Cashier implements Runnable {
         System.out.printf("%s opened\n", this);
         while (!Supervisor.marketIsClosed()) {
             if (!this.name.contains("1")) {
-                if(!Supervisor.queueClosed()){
+
             synchronized (monCashier1) {
+                if(!Supervisor.queueClosed()){
                 try {
                         QueueBuyersAndCashir.closeCashier(this);
                         monCashier1.wait();

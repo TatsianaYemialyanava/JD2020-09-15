@@ -4,6 +4,12 @@ import java.util.*;
 
 public class Experement {
     public static void main(String[] args) {
+        List<Integer> threads = new ArrayList<>();
+        threads.add(1);
+        threads.add(2);
+        threads.add(3);
+        threads.add(4);
+        System.out.println(threads.contains(1));
 //        Deque<Integer> dequeCashier = new LinkedList<>();
 //        dequeCashier.add(1);
 //        dequeCashier.add(2);

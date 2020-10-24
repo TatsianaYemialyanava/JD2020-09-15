@@ -4,7 +4,7 @@ class Supervisor {
 
     private Supervisor() {
     }
-
+    final static Object monQueue = new Object();
     private static volatile int buyersEnterToMarket = 0;
     private static volatile int buyersLeavedMarket = 0;
     private static volatile int buyersEnterQueue = 0;
@@ -19,14 +19,15 @@ class Supervisor {
         return buyersLeavedMarket;
     }
 
-    private static final int buyerTotal = 10;//0;
+    private static final int buyerTotal = 100;//0;
 
     static synchronized void addBuyer() {
         buyersEnterToMarket++;
     }
-    static synchronized void addQueue() {
+    static void addQueue()
+    {synchronized (monQueue ){
         buyersEnterQueue++;
-    }
+    }}
 
     static void leaveBuyer() {
         synchronized (Supervisor.class) {
@@ -41,8 +42,9 @@ class Supervisor {
     static boolean marketIsClosed() {
         return buyersLeavedMarket == buyerTotal;
     }
+
     static boolean queueClosed() {
-        return buyersEnterQueue == buyerTotal;
+        return buyersEnterQueue ==100;
     }
 
 }

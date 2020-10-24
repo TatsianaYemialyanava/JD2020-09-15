@@ -85,17 +85,35 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     @Override
     public void goToQueue() {
         System.out.println(this + " go to queue");
-        while (QueueBuyersAndCashir.getSizeCashier() != 5) {
-            Helper.timeout(1000);
+
+        synchronized (this) {
+            waiting = true;
+            QueueBuyersAndCashir.add(this);
+            Supervisor.addQueue();
+            while (waiting)
+                try {
+
+                    this.wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
         }
-        if (QueueBuyersAndCashir.getSize() > 20) {
+        System.out.println("!!!!!!!!!"+QueueBuyersAndCashir.getSize());
+        if(Supervisor.queueClosed()){synchronized (Cashier.monCashier1) {
+            for (int i = 1; i <= 4; i++) {
+                Cashier cashier = QueueBuyersAndCashir.openCashier();}
+            Cashier.monCashier1.notifyAll();
+            System.out.printf("All CASHIERS opened\n");
+        }}
+        else if ((QueueBuyersAndCashir.getSize() > 20)) {
             synchronized (Cashier.monCashier1) {
                 for (int i = 1; i <= 4; i++) {
-                Cashier cashier = QueueBuyersAndCashir.openCashier();}
+                    Cashier cashier = QueueBuyersAndCashir.openCashier();}
                 Cashier.monCashier1.notifyAll();
                 System.out.printf("All CASHIERS opened\n");
             }
-        } else if (QueueBuyersAndCashir.getSize() > 15) {
+        } else
+            if (QueueBuyersAndCashir.getSize() > 15) {
             synchronized (Cashier.monCashier1) {
                 for (int i = 1; i <= 3; i++) {
                     Cashier cashier = QueueBuyersAndCashir.openCashier();
@@ -117,25 +135,6 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
                 Cashier.monCashier1.notify();
                 System.out.printf("%s opened\n", cashier);
             }
-        }
-//        } else if (QueueBuyersAndCashir.getSize() > 0) {
-//            synchronized (Cashier.monCashier1) {
-//                Cashier cashier = QueueBuyersAndCashir.openCashier();
-//                cashier.notify();
-//                System.out.printf("%s opened\n", cashier);
-//            }
-//        }
-        Supervisor.addQueue();
-        synchronized (this) {
-            waiting = true;
-            QueueBuyersAndCashir.add(this);
-
-            while (waiting)
-                try {
-                    this.wait();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
         }
 
         System.out.println(this + " leave queue");

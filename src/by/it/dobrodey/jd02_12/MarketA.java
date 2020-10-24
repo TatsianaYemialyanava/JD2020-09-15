@@ -28,7 +28,18 @@ public class MarketA {
             }
             Helper.timeout(1000);
         }
+//        for (int i = 0; i < 4; i++) {
+//            synchronized (Cashier.monCashier1) {
+//                Cashier cashier = QueueBuyersAndCashir.openCashier();
+//                Cashier.monCashier1.notify();
+//                System.out.printf("%s opened\n", cashier);
+//            }
+//        }
+
         for (Thread t : threads) {
+            System.out.println(t);
+       //     if (threads.contains())
+
             try {
                 t.join();
             } catch (InterruptedException e) {
