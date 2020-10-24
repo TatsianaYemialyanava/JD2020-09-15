@@ -25,7 +25,6 @@ public class Cashier implements Runnable {
                     buyer.setWaiting(false);
                     buyer.notify();
                 }
-
             } else {
                 Thread.yield();
             }
