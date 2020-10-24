@@ -1,26 +1,26 @@
 package by.it.fedorinhyk.jd02_03;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 class Supervisor {
     private Supervisor() {
 
     }
-    private static volatile int buyersInterToMarket=0;
-    private static volatile int buyersLeavedMarket=0;
+    private static final AtomicInteger buyersInterToMarket=new AtomicInteger(0);
+    private static final AtomicInteger buyersLeavedMarket= new AtomicInteger(0);
 
     private static final int totalbuyers=100;
 
     static synchronized void addBuyer(){
-        buyersInterToMarket++;
+        buyersInterToMarket.getAndIncrement();
     }
     static void leaveBuyers(){
-        synchronized (Supervisor.class){
-            buyersLeavedMarket++;
-        }
+        buyersLeavedMarket.getAndIncrement();
     }
     static boolean MarketIsOpened(){
-        return buyersInterToMarket!=totalbuyers;
+        return buyersInterToMarket.get()!=totalbuyers;
     }
     static boolean MarketIsClosed() {
-        return buyersLeavedMarket == totalbuyers;
+        return buyersLeavedMarket.get() == totalbuyers;
     }
 }
