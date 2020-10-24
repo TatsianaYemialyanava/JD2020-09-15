@@ -1,11 +1,12 @@
-package by.it.dobrodey.jd02_01;
+package by.it.dobrodey.jd02_12;
+
+
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class MarketNew {
+public class MarketExperement {
 
     public static final int TIMEOPENMARKET = 120;
 
@@ -20,7 +21,7 @@ public class MarketNew {
 
 
         for (int i = 0; i < 10; i++) {
-            Buyer buyer = new Buyer(++buyerNumber);
+           Buyer buyer = new Buyer(++buyerNumber);
             if (buyerNumber % 4 == 0) {
                 buyer.setPriority(3);
             }
@@ -29,9 +30,9 @@ public class MarketNew {
         }
         for ( second = 0; second < TIMEOPENMARKET; second++) {
             int count = funchionCount(second);
-            System.out.printf("In %d second in market %d people\n", second, Supervisor.buyersInMarket);
-            if (count > Supervisor.buyersInMarket ) {
-                for (int i = 0; i < count - Supervisor.buyersInMarket; i++) {
+            System.out.printf("In %d second in market %d people\n", second, Supervisor.getBuyer());
+            if (count > Supervisor.getBuyer() ) {
+                for (int i = 0; i < count - Supervisor.getBuyer(); i++) {
                     Buyer buyer = new Buyer(++buyerNumber);
                     if (buyerNumber % 4 == 0) {
                         buyer.setPriority(3);
@@ -52,14 +53,11 @@ public class MarketNew {
             }
         }
         FileReadAndWrite.printInFile(FileReadAndWrite.FILENAME, Choose.goodsBuyerMap);
-        System.out.printf("In %d second in market %d people\n", second, Supervisor.buyersInMarket);
+        System.out.printf("In %d second in market %d people\n", second, Supervisor.getBuyer());
         System.out.println("Marked close");
-    }
 
-
-
+}
     private static int funchionCount(int second) {
-
         int secondNow = second % 60;
         int count;
         if (secondNow <= 30) {
@@ -70,7 +68,4 @@ public class MarketNew {
         return count;
     }
 
-
 }
-
-
