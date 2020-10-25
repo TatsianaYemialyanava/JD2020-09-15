@@ -16,14 +16,15 @@ public class Cashier implements Runnable {
 
     public Cashier(int number) {
         this.number = number;
-        this.name = "\tCashier №" + number;
+        this.name = "Cashier №" + number;
     }
     public int getNumber(){return this.number;}
 
 
     @Override
     public void run() {
-        String numberspace = Helper.spacecashier.repeat(this.number);
+        String numberspace = Helper.spacecashier.repeat(this.number);  //отступ для кассира
+
         System.out.printf("%s%s opened\n",numberspace, this.name);
         while (!Supervisor.marketIsClosed()) {
             if ((this.number!=1)) {
@@ -41,7 +42,7 @@ public class Cashier implements Runnable {
 
             Buyer buyer = QueueBuyersAndCashir.extract();
             if (Objects.nonNull(buyer)) {
-                System.out.printf("%s %s started service for %s\n",numberspace, this, buyer);
+                System.out.printf("%s%s started service for %s\n",numberspace, this, buyer);
                 int t = Helper.getRandom(2000, 5000);
                 Helper.timeout(t);
                 Map<Buyer, HashMap<String, Double>> mapChooseBuyer = Choose.goodsBuyerMap;

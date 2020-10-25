@@ -90,7 +90,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         //printer on consol all goods
         String basket = goodsBuyer.toString().replace("{", "").
                 replace("}", "").replace("=", " cost ");
-        System.out.printf(" %-80s ALL goods to basket %s\n ", this, basket.toString());
+        System.out.printf("%-80s ALL goods to basket %s\n ", this, basket.toString());
         Choose.goodsBuyerMap.put(this, goodsBuyer);
     }
 
