@@ -1,4 +1,4 @@
-package by.it.dobrodey.jd02_12;
+package by.it.dobrodey.jd02_02;
 
 import java.util.Deque;
 import java.util.LinkedList;
