@@ -1,4 +1,4 @@
-package by.it.girovka.jd2;
+package by.it.girovka.jd1_2;
 
 
 

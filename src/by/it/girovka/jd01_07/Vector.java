@@ -6,7 +6,8 @@ class Vector extends Var {
  private double[] value;
 
  public Vector(double[] value){
- this.value = Arrays.copyOf(value,value.length);
+
+  this.value = Arrays.copyOf(value,value.length);
  }
 
  public Vector(Vector other){
@@ -31,5 +32,4 @@ class Vector extends Var {
   return out.toString();
 
  }
-
 }
