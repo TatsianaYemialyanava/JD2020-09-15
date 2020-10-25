@@ -14,7 +14,7 @@ public class Helper {
 
 
 
-    static void timeout(int milisecond) {
+    public static void timeout(int milisecond) {
         try {
 
             Thread.sleep(milisecond / K_SPEED);

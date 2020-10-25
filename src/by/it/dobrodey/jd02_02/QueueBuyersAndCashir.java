@@ -8,28 +8,28 @@ public class QueueBuyersAndCashir {
     private static final Object monitor = new Object();
     private static final Object monCashier = new Object();
     private static Deque<Buyer> deque = new LinkedList<>();
+    private static Deque<Buyer> dequepensionner = new LinkedList<>();
     private static Deque<Cashier> dequeCashier = new LinkedList<>();
 
-    static int getSizeCashier(){
-        synchronized (monCashier){
-            return dequeCashier.size();
-        }
+    static int getSizePensionner() {
+        return dequepensionner.size();
     }
-
-    static int getSize(){
-        synchronized (monitor){
-            return deque.size();
-        }
+    static int getSize() {
+        return deque.size() + dequepensionner.size();
     }
 
     static void add(Buyer buyer) {
         synchronized (monitor) {
-            deque.addLast(buyer);
+            if(buyer.toString().contains("pensioneer")){dequepensionner.addLast(buyer);}
+            else {deque.addLast(buyer);}
         }
     }
 
     static Buyer extract() {
         synchronized (monitor) {
+            if(getSizePensionner()!=0){
+                System.out.println("QueuePensionner:");
+                return dequepensionner.pollFirst();}
             return deque.pollFirst();
         }
     }
