@@ -123,7 +123,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         } else {
             numberOpenCassir = 1;
         }
-        synchronized (Cashier.monCashier1) {
+        synchronized (Cashier.monCashier) {
             System.out.printf("%sWorked %d CASHIERS\n", Helper.spaceQueue, numberOpenCassir);
             if (numberOpenCassir == 1) {
                 System.out.println("Cashier №1 worked alone");
@@ -131,7 +131,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
                 for (int i = 1; i < numberOpenCassir; i++) {
                     Cashier cashier = QueueBuyersAndCashir.openCashier();
                     if (Objects.nonNull(cashier)) {
-                        Cashier.monCashier1.notify();
+                        Cashier.monCashier.notify();
                         System.out.printf("%s opened\n", cashier.toString());
                     } else Thread.yield();
                 }

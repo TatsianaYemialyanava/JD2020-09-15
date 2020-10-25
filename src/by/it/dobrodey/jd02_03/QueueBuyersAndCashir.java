@@ -1,23 +1,15 @@
 package by.it.dobrodey.jd02_03;
 
-import java.util.Deque;
-import java.util.LinkedList;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
 public class QueueBuyersAndCashir {
 
-    private static final Object monitor = new Object();
-    private static final Object monCashier = new Object();
+
+
     private static BlockingDeque<Buyer> deque = new LinkedBlockingDeque<>(30);
     private static BlockingDeque<Buyer> dequepensionner = new LinkedBlockingDeque<>(30);
     private static BlockingDeque<Cashier> dequeCashier = new LinkedBlockingDeque<>(5);
-
-    static int getSizeCashier() {
-        synchronized (monCashier) {
-            return dequeCashier.size();
-        }
-    }
 
     static int getSize() {
         return deque.size() + dequepensionner.size();

@@ -12,7 +12,7 @@ public class Cashier implements Runnable {
     private String name;
     private int number;
     private static volatile double totalMArketSum = 0;
-    final static Object monCashier1 = new Object();
+    final static Object monCashier = new Object();
 
     public Cashier(int number) {
         this.number = number;
@@ -27,11 +27,11 @@ public class Cashier implements Runnable {
         System.out.printf("%s%s opened\n",numberspace, this.name);
         while (!Supervisor.marketIsClosed()) {
             if ((this.number!=1)) {
-                synchronized (monCashier1) {
+                synchronized (monCashier) {
                     if (!Supervisor.queueClosed()) {
                         try {
                             QueueBuyersAndCashir.closeCashier(this);
-                            monCashier1.wait();
+                            monCashier.wait();
                         } catch (InterruptedException e) {
                             throw new RuntimeException();
                         }
