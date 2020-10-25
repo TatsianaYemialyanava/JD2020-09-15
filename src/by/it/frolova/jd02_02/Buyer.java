@@ -51,10 +51,10 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     @Override
     public void goToQueue() {
         System.out.println(this + " go to queue");
-        synchronized (this){
+        synchronized (this) {
             waiting = true;
             QueueToCashier.add(this);
-            while (waiting){
+            while (waiting) {
                 try {
                     this.wait();
                 } catch (InterruptedException e) {
@@ -82,8 +82,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         if (this.basket != null) {
             waitingTime();
             int count = Helper.getRandom(1, 4);
-            Goods goods = new Goods();
-            Iterator<Good> goodIterator = goods.getGoods().keySet().iterator();
+            Iterator<Good> goodIterator = Goods.getGoods().iterator();
             for (int i = 0; i < count; i++) {
                 Good g = goodIterator.next();
                 basket.add(g);
@@ -91,6 +90,10 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
                 Helper.timeout(timeout);
             }
         }
+    }
+
+    public Basket getBasket() {
+        return basket;
     }
 
     private void waitingTime() {

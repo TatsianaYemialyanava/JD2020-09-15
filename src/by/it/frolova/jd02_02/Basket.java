@@ -14,4 +14,8 @@ public class Basket {
         goods.add(good);
     }
 
+    List<Good> getGoods() {
+        return goods;
+    }
+
 }

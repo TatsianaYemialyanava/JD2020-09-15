@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 public class QueueToCashier {
     private static final Object monitor = new Object();
-    private static Deque<Buyer> deque = new LinkedList<Buyer>();
+    private static Deque<Buyer> deque = new LinkedList<>();
 
     static void add(Buyer buyer) {
         synchronized (monitor) {
@@ -18,4 +18,12 @@ public class QueueToCashier {
             return deque.pollFirst();
         }
     }
+
+
+    static int size() {
+        synchronized (monitor) {
+            return deque.size();
+        }
+    }
+
 }
