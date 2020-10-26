@@ -1,14 +1,17 @@
-package by.it.yemialyanava.jd02_02;
+package by.it.yemialyanava.jd02_03;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Semaphore;
 
 class Buyer extends Thread implements IBuyer, IUseBasket {
 
+    private static Semaphore semaphoreForChooseGoods = new Semaphore(20);
+    private static Semaphore semaphoreBasket = new Semaphore(50);
     private boolean waiting;
-
     boolean pensioneer;
     private Map<String, Double> myGoods = null;
+
 
     Buyer(int number, boolean pensionerLiYa) {
         this.pensioneer = pensionerLiYa;
@@ -20,6 +23,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     public void setWaiting(boolean waiting) {
         this.waiting = waiting;
     }
+
     public  Map<String, Double> getMyGoods(){
         return myGoods;
     }
@@ -42,15 +46,22 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
 
     @Override
     public void chooseGoods() {
-        System.out.println(this + " started to choose goods");
-        int timeout = Helper.getRandom(500, 2000);
-        if (pensioneer) {
-            Helper.timeout(timeout + 1500);
-        }else{
-            Helper.timeout(timeout);
+        try {
+            semaphoreForChooseGoods.acquire();
+            System.out.println(this + " started to choose goods");
+            int timeout = Helper.getRandom(500, 2000);
+            if (pensioneer) {
+                Helper.timeout(timeout + 1500);
+            }else{
+                Helper.timeout(timeout);
+            }
+            putGoodsToBasket();
+            System.out.println(this + " finish to choose goods");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            semaphoreForChooseGoods.release();
         }
-        putGoodsToBasket();
-        System.out.println(this + " finish to choose goods");
     }
 
     @Override
@@ -70,7 +81,6 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         System.out.println(this + " leave queue");
     }
 
-
     @Override
     public void goOut() {
         System.out.println(this + " go out from Market");
@@ -83,7 +93,14 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
 
     @Override
     public void takeBasket() {
-        System.out.println(this + " take a basket");
+        try{
+            semaphoreBasket.acquire();
+            System.out.println(this + " take a basket");
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }finally {
+            semaphoreBasket.release();
+        }
     }
 
     @Override
@@ -92,17 +109,16 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         Map<String, Double> goods = Good.getGoods();
         Object[] keys = goods.keySet().toArray();
         int goodsInBasket = Helper.getRandom(1, 4);
-        //String[] resultProducts = new String[goodsInBasket];
         for (int i = 0; i < goodsInBasket; i++) {
             int randomGoodIndex = Helper.getRandom(0, keys.length - 1);
             String product = (String) keys[randomGoodIndex];
             myGoods.put(product, goods.get(product));
-            //resultProducts[i] = product;
             if (pensioneer) {
                 Helper.timeout(500 + 1500);
-            } else{
+            } else {
                 Helper.timeout(500);
             }
         }
     }
+
 }
