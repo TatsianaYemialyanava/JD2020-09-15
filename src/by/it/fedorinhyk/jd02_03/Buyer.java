@@ -1,13 +1,15 @@
-package by.it.fedorinhyk.jd02_02;
+package by.it.fedorinhyk.jd02_03;
 
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Semaphore;
 
 class Buyer extends Thread implements IBuyer, IUseBasket {
     private boolean waiting;
+    private static Semaphore semaphore=new Semaphore(20);
 
     Buyer (int number){
         this.setName("Покупатель №"+ number);
@@ -21,17 +23,25 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
 
     @Override
     public void run() {
-        enterToMarket();
-        takeBasket();
-        chooseGoods();
-        goToQueue();
-        goOut();
-        Supervisor.leaveBuyers();
+        try {
+            semaphore.acquire();
+            enterToMarket();
+            takeBasket();
+            chooseGoods();
+            goToQueue();
+            goOut();
+            Supervisor.leaveBuyers();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            semaphore.release();
+        }
     }
 
     @Override
     public void enterToMarket() {
-        System.out.println(this+" вошел в магазин");
+        System.out.println(this+" в магазин");
     }
 
     @Override
