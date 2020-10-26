@@ -1,47 +1,46 @@
 package by.it.yemialyanava.jd02_03;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 class Supervisor {
 
     private Supervisor(){
     }
 
-    private static volatile int buyerEnterToMarket = 0;
-    private static volatile int buyerLeaveMarket = 0;
-    private static volatile int cashierWorking = 0;
+    private static final AtomicInteger buyerEnterToMarket = new AtomicInteger(0);
+    private static final AtomicInteger buyerLeaveMarket = new AtomicInteger(0);
+    private static final AtomicInteger cashierWorking = new AtomicInteger(0);
 
     private static final int buyerTotal = 100;
 
-    static synchronized void addBuyer(){
 
-        buyerEnterToMarket++;
+
+    static void addBuyer(){
+        buyerEnterToMarket.getAndIncrement();
     }
 
     static void leaveBuyer(){
-        synchronized (Supervisor.class){
-            buyerLeaveMarket++;
-        }
+        buyerLeaveMarket.getAndIncrement();
     }
 
-    static synchronized int countActualNumberOfBuyer(){
-        int actualNumberBuyer = buyerEnterToMarket - buyerLeaveMarket;
-        return actualNumberBuyer;
+    static int countActualNumberOfBuyer(){
+        return buyerEnterToMarket.get() - buyerLeaveMarket.get();
     }
 
-
-    static synchronized void addCashier(){
-        cashierWorking++;
+    static void addCashier(){
+        cashierWorking.getAndIncrement();
     }
-    static synchronized void cashierStopWork(){
-        cashierWorking--;
+    static void cashierStopWork(){
+        cashierWorking.getAndDecrement();
     }
-    static synchronized int cashierWorkNow(){
-        return cashierWorking;
+    static int cashierWorkNow(){
+        return cashierWorking.get();
     }
 
     static boolean marketIsOpened(){
-        return buyerEnterToMarket != buyerTotal;
+        return buyerEnterToMarket.get() != buyerTotal;
     }
     static boolean marketIsClosed(){
-        return buyerLeaveMarket == buyerTotal;
+        return buyerLeaveMarket.get() == buyerTotal;
     }
 }

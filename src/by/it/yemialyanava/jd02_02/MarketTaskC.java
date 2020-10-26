@@ -8,42 +8,30 @@ public class MarketTaskC {
         int buyerNumber = 0;
         System.out.println("Market opened");
         List<Thread> threads = new ArrayList<>();
-        //List<Cashier> cashiers = new ArrayList<>();
-            /*for (int i = 1; i <= countCashier; i++) {
-                Cashier cashier = new Cashier(i);
-                Thread thread = new Thread(cashier);
-                threads.add(thread);
-                thread.start();
-            }*/
-        int actualCount = 0;
-        for (int minute = 0; minute < 2; minute++) {
-            for (int second = 1; second <= 60; second++) {
-                if (second == 1) {
-                    actualCount = 10;
-                } else if ((second > 1 && second <= 30) ) {
-                    actualCount = second + 10 - Supervisor.countActualNumberOfBuyer();
-                } else if ((second > 30 && second <= 60)) {
-                    actualCount = 40 + (30 - second) - Supervisor.countActualNumberOfBuyer();
-                }
-                for (int i = 0; i < actualCount; i++) {
-                    boolean pensionerLiOn = (buyerNumber + 1) % 4 == 0;
-                    Buyer buyer = new Buyer(++buyerNumber, pensionerLiOn);
-                    buyer.start();
-                    threads.add(buyer);
-                }
-                System.out.println(second + " - second, buyers : " + Supervisor.countActualNumberOfBuyer()
-                                                                    + " buyers correction " + actualCount);
-                Helper.timeout(1000);
-            }
-        }
         int casherName = 1;
         while (Supervisor.marketIsOpened()) {
-            int count = Helper.getRandom(2);
-            for (int i = 0; i < count && Supervisor.marketIsOpened(); i++) {
-                boolean pensionerLiOn = (buyerNumber + 1) % 4 == 0;
-                Buyer buyer = new Buyer(++buyerNumber, pensionerLiOn);
-                buyer.start();
-                threads.add(buyer);
+            int actualNewBuyersCount = 0;
+            for (int minute = 0; minute < 2; minute++) {
+                for (int second = 1; second <= 60; second++) {
+                    if (second == 1) {
+                        actualNewBuyersCount = 10;
+                    } else if ((second > 1 && second <= 30)) {
+                        actualNewBuyersCount = second + 10 - Supervisor.countActualNumberOfBuyer();
+                    } else if ((second > 30 && second <= 60)) {
+                        actualNewBuyersCount = 40 + (30 - second) - Supervisor.countActualNumberOfBuyer();
+                    }
+                    for (int i = 0; i < actualNewBuyersCount; i++) {
+                        if (Supervisor.marketIsOpened()) {
+                            boolean pensionerLiOn = (buyerNumber + 1) % 4 == 0;
+                            Buyer buyer = new Buyer(++buyerNumber, pensionerLiOn);
+                            buyer.start();
+                            threads.add(buyer);
+                        }
+                    }
+                    //System.out.println(second + " - second, buyers : " + Supervisor.countActualNumberOfBuyer()
+                      //      + " buyers correction " + actualNewBuyersCount);
+                    Helper.timeout(1000);
+                }
             }
             int countCashier;
             int commonBuyersInTwoQueue = QueueBuyers.countBuyerInQueue() + QueueBuyers.countBuyerInQueuePensioneer();
@@ -62,7 +50,6 @@ public class MarketTaskC {
             }
             Helper.timeout(1000);
         }
-
         for (Thread t : threads) {
             try {
                 t.join();
@@ -73,5 +60,17 @@ public class MarketTaskC {
         System.out.println("Market closed");
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 

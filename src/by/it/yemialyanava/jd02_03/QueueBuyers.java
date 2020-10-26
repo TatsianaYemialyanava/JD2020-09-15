@@ -1,43 +1,37 @@
 package by.it.yemialyanava.jd02_03;
 
-import java.util.Deque;
-import java.util.LinkedList;
+import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.LinkedBlockingDeque;
 
 public class QueueBuyers {
-    private static final Object monitor = new Object();
-    private static Deque<Buyer> deque = new LinkedList<>();
-    private static Deque<Buyer> dequePensioneer = new LinkedList<>();
+
+    private static BlockingDeque<Buyer> deque = new LinkedBlockingDeque<>(30);
+    private static BlockingDeque<Buyer> dequePensioneer = new LinkedBlockingDeque<>(8);
 
     static void add(Buyer buyer){
-        synchronized (monitor){
-            if(buyer.pensioneer){
-                dequePensioneer.addLast(buyer);
-            }else{
-                deque.addLast(buyer);
+        try{
+            if (buyer.pensioneer){
+                dequePensioneer.putLast(buyer);
+            } else{
+                deque.putLast(buyer);
             }
+        }catch (InterruptedException e){
+            throw new RuntimeException(e);
         }
     }
 
     static Buyer extractPensioneer(){
-        synchronized (monitor){
             return dequePensioneer.pollFirst();
-        }
     }
 
     static int countBuyerInQueue(){
-        synchronized (monitor){
             return deque.size();
-        }
     }
     static int countBuyerInQueuePensioneer(){
-        synchronized (monitor){
             return dequePensioneer.size();
-        }
     }
 
     static Buyer extract(){
-        synchronized (monitor){
             return deque.pollFirst();
-        }
     }
 }
