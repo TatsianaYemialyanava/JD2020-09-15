@@ -1,4 +1,4 @@
-package by.it.dobrodey.jd02_12;
+package by.it.dobrodey.jd02_03;
 
 import java.io.File;
 import java.io.IOException;

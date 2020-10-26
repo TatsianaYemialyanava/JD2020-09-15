@@ -1,8 +1,8 @@
-package by.it.dobrodey.jd02_12;
-
+package by.it.dobrodey.jd02_02;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 class Buyer extends Thread implements IBuyer, IUseBasket {
 
@@ -35,21 +35,20 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
 
     @Override
     public void enterToMarket() {
-        System.out.println(this + " enter to market ");
+        System.out.printf("%-21s enter to market\n", this);
     }
 
     @Override
     public void takeBasket() {
-        System.out.println(this + "          " + "take basket");
+        System.out.printf("%-21s take basket\n", this);
     }
 
     @Override
     public void chooseGoods() {
-
-        System.out.println(this + "                started to choose goods");
+        System.out.printf("%-40s started to choose goods\n", this);
         int timer = Helper.getRandom(500, 2000);
         Helper.timeout(timer);
-        System.out.println(this + "                  finished to choose goods");
+        System.out.printf("%-60s finished to choose goods\n", this);
     }
 
     @Override
@@ -63,87 +62,69 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
             int randomGoods = Helper.getRandom(goods.keySet().size() - 1);
             String key = (String) setKey[randomGoods];
             Double value = goods.get(key);
-//            System.out.println(this + "                                put goods to basket "
-//                    + key
-//                    + " cost "
-//                    + value);
-
             if (goodsBuyer.containsKey(key)) {
                 double newvalue = value * koef++;
                 goodsBuyer.put(key, newvalue);
             } else goodsBuyer.put(key, value);
             Helper.timeout(Helper.getRandom(500, 2000));
         }
-
         //printer on consol all goods
         String basket = goodsBuyer.toString().replace("{", "").
                 replace("}", "").replace("=", " cost ");
-        System.out.println(this + "                                   ALL goods to basket " + basket);
+        System.out.printf(" %-80s ALL goods to basket %s\n ", this, basket.toString());
         Choose.goodsBuyerMap.put(this, goodsBuyer);
     }
 
     @Override
     public void goToQueue() {
-        System.out.println(this + " go to queue");
-
+        System.out.printf("%-21s go to queue\n", this);
         synchronized (this) {
             waiting = true;
             QueueBuyersAndCashir.add(this);
+            //System.out.println(Helper.spaceQueue+"QUEUE: "+QueueBuyersAndCashir.getSize());
             Supervisor.addQueue();
             while (waiting)
                 try {
-
                     this.wait();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
         }
-        System.out.println("!!!!!!!!!"+QueueBuyersAndCashir.getSize());
-        if(Supervisor.queueClosed()){synchronized (Cashier.monCashier1) {
-            for (int i = 1; i <= 4; i++) {
-                Cashier cashier = QueueBuyersAndCashir.openCashier();}
-            Cashier.monCashier1.notifyAll();
-            System.out.printf("All CASHIERS opened\n");
-        }}
-        else if ((QueueBuyersAndCashir.getSize() > 20)) {
-            synchronized (Cashier.monCashier1) {
-                for (int i = 1; i <= 4; i++) {
-                    Cashier cashier = QueueBuyersAndCashir.openCashier();}
-                Cashier.monCashier1.notifyAll();
-                System.out.printf("All CASHIERS opened\n");
-            }
-        } else
-            if (QueueBuyersAndCashir.getSize() > 15) {
-            synchronized (Cashier.monCashier1) {
-                for (int i = 1; i <= 3; i++) {
-                    Cashier cashier = QueueBuyersAndCashir.openCashier();
-                    Cashier.monCashier1.notify();
-                    System.out.printf("%s opened\n", cashier);
-                }
-            }
-        } else if (QueueBuyersAndCashir.getSize() > 10) {
-            synchronized (Cashier.monCashier1) {
-                for (int i = 1; i <= 2; i++) {
-                    Cashier cashier = QueueBuyersAndCashir.openCashier();
-                    Cashier.monCashier1.notify();
-                    System.out.printf("%s opened\n", cashier);
-                }
-            }
+        System.out.println(Helper.spaceQueue + "QUEUE: " + QueueBuyersAndCashir.getSize());
+        int numberOpenCassir;
+        if((Supervisor.queueClosed())){numberOpenCassir = 5;}
+        else if ((QueueBuyersAndCashir.getSize() >= 20)) {
+            numberOpenCassir = 5;
+        } else if (QueueBuyersAndCashir.getSize() >= 15) {
+            numberOpenCassir = 4;
+        } else if (QueueBuyersAndCashir.getSize() >= 10) {
+            numberOpenCassir = 3;
+        } else if (QueueBuyersAndCashir.getSize() >= 5) {
+            numberOpenCassir = 2;
         } else {
-            synchronized (Cashier.monCashier1) {
-                Cashier cashier = QueueBuyersAndCashir.openCashier();
-                Cashier.monCashier1.notify();
-                System.out.printf("%s opened\n", cashier);
+            numberOpenCassir = 1;
+        }
+        synchronized (Cashier.monCashier1) {
+            System.out.printf("%sWorked %d CASHIERS\n", Helper.spaceQueue, numberOpenCassir);
+            if (numberOpenCassir == 1) {
+                System.out.println("Cashier №1 worked alone");
+            } else {
+                for (int i = 1; i < numberOpenCassir; i++) {
+                    Cashier cashier = QueueBuyersAndCashir.openCashier();
+                    if (Objects.nonNull(cashier)) {
+                        Cashier.monCashier1.notify();
+                        System.out.printf("%s opened\n", cashier.toString());
+                    } else Thread.yield();
+                }
             }
         }
 
-        System.out.println(this + " leave queue");
+        System.out.printf("%-21s leave queue\n", this);
     }
-
 
     @Override
     public void goOut() {
-        System.out.println(this + " go out market ");
+        System.out.printf("%-21s go out market\n ", this);
     }
 
     @Override

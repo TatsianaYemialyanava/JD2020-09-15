@@ -1,4 +1,4 @@
-package by.it.dobrodey.jd02_12;
+package by.it.dobrodey.jd02_03;
 
 public interface IBuyer {
     void enterToMarket();
