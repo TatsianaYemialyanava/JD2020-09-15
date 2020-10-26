@@ -26,7 +26,7 @@ public class Market {
             Helper.timeout(1000);
         }
         while (true){
-            try { if (updateThreat.awaitTermination(10, TimeUnit.SECONDS)) break;
+            try { if (updateThreat.awaitTermination(1000, TimeUnit.SECONDS)) break;
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
