@@ -16,7 +16,15 @@ class Supervisor extends Thread{
     }
 
  static boolean marketIsOpened() {
+     synchronized (Supervisor.class) {
         return buyersEnterToMarket != buyerTotal;
+     }
+    }
+
+ static int inCountBuyersMarket() {
+     synchronized (Supervisor.class) {
+        return buyersEnterToMarket -buyersLeavedMarket;
+     }
     }
 
     static boolean marketIsClosed() {
