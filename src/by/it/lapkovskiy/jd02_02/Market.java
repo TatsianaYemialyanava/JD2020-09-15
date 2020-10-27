@@ -17,8 +17,8 @@ public class Market {
             thread.start();
         }
         for (int second = 0; second < 120 && Supervisor.marketIsOpened(); second++) {
-            if(second==0||second==54) addBuyers(10, threads);
-             if(second==24 || second ==84) addBuyers(40, threads);
+            if(second==0||second==56) addBuyers(10, threads);
+             if(second==26 || second ==86) addBuyers(40, threads);
              Helper.timeout(1000);
         }
         for (Thread t : threads) {

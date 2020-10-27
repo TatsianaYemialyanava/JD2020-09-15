@@ -33,7 +33,7 @@ public class QueueBuyers {
     }
     static int getBuyerSize(){
         synchronized (monitor){
-            return deque.size();
+            return deque.size()+dequePensioners.size();
         }
     }
     static int getPensionersSize(){
