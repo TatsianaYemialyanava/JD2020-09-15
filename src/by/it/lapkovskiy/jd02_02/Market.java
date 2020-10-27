@@ -17,13 +17,13 @@ public class Market {
             thread.start();
         }
         int cof=0;
-        for (int second = 0; second < 120 && !Supervisor.marketIsClosed(); second++) {
+        for (int second = 0; second < 120 && Supervisor.marketIsOpened(); second++) {
 
             if ((second <= 30) || (second >= 60 && second <= 90)) {
                 if(Supervisor.inCountBuyersMarket()>= (second%30) + 10){
                     cof=0;
                 }
-                else cof = 1;
+                else cof = 35;
             } else {
                  if(Supervisor.inCountBuyersMarket()<= 40 + (30 - (second%30))){
                     cof=1;
@@ -44,7 +44,7 @@ public class Market {
     }
 
     private static void addBuyers(int count, List<Thread> threads) {
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < count && Supervisor.marketIsOpened(); i++) {
             Buyer buyer = new Buyer(++buyerNumber, buyerNumber % 4 == 0);
             buyer.start();
             threads.add(buyer);
