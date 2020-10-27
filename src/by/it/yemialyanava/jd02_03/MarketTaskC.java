@@ -8,7 +8,9 @@ import java.util.concurrent.TimeUnit;
 
 public class MarketTaskC {
     private static ExecutorService fixedThreadPoolCashers;
+    private static List<Cashier> cachiersList = new ArrayList<>();
     private static List<Thread> buyers = new ArrayList<>();
+    private static Thread consoleWriterThrtead = new ConsoleWriter(cachiersList);
     private static int buyerNumber = 0;
 
     public static void main(String[] args) {
@@ -68,6 +70,11 @@ public class MarketTaskC {
                 e.printStackTrace();
             }
         }
+        try {
+            consoleWriterThrtead.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static void createBuyers(int actualCountNewBuyers) {
@@ -98,6 +105,7 @@ public class MarketTaskC {
         for (int i = 1; i <= 5; i++) {
             Cashier cashier = new Cashier(i);
             fixedThreadPoolCashers.execute(cashier);
+            cachiersList.add(cashier);
         }
         return fixedThreadPoolCashers;
     }

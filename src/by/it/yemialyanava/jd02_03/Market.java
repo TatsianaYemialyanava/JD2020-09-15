@@ -1,5 +1,7 @@
 package by.it.yemialyanava.jd02_03;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -9,6 +11,7 @@ public class Market {
         int buyerNumber = 0;
         System.out.println("Market opened");
         ExecutorService fixedThreadPool = Executors.newFixedThreadPool(5);
+
         for (int i = 1; i <= 5; i++) {
             Cashier cashier = new Cashier(i);
             fixedThreadPool.execute(cashier);

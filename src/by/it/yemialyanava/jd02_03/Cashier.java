@@ -1,11 +1,12 @@
 package by.it.yemialyanava.jd02_03;
 
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class Cashier implements Runnable {
     private String name;
     public static Object pause = new Object();
+
+    private Queue<Bill> billsQueue = new LinkedList<Bill>();
 
     public Cashier(int number) {
         this.name = "Cashier № " + number;
@@ -27,15 +28,15 @@ public class Cashier implements Runnable {
                 Helper.timeout(t);
                 Map<String, Double> buyersGoods = buyer.getMyGoods();
                 double totalSumma = 0;
-                StringBuilder bill = new StringBuilder();
                 for (Map.Entry<String, Double> element : buyersGoods.entrySet()) {
-                    String goodName = element.getKey();
                     Double goodPrice = element.getValue();
                     totalSumma += goodPrice;
-                    bill.append("\t").append(goodName).append(" ").append(goodPrice).append("\n");
                 }
-                bill.append("total summa: ").append(totalSumma).append("\n");
-                System.out.println(this + "  serviced " +  buyer + "\n " + bill.toString());
+                Bill bill = new Bill();
+                bill.setGoods(buyersGoods);
+                bill.setTotalCount(totalSumma);
+                addToBillQueue(bill);
+                System.out.println(this + "  serviced " +  buyer + "\n ");
                 System.out.printf("%s finished service for %s\n", this, buyer);
                 synchronized (buyer) {
                     buyer.setWaiting(false);
@@ -54,6 +55,13 @@ public class Cashier implements Runnable {
             }
         }
         System.out.printf("%s closed\n", this);
+    }
+
+    public synchronized void addToBillQueue(Bill bill) {
+        billsQueue.offer(bill);
+    }
+    public synchronized Bill getTopBillFromQueue() {
+        return billsQueue.poll();
     }
 
     @Override
