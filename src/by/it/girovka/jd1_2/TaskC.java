@@ -1,6 +1,4 @@
-package by.it.girovka.jd2;
-
-import java.util.Scanner;
+package by.it.girovka.jd1_2;
 
 public class TaskC {
      static int [][] step1(int n) {
