@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 class Parser {
     Var calc(String expression) {
         String[] maker = expression.split(Patterns.OPERATION, 2);
-        if (maker.length!=2){
+        if (maker.length != 2){
             return null;
         }
         Var start = Var.createVar(maker[0]);
@@ -28,3 +28,4 @@ class Parser {
         return null;
     }
 }
+
