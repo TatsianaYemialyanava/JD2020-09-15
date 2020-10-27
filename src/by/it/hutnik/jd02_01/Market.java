@@ -14,11 +14,11 @@ class Market {
                 Buyer buyer = new Buyer(++number);
                 buyer.start();
                 buyers.add(buyer);
-                Dispatcher.BUYERS_IN_SHOP++;
+                Supervisor.BUYERS_IN_SHOP++;
             }
             Helper.mySleep(1000);
         }
-        while (Dispatcher.BUYERS_IN_SHOP>0){
+        while (Supervisor.BUYERS_IN_SHOP>0){
             Thread.yield();
         }
         System.out.println("Market closed");

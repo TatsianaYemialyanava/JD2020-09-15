@@ -32,7 +32,6 @@ public class TaskA {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
     private static String getPath(Class<?> taskClass) {
         String rootProject = System.getProperty("user.dir");

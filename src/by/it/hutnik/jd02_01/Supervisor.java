@@ -1,7 +1,7 @@
 package by.it.hutnik.jd02_01;
 
-class Dispatcher {
+class Supervisor {
 
-    static final int K_SPEED=100;
+    static final int K_SPEED=1000;
     static int BUYERS_IN_SHOP=0;
 }

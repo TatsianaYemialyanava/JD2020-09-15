@@ -2,11 +2,11 @@ package by.it.hutnik.jd01_09;
 
 class Scalar extends Var {
 
+    private double value;
+
     public double getValue() {
         return value;
     }
-
-    private double value;
 
     public Scalar(double value) {
         this.value = value;

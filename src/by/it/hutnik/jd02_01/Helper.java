@@ -3,21 +3,20 @@ package by.it.hutnik.jd02_01;
 import java.util.Random;
 
 class Helper {
-    private static Random rnd = new Random();
+    private static Random random = new Random(); // создание обработчика случайных чисел
+    static int getRandom(int start, int finish) { // создание диапазона случайных чисел
 
-    static int getRandom(int start, int stop) {
-        return start + rnd.nextInt(stop - start + 1);
+        return start + random.nextInt(finish - start + 1); // вoзвращение случайного челого числа int
     }
-
     static int getRandom(int max) {
+
         return getRandom(0, max);
     }
-
-    static void mySleep(int millis) {
+    static void mySleep(int milisek) {
         try {
-            Thread.sleep(millis/Dispatcher.K_SPEED);
+            Thread.sleep(milisek/ Supervisor.K_SPEED);
         } catch (InterruptedException e) {
-            throw new RuntimeException("something stupid", e);
+            throw new RuntimeException(e);
         }
     }
 }

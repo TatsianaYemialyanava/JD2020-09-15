@@ -19,7 +19,6 @@ public class TaskA1 {
         TaskA1 task = new TaskA1();
         for (int i = 0; i < 25; i++) {
             task.list.add((int) Math.ceil(Math.random() * 10));
-
         }
         System.out.println(task.list);
         task.clearBad(task.list);
