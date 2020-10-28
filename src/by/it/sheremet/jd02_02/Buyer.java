@@ -23,6 +23,7 @@ public class Buyer extends Thread implements Ibuyer, IUseBasket  {
         goToQueue();
        // putGoodsToBasket();
         goOut();
+        Supervisor.leaveBuyer();
 
 
 
@@ -47,13 +48,15 @@ public class Buyer extends Thread implements Ibuyer, IUseBasket  {
         Map<String,Double> goods = Good.getGoods();
         int putInBasket = Helper.getRandom(1,4);
         Object [] keys= goods.keySet().toArray();
+        double sum = 0;
         for (int i = 0; i < putInBasket; i++) {
             int randomGood = Helper.getRandom(0, keys.length - 1);
             String key =(String) keys[randomGood];
             Double value =goods.get(key);
+            sum+=value;
             System.out.println(this+ " put " + key + " to basket, cost " +value);
         }
-
+        System.out.println(this+ " Total price "+sum);
     }
 
     @Override

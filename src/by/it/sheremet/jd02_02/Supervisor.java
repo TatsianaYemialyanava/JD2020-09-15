@@ -1,6 +1,9 @@
 package by.it.sheremet.jd02_02;
 
-public class Supervisor {
+
+ class Supervisor {
+    private Supervisor(){
+    }
 
    static volatile int buyersEnterToMarket = 0;
 
@@ -27,4 +30,13 @@ public class Supervisor {
     static boolean marketIsClose(){
        return buyersLeaveToMarket == buyerTotal;
     }
+
 }
+
+
+
+
+
+
+
+

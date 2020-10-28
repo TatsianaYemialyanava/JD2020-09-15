@@ -18,5 +18,9 @@ public class QueueBuyers {
                 return deque.pollFirst();
             }
       }
-
+    static int buyerSize() {
+        synchronized (monitor) {
+            return deque.size();
+        }
+    }
 }
