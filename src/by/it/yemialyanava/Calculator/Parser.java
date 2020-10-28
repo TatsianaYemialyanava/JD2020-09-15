@@ -1,5 +1,4 @@
 package by.it.yemialyanava.Calculator;
-
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,7 +17,7 @@ class Parser {
 
         Matcher matcher = Pattern.compile(Patterns.OPERATION).matcher(expression);
         while (matcher.find()) {
-            operands.add(matcher.group());
+            operations.add(matcher.group());
         }
 
         while (!operations.isEmpty()) {

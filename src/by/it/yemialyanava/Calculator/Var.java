@@ -81,7 +81,6 @@ abstract class Var implements Operation {
         }
     }
 
-
     @Override
     public Var add(Var other) throws CalcException {
         throw new CalcException(String.format("Operation %s + %s impossible\n", this, other));

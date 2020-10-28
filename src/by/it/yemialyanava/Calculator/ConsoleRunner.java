@@ -11,19 +11,19 @@ public class ConsoleRunner {
         }catch (CalcException e){
             System.out.println("File not found");
         }
-        for (;;){
+        for ( ; ; ){
             String expression = scan.nextLine();
             if (expression.equals("end")){
                 break;
             }
-            if (expression.equals("printvar")) {
+            /*if (expression.equals("printvar")) {
                 printer.printvar(Var.getVarMap());
                 continue;
             }
             if (expression.equals("sortvar")){
                 printer.sortvar(Var.getVarMap());
                 continue;
-            }
+            }*/
             try {
                 Var result = parser.calc(expression);
                 printer.print(result);
