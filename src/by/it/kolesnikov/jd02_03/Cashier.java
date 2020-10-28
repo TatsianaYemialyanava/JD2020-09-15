@@ -1,6 +1,4 @@
-package by.it.kolesnikov.jd02_02;
-
-import java.util.Objects;
+package by.it.kolesnikov.jd02_03;
 
 public class Cashier implements Runnable {
 
