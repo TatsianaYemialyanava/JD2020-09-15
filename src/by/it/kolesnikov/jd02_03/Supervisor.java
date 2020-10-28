@@ -1,30 +1,29 @@
 package by.it.kolesnikov.jd02_03;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 class Supervisor {
 
     private Supervisor(){
     }
 
-    private static volatile int buyersEnterToMarket=0;
-    private static volatile int buyersLeftMarket=0;
-
+    private static final AtomicInteger buyersEnterToMarket=new AtomicInteger(0);
+    private static final AtomicInteger buyersLeftMarket=new AtomicInteger(0);
     private static final int buyerTotal=100;
 
-    static synchronized void addBuyer(){
-        buyersEnterToMarket++;
+    static void addBuyer(){
+        buyersEnterToMarket.getAndIncrement();
     }
 
     static void leaveBuyer(){
-        synchronized (Supervisor.class) {
-            buyersLeftMarket++;
-        }
+            buyersLeftMarket.getAndIncrement();
     }
 
     static boolean marketIsOpened(){
-        return buyersEnterToMarket!=buyerTotal;
+        return buyersEnterToMarket.get()!=buyerTotal;
     }
 
     static boolean marketIsClosed(){
-        return buyersLeftMarket==buyerTotal;
+        return buyersLeftMarket.get()==buyerTotal;
     }
 }

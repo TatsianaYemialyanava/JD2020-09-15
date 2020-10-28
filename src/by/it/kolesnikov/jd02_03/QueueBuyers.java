@@ -2,22 +2,24 @@ package by.it.kolesnikov.jd02_03;
 
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.LinkedBlockingDeque;
 
 public class QueueBuyers {
 
-    private static final Object monitor = new Object();
 
-   static  Deque<Buyer> deque = new LinkedList<>();
-   static volatile int countBuyers=0;
+   private static BlockingDeque<Buyer> deque = new LinkedBlockingDeque<>(30);
 
     static void add(Buyer buyer) {
-        synchronized (monitor) {
-            deque.addLast(buyer);
+            try {
+                deque.putLast(buyer);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-    }
+
     static Buyer extract() {
-        synchronized (monitor) {
             return deque.pollFirst();
-        }
     }
 }

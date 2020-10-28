@@ -3,32 +3,36 @@ package by.it.kolesnikov.jd02_03;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Market {
     public static void main(String[] args){
         int buyerNumber=0;
         System.out.println("Market is opened");
-        List<Thread> threads = new ArrayList<>();
+        ExecutorService cashierPool = Executors.newFixedThreadPool(2);
         for (int i = 1; i <=2 ; i++) {
             Cashier cashier=new Cashier(i);
-            Thread thread=new Thread(cashier);
-            threads.add(thread);
-            thread.start();
+            cashierPool.execute(cashier);
         }
+        cashierPool.shutdown();
+        ExecutorService buyerPool = Executors.newFixedThreadPool(100);
         while (Supervisor.marketIsOpened()){
             int count = Helper.getRandom(2);
             for (int i = 0; i < count && Supervisor.marketIsOpened(); i++) {
                 Buyer buyer = new Buyer(++buyerNumber);
-                buyer.start();
-                threads.add(buyer);
+                buyerPool.execute(buyer);
             }
             Helper.timeOut(1000);
         }
-        for (Thread buyer : threads) {
+        buyerPool.shutdown();
+        while (true){
             try {
-                buyer.join();
+                if (cashierPool.awaitTermination(100, TimeUnit.MICROSECONDS))
+                    break;
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         }
         System.out.println("Market is closed");
