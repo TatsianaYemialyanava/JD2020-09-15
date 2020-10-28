@@ -1,6 +1,7 @@
-package by.it.moiseyenko.jd02_01;
+package by.it.moiseyenko.jd02_02;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Random;
 
 class Helper {
     private static final int K_SPEED = 10000;
