@@ -7,9 +7,9 @@ public class QueueBuyers {
 
     private static final Object monitor = new Object();
 
-    private static LinkedBlockingDeque<Buyer> deque = new LinkedBlockingDeque<Buyer>(30);
+    private static final LinkedBlockingDeque<Buyer> deque = new LinkedBlockingDeque<>(30);
 
-    static void add(Buyer buyer) throws InterruptedException {
+    static void add(Buyer buyer) {
         synchronized (monitor) {
             deque.addLast(buyer);
         }
@@ -29,8 +29,5 @@ public class QueueBuyers {
         synchronized (monitor){
             return deque.size();
         }
-    }
-    static void putInBegin(){
-
     }
 }

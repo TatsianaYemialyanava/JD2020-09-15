@@ -70,7 +70,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
                     Market.goIn.release();
                     break;
                 } catch (Exception e) {
-
+                    e.printStackTrace();
                 }
             }
 

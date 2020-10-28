@@ -38,6 +38,7 @@ public class Market {
             executorBuyers.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
             executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
         } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         System.out.println("Market closed");
     }

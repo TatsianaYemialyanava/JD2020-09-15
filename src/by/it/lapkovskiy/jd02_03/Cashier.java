@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Cashier implements Runnable {
 
     private final String name;
-    private int number = 0;
+    private int number =0;
     private boolean worked = false;
 
     public Cashier(int number) {
