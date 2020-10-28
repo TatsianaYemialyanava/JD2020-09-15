@@ -10,7 +10,13 @@ public class ConsoleRunner {
         for(;;){
             String expression = sc.nextLine();
             if (expression.equals("end")) break;
-            Var result = parser.calc(expression);
+            Var result = null;
+            try {
+                result = parser.calc(expression);
+            } catch (CalcExeption e) {
+                String message = e.getMessage();
+                System.out.println(message);
+            }
             printer.print(result);
         }
 
