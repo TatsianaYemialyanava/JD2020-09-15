@@ -6,6 +6,11 @@ public class ConsoleRunner {
         Scanner scan = new Scanner(System.in);
         Parser parser = new Parser();
         Printer printer = new Printer();
+        try{
+            Var.load();
+        }catch (CalcException e){
+            System.out.println("File not found");
+        }
         for (;;){
             String expression = scan.nextLine();
             if (expression.equals("end")){
