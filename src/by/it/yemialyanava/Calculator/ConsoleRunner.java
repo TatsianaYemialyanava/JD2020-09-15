@@ -25,7 +25,7 @@ public class ConsoleRunner {
                 continue;
             }*/
             try {
-                Var result = parser.calc(expression);
+                Var result = parser.calcWithBrackets(expression);
                 printer.print(result);
             }catch (CalcException e){
                 String message = e.getMessage();

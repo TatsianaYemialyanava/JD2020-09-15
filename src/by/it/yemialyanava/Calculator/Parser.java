@@ -4,6 +4,37 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Parser {
+    Var calcWithBrackets(String expression) throws CalcException {
+        Map.Entry<Integer, Integer> expresionInBreacktsIndexes = findExpressionInBreackets(expression);
+        Var result = null;
+        while(expresionInBreacktsIndexes!=null){
+            String expresionInBreackts = expression.substring(expresionInBreacktsIndexes.getKey()+ 1,expresionInBreacktsIndexes.getValue());
+            Var calculatedExpression = calc(expresionInBreackts);
+            String newExpression = expression.substring(0,expresionInBreacktsIndexes.getKey())
+                    + calculatedExpression.toString() +  expression.substring(expresionInBreacktsIndexes.getValue()+1);
+            expression = newExpression;
+            expresionInBreacktsIndexes = findExpressionInBreackets(expression);
+        }
+        return  calc(expression);
+    }
+
+    private Map.Entry<Integer, Integer> findExpressionInBreackets(String expression) {
+        char [] charArray = expression.toCharArray();
+        int start = -1;
+        int finish = -1;
+        for (int i = 0; i < charArray.length; i++) {
+            char currentChar = charArray[i];
+            if(currentChar == '('){
+                start = i;
+            } else if (currentChar == ')'){
+                finish = i;
+                return new AbstractMap.SimpleEntry<Integer, Integer>(start, finish);
+            }
+        }
+        return null;
+    }
+
+
     Var calc(String expression) throws CalcException {
         //2*2  scalar=4
         //if (expression.isEmpty() == true) {
@@ -71,4 +102,5 @@ class Parser {
         PR.put("*",2);
         PR.put("/",2);
     }
+
 }

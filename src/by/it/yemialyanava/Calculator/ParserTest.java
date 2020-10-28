@@ -58,7 +58,7 @@ public class ParserTest {
     public void checkCalcWithBrackers() throws CalcException {
         Var varA=parser.calc("A=7.3");
         Var varB=parser.calc("B=25.55");
-        Var varC = parser.calc("C=B+(A*2)");
+        Var varC = parser.calcWithBrackets("C=B+(A*2)");
         double actual = Double.parseDouble(varC.toString());
         double expected = 40.15;
         assertEquals("Error calc", expected, actual, 1e-8);
@@ -68,7 +68,7 @@ public class ParserTest {
     @Test
     public void checkCalcWithManyBrackers() throws CalcException {
         Var varC=parser.calc("C=40.15");
-        Var varD = parser.calc("D=((C-0.15)-20)/(7-5)");
+        Var varD = parser.calcWithBrackets("D=((C-0.15)-20)/(7-5)");
         double actual = Double.parseDouble(varD.toString());
         double expected = 10;
         assertEquals("Error calc", expected, actual, 1e-8);
