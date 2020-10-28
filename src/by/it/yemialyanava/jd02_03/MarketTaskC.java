@@ -10,15 +10,16 @@ public class MarketTaskC {
     private static ExecutorService fixedThreadPoolCashers;
     private static List<Cashier> cachiersList = new ArrayList<>();
     private static List<Thread> buyers = new ArrayList<>();
-    private static Thread consoleWriterThrtead = new ConsoleWriter(cachiersList);
+    //private static Thread consoleWriterThrtead = new ConsoleWriter(cachiersList);
     private static int buyerNumber = 0;
 
     public static void main(String[] args) {
 
         System.out.println("Market opened");
         fixedThreadPoolCashers = createCashiers();
+        int minute = 0;
 
-        for (int minute = 0; minute < 2; minute++) {
+        while (minute <= 2 && Supervisor.marketIsOpened()) {
             for (int second = 1; second <= 60; second++) {
                 //BUYERS
                 int actualCountNewBuyers = calculateNewBuyersForCurrentSecond(second);
@@ -34,6 +35,7 @@ public class MarketTaskC {
                 }
                 Helper.timeout(1000);
             }
+            minute++;
         }
 
         awaitCashierAndBuyersTermination();
@@ -61,20 +63,20 @@ public class MarketTaskC {
                 throw new RuntimeException(e);
             }
         }
-        fixedThreadPoolCashers.shutdown();
+
         while (true) {
             try {
-                if (fixedThreadPoolCashers.awaitTermination(10, TimeUnit.MICROSECONDS))
+                if (fixedThreadPoolCashers.awaitTermination(1, TimeUnit.SECONDS))
                     break;
             }catch (InterruptedException e){
                 e.printStackTrace();
             }
         }
-        try {
+        /*try {
             consoleWriterThrtead.join();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }
+        }*/
     }
 
     private static void createBuyers(int actualCountNewBuyers) {
@@ -107,7 +109,9 @@ public class MarketTaskC {
             fixedThreadPoolCashers.execute(cashier);
             cachiersList.add(cashier);
         }
+        fixedThreadPoolCashers.shutdown();
         return fixedThreadPoolCashers;
+
     }
 }
 
