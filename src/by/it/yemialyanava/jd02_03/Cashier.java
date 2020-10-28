@@ -7,7 +7,6 @@ public class Cashier implements Runnable {
     private int number;
     public static Object pause = new Object();
     public static Object monitorForPrint = new Object();
-    //private Queue<Bill> billsQueue = new LinkedList<Bill>();
     StringBuilder tabulation = null;
 
     public Cashier(int number) {
@@ -18,15 +17,6 @@ public class Cashier implements Runnable {
 
     StringBuilder getTabulation(int number) {
         StringBuilder result = new StringBuilder();
-
-        /*if (number > 2) {
-           result.append("\t");
-        } else {
-            int numberOfSpaces = 10 * number;
-            for (int i = 0; i < numberOfSpaces; i++) {
-                result.append("\t");
-            }
-        }*/
         if (number > 1) {
             for (int i = 1; i < number; i++) {
                 result.append("\t\t\t\t|");
