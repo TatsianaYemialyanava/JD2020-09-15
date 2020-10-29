@@ -11,7 +11,6 @@ class Parser {
         expression.replaceAll("\\s+", "");
 
         expression = removeBracket(expression);
-        System.out.println("expression=" + expression);
         return getVar(expression);
     }
 
