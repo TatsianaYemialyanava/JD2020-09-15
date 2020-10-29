@@ -5,6 +5,10 @@ import java.util.Arrays;
 public class Vector extends Var {
     private double[] value;
 
+    public Vector() {
+
+    }
+
     public double[] getValue() {
         return value;
     }
@@ -117,7 +121,7 @@ public class Vector extends Var {
         String delimiter = "";
         for (double element : value) {
             sb.append(delimiter).append(element);
-            delimiter = ",";
+            delimiter = ", ";
         }
         sb.append('}');
         return sb.toString();

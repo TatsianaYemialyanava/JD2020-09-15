@@ -29,10 +29,32 @@ public class Parser {
         return value;
     }
 
-    Var calc(String expression) throws CalcExceptions {
-        expression = expression.replaceAll("\\s+", "");
-        List<String> operands = new ArrayList<>(Arrays.asList(expression.split(Patterns.OPERATION)));
 
+    Var calc(String expression) throws CalcExceptions {
+        String expr = expression.replaceAll("\\s+", "");
+        return calcExpr(expr);
+    }
+
+    private Var calcExpr(String expression) throws CalcExceptions {
+
+        if (!Pattern.compile(Patterns.PARENTHESES_REGEX).matcher(expression).matches()) {
+            return calcSimpleExpr(expression);
+        } else {
+            Matcher matcher = Pattern.compile(Patterns.SINGLE_PARENTHESES_REGEX).matcher(expression);
+            if (matcher.find()) {
+                String group = matcher.group();
+                group = group.substring(1, group.length() - 1);
+                String value = calcSimpleExpr(group).toString();
+                expression = matcher.replaceFirst(value);
+                System.out.println(expression);
+            }
+            return calcExpr(expression);
+        }
+    }
+
+    private Var calcSimpleExpr(String expression) throws CalcExceptions {
+
+        List<String> operands = new ArrayList<>(Arrays.asList(expression.split(Patterns.OPERATION)));
         List<String> operations = new ArrayList<>();
         Pattern patterns = Pattern.compile(Patterns.OPERATION);
         Matcher matcher = patterns.matcher(expression);
@@ -93,7 +115,6 @@ public class Parser {
         PRIORITY.put("-", 1);
         PRIORITY.put("*", 2);
         PRIORITY.put("/", 2);
-
     }
 }
 

@@ -5,6 +5,10 @@ import java.util.Arrays;
 public class Matrix extends Var {
     private double[][] value;
 
+    public double[][] getValue() {
+        return value;
+    }
+
     public Matrix(double[][] value) {
         this.value = value;
     }
@@ -142,13 +146,13 @@ public class Matrix extends Var {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        String delimiter = ",";
+        String delimiter = ", ";
         for (int i = 0; i < value.length; i++) {
             sb.append("{");
             String delimiterIn = "";
             for (int j = 0; j < value[0].length; j++) {
                 sb.append(delimiterIn).append(value[i][j]);
-                delimiterIn = ",";
+                delimiterIn = ", ";
             }
             sb.append("}");
             if (i < value.length - 1) {
