@@ -1,12 +1,15 @@
-package by.it.kolesnikov.jd02_02;
+package by.it.kolesnikov.jd02_03;
 
 
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Semaphore;
 
 class Buyer extends Thread implements IBuyer, IUseBasket {
+
+    private static Semaphore semaphore=new Semaphore(20);
 
     Buyer(int number){
         this.setName("Buyer №"+number);
@@ -18,7 +21,15 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     public void run() {
         enterToMarket();
         takeBasket();
-        choseGoods();
+        try {
+            semaphore.acquire();
+            choseGoods();
+        }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            finally {
+                semaphore.release();
+            }
         putGoodsToBasket();
         goToQueue();
         goOut();
@@ -83,7 +94,6 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         System.out.println(this+" goes to queue");
         synchronized (this) {
             QueueBuyers.add(this);
-            QueueBuyers.countBuyers++;
             try {
                 this.wait();
             } catch (InterruptedException e) {
