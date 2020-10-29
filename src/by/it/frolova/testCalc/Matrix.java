@@ -57,7 +57,11 @@ public class Matrix extends Var {
             Matrix result = new Matrix(sum);
             return result;
         }
-        return super.add(other);
+        try {
+            return super.add(other);
+        } catch (CalcExceptions calcExceptions) {
+            throw new RuntimeException(calcExceptions);
+        }
     }
 
     @Override
@@ -84,7 +88,11 @@ public class Matrix extends Var {
             Matrix result = new Matrix(sub);
             return result;
         }
-        return super.sub(other);
+        try {
+            return super.sub(other);
+        } catch (CalcExceptions calcExceptions) {
+            throw new RuntimeException(calcExceptions);
+        }
     }
 
     @Override
@@ -123,7 +131,11 @@ public class Matrix extends Var {
             Matrix result = new Matrix(mul);
             return result;
         }
-        return super.mul(other);
+        try {
+            return super.mul(other);
+        } catch (CalcExceptions calcExceptions) {
+            throw new RuntimeException(calcExceptions);
+        }
     }
 
     @Override
@@ -139,7 +151,11 @@ public class Matrix extends Var {
             Matrix result = new Matrix(div);
             return result;
         }
-        return super.div(other);
+        try {
+            return super.div(other);
+        } catch (CalcExceptions calcExceptions) {
+            throw new RuntimeException(calcExceptions);
+        }
     }
 
     @Override

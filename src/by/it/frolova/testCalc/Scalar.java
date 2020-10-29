@@ -26,7 +26,13 @@ public class Scalar extends Var {
             double sum = this.value + otherScalar.value;
             Scalar result = new Scalar(sum);
             return result;
-        } else return other.add(this);
+        } else {
+            try {
+                return other.add(this);
+            } catch (CalcExceptions calcExceptions) {
+                throw new RuntimeException(calcExceptions);
+            }
+        }
 
     }
 
@@ -37,7 +43,13 @@ public class Scalar extends Var {
             double sub = this.value - otherScalar.value;
             Scalar result = new Scalar(sub);
             return result;
-        } else return other.sub(this).mul(new Scalar(-1));
+        } else {
+            try {
+                return other.sub(this).mul(new Scalar(-1));
+            } catch (CalcExceptions calcExceptions) {
+                throw new RuntimeException(calcExceptions);
+            }
+        }
     }
 
     @Override
@@ -47,7 +59,13 @@ public class Scalar extends Var {
             double mul = this.value * otherScalar.value;
             Scalar result = new Scalar(mul);
             return result;
-        } else return other.mul(this);
+        } else {
+            try {
+                return other.mul(this);
+            } catch (CalcExceptions calcExceptions) {
+                throw new RuntimeException(calcExceptions);
+            }
+        }
     }
 
     @Override
@@ -58,7 +76,11 @@ public class Scalar extends Var {
             Scalar result = new Scalar(div);
             return result;
         }
-        return super.div(other);
+        try {
+            return super.div(other);
+        } catch (CalcExceptions calcExceptions) {
+            throw new RuntimeException(calcExceptions);
+        }
     }
 
     @Override

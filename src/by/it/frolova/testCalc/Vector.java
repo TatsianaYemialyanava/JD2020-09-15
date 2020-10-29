@@ -49,8 +49,13 @@ public class Vector extends Var {
             }
             Vector result = new Vector(sum);
             return result;
-        } else
-            return super.add(other);
+        } else {
+            try {
+                return super.add(other);
+            } catch (CalcExceptions calcExceptions) {
+                throw new RuntimeException(calcExceptions);
+            }
+        }
     }
 
     @Override
@@ -73,7 +78,11 @@ public class Vector extends Var {
             Vector result = new Vector(sub);
             return result;
         }
-        return super.add(other); // check
+        try {
+            return super.add(other); // check
+        } catch (CalcExceptions calcExceptions) {
+            throw new RuntimeException(calcExceptions);
+        }
     }
 
     @Override
@@ -97,7 +106,11 @@ public class Vector extends Var {
             }
             return new Scalar(result);
         }
-        return super.mul(other);
+        try {
+            return super.mul(other);
+        } catch (CalcExceptions calcExceptions) {
+            throw new RuntimeException(calcExceptions);
+        }
     }
 
     @Override
@@ -111,7 +124,11 @@ public class Vector extends Var {
             Vector result = new Vector(div);
             return result;
         }
-        return super.div(other);
+        try {
+            return super.div(other);
+        } catch (CalcExceptions calcExceptions) {
+            throw new RuntimeException(calcExceptions);
+        }
     }
 
     @Override
