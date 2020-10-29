@@ -1,4 +1,4 @@
-package by.it.lapkovskiy.jd02_02;
+package by.it.lapkovskiy.jd02_03;
 
 import java.util.Map;
 import java.util.Objects;
@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Cashier implements Runnable {
 
     private final String name;
-    private int number = 0;
+    private int number =0;
     private boolean worked = false;
 
     public Cashier(int number) {
@@ -29,12 +29,12 @@ public class Cashier implements Runnable {
                 }
                 continue;
             }
-            Buyer penBuyer  = QueueBuyers.extractPensioner();
-            Buyer buyer;
-            if(Objects.nonNull(penBuyer)) {
-                buyer = penBuyer;
+            Buyer buyer = null;
+            try {
+                buyer = QueueBuyers.extract();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-            else buyer = QueueBuyers.extract();
             if (Objects.nonNull(buyer)) {
                 System.out.printf("%s started service for %s\n", this, buyer);
 
@@ -56,20 +56,19 @@ public class Cashier implements Runnable {
     private void PrintCheck(Buyer buyer) {
         synchronized (System.out) {
             try {
-                System.out.printf("%" + (number) * 30 + "s", this + "----------------");
-                System.out.printf("%" + (6 - number) * 30 + "s", "");
-                System.out.printf("%10s  %s\n", "Queue:" + QueueBuyers.getBuyerSize(),"TotalMarket:"+Supervisor.GetTotal());
-                System.out.println(QueueBuyers.getBuyerSize());
+                System.out.printf("%" + (number) * 30 + "s", this + "|---------------|");
+                System.out.printf("%" + (6 - number) * 30 + "s|", "");
+                System.out.printf("%10s  %s\n", "Queue:" + QueueBuyers.getBuyerSize(),"TotalMarket:"+ Supervisor.GetTotal());
 
-                System.out.printf("%" + (number) * 30 + "s\n", buyer + " bought");
+                System.out.printf("%" + (number) * 30 + "s|\n", buyer + " bought|");
                 int total = 0;
                 for (Map.Entry<String, Integer> good : buyer.basket.entrySet()) {
-                    System.out.printf("%" + (number) * 30 + "s\n", good.toString());
+                    System.out.printf("%" + (number) * 30 + "s|\n", "|"+good.toString());
                     total += good.getValue();
                 }
                 Supervisor.upTotal(total);
-                System.out.printf("%" + (number) * 30 + "s\n", "Total:" + total);
-                System.out.printf("%" + (number) * 30 + "s\n", "--------------------------");
+                System.out.printf("%" + (number) * 30 + "s|\n", "Total:" + total);
+                System.out.printf("%" + (number) * 30 + "s|\n", "|--------------------------");
             } catch (Exception e) {
                 System.out.println(e.toString());
             }
