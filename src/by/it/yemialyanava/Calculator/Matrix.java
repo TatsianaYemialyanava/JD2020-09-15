@@ -15,11 +15,11 @@ public class Matrix extends Var {
         this.value = copyMatrix(matrix.value);
     }
 
-    public Matrix(String strMatrix){
+    /*public Matrix(String strMatrix){
         /**
          * { { 1.0, 2.0 },  { 3.0, 4.0 } }
          */
-        String line = strMatrix.trim();
+        /*String line = strMatrix.trim();
         line = line.replaceAll("\\s+","");
         line = line.replaceFirst("\\{\\{","");
         line = line.replaceFirst("\\}\\}","");
@@ -35,7 +35,7 @@ public class Matrix extends Var {
             }
         }
         this.value = array;
-    }
+    }*/
 
     /*public Matrix(String strMatrix) {
         String cuttedString = strMatrix.substring(1, strMatrix.length() - 1);
@@ -172,12 +172,12 @@ public class Matrix extends Var {
             for (int j = 0; j < value[0].length; j++) {
                 writterStrMatrix.append(value[i][j]);
                 if (j != value[0].length - 1) {
-                    writterStrMatrix.append(", ");
+                    writterStrMatrix.append(",");
                 }
             }
             writterStrMatrix.append("}");
             if (i != value.length - 1) {
-                writterStrMatrix.append(", ");
+                writterStrMatrix.append(",");
             }
         }
         writterStrMatrix.append("}");

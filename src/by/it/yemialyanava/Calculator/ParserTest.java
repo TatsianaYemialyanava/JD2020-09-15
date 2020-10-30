@@ -77,8 +77,9 @@ public class ParserTest {
     //E={2,3}*(D/2) (выведет на экран {10,15} )
     @Test
     public void checkCalcWithVectors() throws CalcException {
+        Var varD=parser.calc("D=10");
         double[] expected = {10,15};
-        Var vector = parser.calc("E={2,3}*(D/2)");
+        Var vector = parser.calcWithBrackets("E={2,3}*(D/2)");
         double[] actual = ((Vector)vector).getValue();
         assertArrayEquals("Error calc", expected, actual, 1e-8);
     }

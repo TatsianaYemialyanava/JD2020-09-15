@@ -19,7 +19,7 @@ abstract class Var implements Operation {
         return (HashMap<String, Var>) varMap;
     }
 
-        /*public HashMap<String, Var> getVarMap()
+    /*public HashMap<String, Var> getVarMap()
     public double getValue() {
         return value;
     }*/
@@ -34,7 +34,7 @@ abstract class Var implements Operation {
         } else{
             Var var = varMap.get(strVar);
             if (Objects.isNull(var)){
-                throw new CalcException(ConsoleRunner.manager.get(MessagesNames.UNKNOWN_VARIABLE) + strVar);
+                throw new CalcException(ConsoleRunner.manager.get(MessagesNames.UNKNOWN_VARIABLE) + " " + strVar);
             }
             return var;
         }

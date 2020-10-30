@@ -14,9 +14,9 @@ public enum Lang {
     private Locale locale;
     private ResourceBundle resourceBundle;
 
-    Lang(String strlocale){
+    Lang(String strLocale){
         Locale locale = null;
-        switch (strlocale) {
+        switch (strLocale) {
             case "ru":
                 locale = new Locale("ru", "RU");
                 break;

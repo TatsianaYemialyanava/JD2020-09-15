@@ -124,7 +124,7 @@ class Vector extends Var {
         String delimiter = "";
         for (double element : value) {
             out.append(delimiter).append(element);
-            delimiter = ", ";
+            delimiter = ",";
         }
         out.append("}");
         return out.toString();
