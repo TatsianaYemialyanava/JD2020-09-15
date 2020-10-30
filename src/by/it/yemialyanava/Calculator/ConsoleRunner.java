@@ -24,6 +24,9 @@ public class ConsoleRunner {
                 printer.sortvar(Var.getVarMap());
                 continue;
             }*/
+            if(expression.equals("ru")){
+
+            }
             try {
                 Var result = parser.calcWithBrackets(expression);
                 printer.print(result);
