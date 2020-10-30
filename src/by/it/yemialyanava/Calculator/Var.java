@@ -34,7 +34,7 @@ abstract class Var implements Operation {
         } else{
             Var var = varMap.get(strVar);
             if (Objects.isNull(var)){
-                throw new CalcException("Unknown variable: " + strVar);
+                throw new CalcException(ConsoleRunner.manager.get(MessagesNames.UNKNOWN_VARIABLE) + strVar);
             }
             return var;
         }
@@ -51,7 +51,7 @@ abstract class Var implements Operation {
                 writer.printf("%s=%s\n", entry.getKey(), entry.getValue());
             }
         }catch (IOException e){
-            throw new CalcException("FILE ERROR: ", e);
+            throw new CalcException(ConsoleRunner.manager.get(MessagesNames.FILE_ERROR) + e);
         }
     }
     private static final String USER_DIR = "user.dir";
@@ -83,26 +83,26 @@ abstract class Var implements Operation {
 
     @Override
     public Var add(Var other) throws CalcException {
-        throw new CalcException(String.format("Operation %s + %s impossible\n", this, other));
+        throw new CalcException(ConsoleRunner.manager.get(MessagesNames.ADD_IMPOSSIBLE) + this+ " " +  other);
     }
 
     @Override
     public Var sub(Var other) throws CalcException{
-        throw new CalcException(String.format("Operation %s - %s impossible\n", this, other));
+        throw new CalcException(ConsoleRunner.manager.get(MessagesNames.SUB_IMPOSSIBLE) + this + " " + other);
     }
 
     @Override
     public Var mul(Var other) throws CalcException{
-        throw new CalcException(String.format("Operation %s * %s impossible\n", this, other));
+        throw new CalcException(ConsoleRunner.manager.get(MessagesNames.MUL_IMPOSSIBLE) + this + " " + other);
     }
 
     @Override
     public Var div(Var other) throws CalcException{
-        throw new CalcException(String.format("Operation %s / %s impossible\n", this, other));
+        throw new CalcException(ConsoleRunner.manager.get(MessagesNames.DIV_IMPOSSIBLE) + this + " " + other);
     }
 
     @Override
     public String toString() {
-        return "abstract Var";
+        return ConsoleRunner.manager.get(MessagesNames.ABSTRACT_VAR);
     }
 }

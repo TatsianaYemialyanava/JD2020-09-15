@@ -70,10 +70,10 @@ public class Matrix extends Var {
             return new Matrix(res);
         } else if (other instanceof Matrix) {
             if ( ((Matrix)other).value.length != this.value.length){
-                throw new CalcException("количества строк в матрицах должны совпадать");
+                throw new CalcException(ConsoleRunner.manager.get(MessagesNames.ER_STRING_IN_MATRIX));
             }
             if ( ((Matrix)other).value[0].length != this.value[0].length){
-                throw new CalcException("количества столбцов в матрицах должны совпадать");
+                throw new CalcException(ConsoleRunner.manager.get(MessagesNames.ER_ROW_IN_MATRIX));
             }
             double[][] res = copyMatrix(getValue());
             for (int i = 0; i < res.length; i++) {
@@ -83,7 +83,7 @@ public class Matrix extends Var {
             }
             return new Matrix(res);
         } else {
-            throw new CalcException("division of a matrix by a vector is impossible");
+            throw new CalcException(ConsoleRunner.manager.get(MessagesNames.ER_DIV_IN_MATRIX));
         }
     }
 
@@ -99,10 +99,10 @@ public class Matrix extends Var {
             return new Matrix(res);
         } else if (other instanceof Matrix) {
             if ( ((Matrix)other).value.length != this.value.length){
-                throw new CalcException("количества строк в матрицах должны совпадать");
+                throw new CalcException(ConsoleRunner.manager.get(MessagesNames.ER_STRING_IN_MATRIX));
             }
             if ( ((Matrix)other).value[0].length != this.value[0].length){
-                throw new CalcException("количества столбцов в матрицах должны совпадать");
+                throw new CalcException(ConsoleRunner.manager.get(MessagesNames.ER_ROW_IN_MATRIX));
             }
             double[][] res = copyMatrix(getValue());
             for (int i = 0; i < res.length; i++) {
@@ -112,7 +112,7 @@ public class Matrix extends Var {
             }
             return new Matrix(res);
         }else{
-            throw new CalcException("subtraction of a vector from a matrix is impossible");
+            throw new CalcException(ConsoleRunner.manager.get(MessagesNames.ER_SUB_VECTOR_FROM_MATRIX));
         }
     }
 
@@ -120,7 +120,7 @@ public class Matrix extends Var {
     public Var mul(Var other) throws CalcException {
         if (other instanceof Scalar) {
             if (((Scalar) other).getValue()==0){
-                throw new CalcException("multiply by 0");
+                throw new CalcException(ConsoleRunner.manager.get(MessagesNames.ER_MUL_BY_ZERO));
             }
             double[][] res = copyMatrix(getValue());
             for (int i = 0; i < res.length; i++) {
@@ -131,7 +131,7 @@ public class Matrix extends Var {
             return new Matrix(res);
         } else if (other instanceof Vector) {
             if ( ((Vector)other).getValue().length != this.value[0].length){
-                throw new CalcException("the length of the vector and the number of columns in the matrix must be the same");
+                throw new CalcException(ConsoleRunner.manager.get(MessagesNames.ERROR_VECTOR_MATRIX_LENGTH));
             }
             double[][] res = copyMatrix(getValue());
             double[] resVect = new double[res.length];
@@ -143,7 +143,7 @@ public class Matrix extends Var {
             return new Vector(resVect);
         } else if (other instanceof Matrix) {
             if ( ((Matrix)other).value.length != this.value[0].length){
-                throw new CalcException("the number of rows of the first matrix must be equal to the number of columns of the second matrix");
+                throw new CalcException(ConsoleRunner.manager.get(MessagesNames.EQUALITY_VECTORS_AND_MATRIX));
             }
             double[][] res = copyMatrix(getValue());
             double[][] mulpiplMatr = new double[res.length][((Matrix) other).value[0].length];
@@ -161,7 +161,7 @@ public class Matrix extends Var {
 
     @Override
     public Var div(Var other) throws CalcException {
-        throw new CalcException("division operations with matrices are not possible");
+        throw new CalcException(ConsoleRunner.manager.get(MessagesNames.DIVISION_WITH_MATRIX));
     }
 
     @Override
