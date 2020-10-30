@@ -1,12 +1,21 @@
 package by.it.dobrodey.jd02_05;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public enum Lang {
     INSTANCE;
 
     private static final String KEYWORDS = "by.it.dobrodey.jd02_05.resources.keywords";
+    public static final Map<String, String> lang = new HashMap<>();
+    static {
+        lang.put("en","UK");
+        lang.put("be","BY");
+        lang.put("ru","RU");
+
+    }
     private Locale locale;
     private ResourceBundle resourceBundle;
 
@@ -16,14 +25,11 @@ public enum Lang {
     }
 
     public void setLocale(Locale locale) {
-        this.locale=locale;
+        this.locale = locale;
         resourceBundle = ResourceBundle.getBundle(KEYWORDS, locale);
-
     }
 
-    public String get(String key){
+    public String get(String key) {
         return resourceBundle.getString(key);
     }
-
-
 }
