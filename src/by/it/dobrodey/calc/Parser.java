@@ -9,7 +9,6 @@ class Parser {
     Var calc(String expression) throws CalcException {
         //2*2 -> scalar==4
         expression.replaceAll("\\s+", "");
-
         expression = removeBracket(expression);
         return getVar(expression);
     }
@@ -32,6 +31,7 @@ class Parser {
             Var res = oneCalc(left, operation, right);
             operands.add(index, res.toString());
         }
+
         return Var.createVar(operands.get(0));
     }
 
