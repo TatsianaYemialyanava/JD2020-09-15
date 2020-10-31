@@ -1,4 +1,4 @@
-package by.it.yemialyanava.calculator;
+package by.it.yemialyanava.calcul;
 
 import org.junit.After;
 import org.junit.Before;

@@ -1,4 +1,4 @@
-package by.it.yemialyanava.Calc;
+package by.it.yemialyanava.calcul;
 
 public class CalcException extends Exception  {
     public CalcException(){

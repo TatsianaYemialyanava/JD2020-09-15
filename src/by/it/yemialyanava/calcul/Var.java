@@ -1,4 +1,4 @@
-package by.it.yemialyanava.Calc;
+package by.it.yemialyanava.calcul;
 
 import java.io.File;
 import java.io.IOException;

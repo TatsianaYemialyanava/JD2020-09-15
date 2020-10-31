@@ -1,4 +1,4 @@
-package by.it.yemialyanava.Calc;
+package by.it.yemialyanava.calcul;
 
 public interface MessagesNames {
     String UNKNOWN_VARIABLE = "unknownVariable";
