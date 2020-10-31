@@ -36,7 +36,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     }
 
     @Override
-    public void enterToMarket() throws InterruptedException {
+    public void enterToMarket() {
         System.out.println(this + " enter to Market");
     }
 
@@ -82,7 +82,6 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
                 }
         }
         Market.goInQueue.release();
-
         System.out.println(this + " leave queue");
     }
 
