@@ -1,4 +1,4 @@
-package by.it.yemialyanava.Calculator;
+package by.it.yemialyanava.Calc;
 
 import org.junit.Test;
 import java.io.*;

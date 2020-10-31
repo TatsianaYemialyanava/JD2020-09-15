@@ -1,4 +1,4 @@
-package by.it.yemialyanava.Calculator;
+package by.it.yemialyanava.Calc;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -7,7 +7,7 @@ public enum Lang {
     RB("be"),
     UK("en"),
     RU("ru");
-    private static final String MESSAGES ="by.it.yemialyanava.Calculator.resourses.messages";
+    private static final String MESSAGES ="by.it.yemialyanava.Calc.resourses.messages";
 
     private Locale locale;
     private ResourceBundle resourceBundle;
