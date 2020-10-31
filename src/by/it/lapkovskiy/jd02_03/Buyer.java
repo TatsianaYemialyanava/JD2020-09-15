@@ -38,7 +38,6 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     @Override
     public void enterToMarket() throws InterruptedException {
         System.out.println(this + " enter to Market");
-        Market.goIn.acquire();
     }
 
     @Override
@@ -59,7 +58,8 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     }
 
     @Override
-    public void goToQueue(){
+    public void goToQueue() throws InterruptedException {
+        Market.goInQueue.acquire();
         System.out.println(this + " go to queue");
         synchronized (this) {
             waiting = true;
@@ -81,6 +81,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
                     throw new RuntimeException(e);
                 }
         }
+        Market.goInQueue.release();
 
         System.out.println(this + " leave queue");
     }
@@ -90,6 +91,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         Market.baskets.acquire();
         System.out.println(this + " take basket");
         basket = new HashMap<>();
+        Market.goIn.acquire();
     }
 
     public void putGoodsToBasket() {
