@@ -1,4 +1,4 @@
-package by.it.yemialyanava.Calculator;
+package by.it.yemialyanava.calcul;
 
 import java.util.Arrays;
 
@@ -41,7 +41,7 @@ class Vector extends Var {
             return new Vector(result);
         } else if (other instanceof Vector) {
             if ( ((Vector)other).value.length != this.value.length){
-                throw new CalcException("the length of the vectors must be the same");
+                throw new CalcException(ConsoleRunner.manager.get(MessagesNames.VECTORSLENGTH));
             }
             double[] result = Arrays.copyOf(value, value.length);
             for (int i = 0; i < result.length; i++) {
@@ -49,7 +49,7 @@ class Vector extends Var {
             }
             return new Vector(result);
         }else {
-            throw new CalcException("it is impossible to add vector and matrix");
+            throw new CalcException(ConsoleRunner.manager.get(MessagesNames.ADD_VECTOR_AND_MATRIX));
         }
     }
 
@@ -63,7 +63,7 @@ class Vector extends Var {
             return new Vector(result);
         } else if (other instanceof Vector) {
             if ( ((Vector)other).value.length != this.value.length){
-                throw new CalcException("the length of the vectors must be the same");
+                throw new CalcException(ConsoleRunner.manager.get(MessagesNames.VECTORSLENGTH));
             }
             double[] result = Arrays.copyOf(value, value.length);
             for (int i = 0; i < result.length; i++) {
@@ -71,7 +71,7 @@ class Vector extends Var {
             }
             return new Vector(result);
         } else {
-            throw new CalcException("it is impossible to subtract a matrix from a vector");
+            throw new CalcException(ConsoleRunner.manager.get(MessagesNames.SUB_MATRIX_FROM_VECTOR));
         }
     }
 
@@ -79,7 +79,7 @@ class Vector extends Var {
     public Var mul(Var other) throws CalcException {
         if (other instanceof Scalar) {
             if (((Scalar) other).getValue()==0){
-                throw new CalcException("multiply by 0");
+                throw new CalcException(ConsoleRunner.manager.get(MessagesNames.ER_MUL_BY_ZERO));
             }
             double[] result = Arrays.copyOf(value, value.length);
             for (int i = 0; i < result.length; i++) {
@@ -88,7 +88,7 @@ class Vector extends Var {
             return new Vector(result);
         } else if (other instanceof Vector) {
             if ( ((Vector)other).value.length != this.value.length){
-                throw new CalcException("the length of the vectors must be the same");
+                throw new CalcException(ConsoleRunner.manager.get(MessagesNames.VECTORSLENGTH));
             }
             double[] result = Arrays.copyOf(value, value.length);
             double sumResult = 0;
@@ -98,7 +98,7 @@ class Vector extends Var {
             }
             return new Scalar(sumResult);
         } else {
-            throw new CalcException("it is impossible to multiply vector by matrix");
+            throw new CalcException(ConsoleRunner.manager.get(MessagesNames.MUL_VECTOR_BY_MATRIX));
         }
     }
 
@@ -106,7 +106,7 @@ class Vector extends Var {
     public Var div(Var other) throws CalcException{
         if (other instanceof Scalar) {
             if (((Scalar) other).getValue()==0){
-                throw new CalcException("division by 0");
+                throw new CalcException(ConsoleRunner.manager.get(MessagesNames.DIVISION_BY_ZERO));
             }
             double[] result = Arrays.copyOf(value, value.length);
             for (int i = 0; i < result.length; i++) {
@@ -114,7 +114,7 @@ class Vector extends Var {
             }
             return new Vector(result);
         } else {
-            throw new CalcException("dividing a vector by a vector or a vector by a matrix is impossible");
+            throw new CalcException(ConsoleRunner.manager.get(MessagesNames.DIVISION_VECTOR_BY_VECTOR_OR_VECTOR_BY_MATRIX));
         }
     }
 
@@ -124,7 +124,7 @@ class Vector extends Var {
         String delimiter = "";
         for (double element : value) {
             out.append(delimiter).append(element);
-            delimiter = ", ";
+            delimiter = ",";
         }
         out.append("}");
         return out.toString();

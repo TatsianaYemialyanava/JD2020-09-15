@@ -1,4 +1,4 @@
-package by.it.yemialyanava.Calculator;
+package by.it.yemialyanava.calcul;
 class Scalar extends Var  {
 
     private double value;
@@ -45,7 +45,7 @@ class Scalar extends Var  {
         if (other instanceof Scalar){
             Scalar otherScalar = (Scalar) other;
             if (otherScalar.value==0){
-                throw new CalcException("multiply by 0");
+                throw new CalcException(ConsoleRunner.manager.get(MessagesNames.ER_MUL_BY_ZERO));
             }
             double mul = this.value * otherScalar.value;
             return new Scalar(mul);
@@ -59,7 +59,7 @@ class Scalar extends Var  {
         if (other instanceof Scalar){
             Scalar otherScalar = (Scalar) other;
             if (otherScalar.value==0){
-                throw new CalcException("division by zero");
+                throw new CalcException(ConsoleRunner.manager.get(MessagesNames.DIVISION_BY_ZERO));
             }
             double div = this.value / ((Scalar) other).value;
             return new Scalar(div);
