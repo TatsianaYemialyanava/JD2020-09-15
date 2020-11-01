@@ -2,7 +2,7 @@ package by.it.yemialyanava.calcul;
 
 import java.util.Scanner;
 
-public class ConsoleRunner {
+public class ConsoleRunnerWithNestedClass {
     public static Lang manager = Lang.UK;
 
     public static void main(String[] args) {
@@ -12,11 +12,10 @@ public class ConsoleRunner {
         try {
             Var.load();
         } catch (CalcException e) {
-            Logger.INSTANCE.log(ConsoleRunner.manager.get(MessagesNames.MISSING_FILE));
+            Logger.INSTANCE.log(by.it.yemialyanava.calcul.ConsoleRunner.manager.get(MessagesNames.MISSING_FILE));
         }
         for (; ; ) {
             String expression = scan.nextLine();
-            Logger.INSTANCE.log(expression);
             if (expression.equals("end")) {
                 break;
             }
@@ -27,23 +26,24 @@ public class ConsoleRunner {
             } else if (expression.equals("en")) {
                 manager = Lang.UK;
             } else {
-            if (expression.equals("printvar")) {
-                printer.printVar(Var.getVarMap());
-                continue;
-            }
-            if (expression.equals("sortvar")){
-                printer.sortVar(Var.getVarMap());
-                continue;
-            }
+                if (expression.equals("printvar")) {
+                    printer.printVar(Var.getVarMap());
+                    continue;
+                }
+                if (expression.equals("sortvar")) {
+                    printer.sortVar(Var.getVarMap());
+                    continue;
+                }
                 try {
                     Var result = parser.calcWithBrackets(expression);
                     printer.print(result);
                 } catch (CalcException e) {
                     String message = e.getMessage();
                     System.out.println(message);
-                    Logger.INSTANCE.log(message);
+                    LoggerInNestedClass.getInstance(message);
                 }
             }
         }
     }
 }
+
