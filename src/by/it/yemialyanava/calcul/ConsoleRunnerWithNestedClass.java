@@ -3,7 +3,7 @@ package by.it.yemialyanava.calcul;
 import java.util.Scanner;
 
 public class ConsoleRunnerWithNestedClass {
-    public static Lang manager = Lang.UK;
+    /*public static Lang manager = Lang.UK;
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
@@ -44,6 +44,6 @@ public class ConsoleRunnerWithNestedClass {
                 }
             }
         }
-    }
+    }*/
 }
 

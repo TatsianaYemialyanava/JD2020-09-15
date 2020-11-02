@@ -1,25 +1,47 @@
 package by.it.yemialyanava.calcul.builder;
 
-class Report {
-    /** "Product" */
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    private String head="";
-    private String timeOfRun="";
-    private String timeOfEnd="";
-    private String informationPart="";
+public class Report {
+    /**
+     * "Product"
+     */
 
-        //тут сеттеры дружественные, но это обычно это public методы
-        void setDough(String dough)     { this.dough = dough; }
-        void setSauce(String sauce)     { this.sauce = sauce; }
-        void setTopping(String topping) { this.topping = topping; }
+    private String head;
+    private LocalDateTime timeOfStart;
+    private LocalDateTime timeOfEnd;
+    private String informationPart;
+    private String exception;
 
+    void setHead(String head) {
+        this.head = head;
+    }
 
-        @Override
-        public String toString() {
-            return "Pizza{" +
-                    "dough='" + dough + '\'' +
-                    ", sauce='" + sauce + '\'' +
-                    ", topping='" + topping + '\'' +
-                    '}';
-        }
+    void setTimeOfStart(LocalDateTime timeOfStart) {
+        this.timeOfStart = timeOfStart;
+    }
+
+    void setTimeOfEnd(LocalDateTime timeOfEnd) {
+        this.timeOfEnd = timeOfEnd;
+    }
+
+    void setInformationPart(String information) {
+
+        this.informationPart = information;
+    }
+
+    public void setInformationOfError(String exception) {
+        this.exception =  exception;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "\n\t head= " + head + "\n" +
+                "\t timeOfRun='" + timeOfStart.format(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss ")) + "\n" +
+                "\t timeOfEnd='" + timeOfEnd.format(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss "))+ "\n" +
+                "\t informationPart='" + informationPart + "\n" +
+                "\t informationOfError= " + exception + "\n";
+    }
 }
