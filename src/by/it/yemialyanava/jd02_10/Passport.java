@@ -1,7 +1,5 @@
 package by.it.yemialyanava.jd02_10;
 
-import java.time.LocalDate;
-
 class Passport {
     private Integer numberOfPassport;
 
